@@ -17,7 +17,6 @@ wheels/
 
 # Python specific
 .env
-config.py
 .pytest_cache/
 .coverage
 htmlcov/
