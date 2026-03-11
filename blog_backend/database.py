@@ -1,0 +1,18 @@
+# database.py
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from config import sqlalchemy_database_url
+
+engine = create_engine(sqlalchemy_database_url)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+# 数据库会话依赖项
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

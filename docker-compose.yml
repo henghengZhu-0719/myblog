@@ -1,0 +1,40 @@
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "020110"
+    ports:
+      - "3306:3306"
+    volumes:
+      - 616cfc3ec159fa9c8545a3edeb530d4caa564f1712d2df34961e90ac07a9df23:/var/lib/mysql
+
+  backend:
+    build: ./blog_backend
+    container_name: blog-backend
+    restart: always
+    ports:
+      - "8001:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: "020110"
+      DB_NAME: myapp
+    depends_on:
+      - db
+
+  frontend:
+    build: ./blog_frontend
+    container_name: blog-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      
+
+volumes:
+  616cfc3ec159fa9c8545a3edeb530d4caa564f1712d2df34961e90ac07a9df23:
+    external: true
