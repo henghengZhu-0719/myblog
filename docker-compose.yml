@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:latest
+    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/gcr.io/ml-pipeline/mysql:8.0.26
     container_name: mysql
     restart: always
     environment:
