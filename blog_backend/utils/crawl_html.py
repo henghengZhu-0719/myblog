@@ -70,3 +70,17 @@ class CrawlHtml:
                 print("爬取失败:", url, e)
 
         return results
+
+    def crawl_save_html(self):
+        response = requests.get(self.urls[0], headers={
+                    "User-Agent": random.choice(self.user_agents)
+                })
+
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        with open("test.html", "w", encoding="utf-8") as f:
+            f.write(str(soup))
+        
+        return soup
+
+        

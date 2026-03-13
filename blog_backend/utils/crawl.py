@@ -1,23 +1,40 @@
-from playwright.sync_api import sync_playwright
+import random
+import time
 from bs4 import BeautifulSoup
+import requests
 import smtplib
+from dataclasses import dataclass
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import os
 import sys
+from urllib.parse import urljoin
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # 添加项目根目录到 sys.path，以便能够导入项目中的模块
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import EMAIL_CONFIG, BASE_URL, TARGETS_FILE
-from database import SessionLocal
-from models.job import Job
+
+
+@dataclass(frozen=True)
+class CrawledJob:
+    title: str
+    publish_date: object
+    url: str
+    type: str
+    crawl_date: datetime
+    dq: str
 
 # ========== 数据库操作函数 ==========
 
 def get_existing_urls():
     """获取数据库中已存在的 URL 集合"""
+    from database import SessionLocal
+    from models.job import Job
+
     db = SessionLocal()
     try:
         urls = db.query(Job.url).all()
@@ -25,25 +42,36 @@ def get_existing_urls():
     finally:
         db.close()
 
-def save_jobs(jobs: list[Job]):
+def save_jobs(jobs: list[CrawledJob]) -> list[dict[str, object]]:
     """批量保存 Job 对象到数据库"""
     if not jobs:
         return []
     
+    from database import SessionLocal
+    from models.job import Job
+
     db = SessionLocal()
     try:
         # 逐个添加，避免重复键错误导致整个批次失败（虽然我们在外面已经做了去重）
-        saved_jobs = []
+        saved_jobs: list[dict[str, object]] = []
         for job in jobs:
             try:
-                db.add(job)
+                db_job = Job(
+                    title=job.title,
+                    publish_date=job.publish_date,
+                    url=job.url,
+                    type=job.type,
+                    crawl_date=job.crawl_date,
+                    dq=job.dq,
+                )
+                db.add(db_job)
                 db.commit()
                 saved_jobs.append({
-                    "title": job.title,
-                    "url": job.url,
-                    "publish_date": job.publish_date,
-                    "type": job.type,
-                    "dq": job.dq,
+                    "title": db_job.title,
+                    "url": db_job.url,
+                    "publish_date": db_job.publish_date,
+                    "type": db_job.type,
+                    "dq": db_job.dq,
                 })
             except Exception as e:
                 db.rollback()
@@ -53,7 +81,7 @@ def save_jobs(jobs: list[Job]):
 
 # ========== 解析函数定义 ==========
 
-def parse_company_news(html: str) -> list[Job]:
+def parse_company_news(html: str) -> list[CrawledJob]:
     """解析公司招聘页面"""
     soup = BeautifulSoup(html, "html.parser")
     items = soup.select("div.t-consultation-news a.t-consultation-item")
@@ -62,7 +90,7 @@ def parse_company_news(html: str) -> list[Job]:
     for item in items:
         title = item.find('span', class_='t-consultation-news-title').get_text(strip=True)
         date_str = item.find('span', class_='t-news-time').get_text(strip=True)
-        url = item['href']
+        url = urljoin(BASE_URL, item['href'])
         
         # 处理日期格式，确保是 Date 类型
         try:
@@ -70,7 +98,7 @@ def parse_company_news(html: str) -> list[Job]:
         except ValueError:
             publish_date = datetime.now().date()
 
-        jobs.append(Job(
+        jobs.append(CrawledJob(
             title=title,
             publish_date=publish_date,
             url=url,
@@ -80,7 +108,7 @@ def parse_company_news(html: str) -> list[Job]:
         ))
     return jobs
 
-def parse_exam_news(html: str) -> list[Job]:
+def parse_exam_news(html: str) -> list[CrawledJob]:
     """解析考试公告页面"""
     soup = BeautifulSoup(html, "html.parser")
     items = soup.select("ul.t-exam-notice-list li.t-exam-notice-big-item")
@@ -89,14 +117,14 @@ def parse_exam_news(html: str) -> list[Job]:
     for item in items:
         title = item.find('span').get_text(strip=True)
         date_str = item.find('em').get_text(strip=True)
-        url = BASE_URL + item.find('a')['href']
+        url = urljoin(BASE_URL, item.find('a')['href'])
         
         try:
             publish_date = datetime.strptime(date_str, "%Y-%m-%d").date()
         except ValueError:
             publish_date = datetime.now().date()
         
-        jobs.append(Job(
+        jobs.append(CrawledJob(
             title=title,
             publish_date=publish_date,
             url=url,
@@ -106,7 +134,7 @@ def parse_exam_news(html: str) -> list[Job]:
         ))
     return jobs
 
-def parse_ncrczpw_gq(html: str) -> list[Job]:
+def parse_ncrczpw_gq(html: str) -> list[CrawledJob]:
     """解析南昌人才招聘网页面"""
     soup = BeautifulSoup(html, "html.parser")
     items = soup.select("div.listContainer ul li")
@@ -138,7 +166,7 @@ def parse_ncrczpw_gq(html: str) -> list[Job]:
                 except:
                     pass
 
-        jobs.append(Job(
+        jobs.append(CrawledJob(
             title=title,
             publish_date=publish_date,
             url=url,
@@ -149,7 +177,7 @@ def parse_ncrczpw_gq(html: str) -> list[Job]:
     return jobs
 
 
-def parse_ncrczpw_qy(html: str) -> list[Job]:
+def parse_ncrczpw_qy(html: str) -> list[CrawledJob]:
     """解析南昌人才企业招聘网页面"""
     soup = BeautifulSoup(html, "html.parser")
     items = soup.select("div.newslist div.listb")
@@ -183,7 +211,7 @@ def parse_ncrczpw_qy(html: str) -> list[Job]:
                     except ValueError:
                         pass
             
-            jobs.append(Job(
+            jobs.append(CrawledJob(
                 title=title,
                 publish_date=publish_date,
                 url=url,
@@ -198,7 +226,7 @@ def parse_ncrczpw_qy(html: str) -> list[Job]:
     return jobs
 
 
-def parse_ncrczpw_mq(html: str) -> list[Job]:
+def parse_ncrczpw_mq(html: str) -> list[CrawledJob]:
     """解析南昌人才名企招聘网页面"""
     soup = BeautifulSoup(html, "html.parser")
     items = soup.select("div.newslist div.listb")
@@ -231,7 +259,7 @@ def parse_ncrczpw_mq(html: str) -> list[Job]:
                     except ValueError:
                         pass
             
-            jobs.append(Job(
+            jobs.append(CrawledJob(
                 title=title,
                 publish_date=publish_date,
                 url=url,
@@ -292,25 +320,46 @@ def get_rule_for_url(url: str):
 
 # ========== 核心逻辑 ==========
 
-def fetch_html(url: str, wait_selector: str) -> str:
-    """使用 Playwright 爬取页面 HTML"""
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        page.goto(url)
+_USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3) AppleWebKit/537.36 Chrome/121.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+]
 
-        if wait_selector:
-            try:
-                page.wait_for_selector(wait_selector, timeout=10000)
-            except Exception as e:
-                print(f"⚠️ 等待元素 {wait_selector} 超时，直接获取页面内容")
+_SESSION = requests.Session()
+_RETRY = Retry(
+    total=3,
+    connect=3,
+    read=3,
+    status=3,
+    backoff_factor=0.8,
+    status_forcelist=(429, 500, 502, 503, 504),
+    allowed_methods=frozenset(["GET"]),
+    raise_on_status=False,
+)
+_ADAPTER = HTTPAdapter(max_retries=_RETRY)
+_SESSION.mount("http://", _ADAPTER)
+_SESSION.mount("https://", _ADAPTER)
 
-        html = page.content()
-        browser.close()
-    return html
+def fetch_html(url: str, _wait_selector: str) -> str:
+    """使用 requests 爬取页面 HTML"""
+    time.sleep(random.uniform(0.6, 1.6))
+
+    headers = {
+        "User-Agent": random.choice(_USER_AGENTS),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Connection": "keep-alive",
+    }
+
+    resp = _SESSION.get(url, headers=headers, timeout=(10, 30))
+    resp.raise_for_status()
+    if not resp.encoding or resp.encoding.lower() == "iso-8859-1":
+        resp.encoding = resp.apparent_encoding
+    return resp.text
 
 
-def send_email(label: str, new_results: list[Job]):
+def send_email(label: str, new_results: list[dict[str, object]]):
     """发送 HTML 格式的新增条目邮件"""
 
     if not EMAIL_CONFIG["enabled"]:
@@ -320,11 +369,14 @@ def send_email(label: str, new_results: list[Job]):
 
     rows = ""
     for r in new_results:
+        publish_date = r.get("publish_date", "")
+        title = r.get("title", "")
+        url = r.get("url", "")
         rows += f"""
         <tr>
-            <td style="padding:8px;border:1px solid #ddd;">{r.publish_date}</td>
+            <td style="padding:8px;border:1px solid #ddd;">{publish_date}</td>
             <td style="padding:8px;border:1px solid #ddd;">
-                <a href="{r.url}" style="color:#1a73e8;text-decoration:none;">{r.title}</a>
+                <a href="{url}" style="color:#1a73e8;text-decoration:none;">{title}</a>
             </td>
         </tr>
         """
