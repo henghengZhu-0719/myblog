@@ -59,7 +59,7 @@ logs/
 *.log
 
 # Project specific
-targets.txt
+
 frontend.log
 backend.log
 nohup.out
