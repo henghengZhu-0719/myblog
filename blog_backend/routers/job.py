@@ -59,17 +59,38 @@ def get_jobs_by_date(
         ]
     }
 
+crawl_result_store: dict = {"running": False, "results": [], "finished_at": None}
+
 def background_crawl():
     """后台任务执行爬虫"""
+    crawl_result_store["running"] = True
+    crawl_result_store["results"] = []
     try:
         logger.info("Starting background crawler...")
-        run_crawler()
-        logger.info("Background crawler finished.")
+        results = run_crawler()
+        crawl_result_store["results"] = results
+        logger.info(f"Background crawler finished. Results: {results}")
     except Exception as e:
         logger.error(f"Background crawler failed: {e}")
+        crawl_result_store["results"] = [{"url": "", "label": "全局", "status": "error", "message": str(e), "new_count": 0}]
+    finally:
+        from datetime import datetime
+        crawl_result_store["running"] = False
+        crawl_result_store["finished_at"] = datetime.now().isoformat()
 
 @router.post("/actions/crawl")
 def trigger_crawl(background_tasks: BackgroundTasks):
     """触发爬虫任务"""
+    if crawl_result_store["running"]:
+        return {"message": "爬虫任务正在运行中，请稍候"}
     background_tasks.add_task(background_crawl)
     return {"message": "爬虫任务已在后台启动"}
+
+@router.get("/actions/crawl/result")
+def get_crawl_result():
+    """获取上次爬取结果"""
+    return {
+        "running": crawl_result_store["running"],
+        "results": crawl_result_store["results"],
+        "finished_at": crawl_result_store["finished_at"]
+    }

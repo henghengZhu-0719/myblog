@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { getJobs, triggerCrawl } from '../api';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { getJobs, triggerCrawl, getCrawlResult } from '../api';
 import ReactECharts from 'echarts-for-react';
 
 function Jobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [crawling, setCrawling] = useState(false);
+  const [crawlResults, setCrawlResults] = useState(null); // 爬取结果详情
+  const pollTimerRef = useRef(null);
   const [dateRange, setDateRange] = useState('weekly'); // 'weekly' or 'monthly'
   const [date] = useState(() => {
     const d = new Date();
@@ -155,18 +157,45 @@ function Jobs() {
     if (!window.confirm('确定要开始爬取吗？这可能需要一些时间。')) return;
 
     setCrawling(true);
+    setCrawlResults(null);
     try {
-      await triggerCrawl();
-      alert('爬虫任务已在后台启动，请稍后刷新查看结果。');
-      // 触发后可以稍微延迟刷新一下列表，虽然爬虫可能还没跑完
-      setTimeout(fetchJobs, 2000);
+      const res = await triggerCrawl();
+      if (res.data.message.includes('正在运行')) {
+        alert(res.data.message);
+        setCrawling(false);
+        return;
+      }
+      // 开始轮询结果
+      startPolling();
     } catch (err) {
       console.error('Failed to trigger crawl:', err);
       alert('启动爬虫失败');
-    } finally {
       setCrawling(false);
     }
   };
+
+  const startPolling = () => {
+    if (pollTimerRef.current) clearInterval(pollTimerRef.current);
+    pollTimerRef.current = setInterval(async () => {
+      try {
+        const res = await getCrawlResult();
+        const { running, results, finished_at } = res.data;
+        if (!running && finished_at) {
+          clearInterval(pollTimerRef.current);
+          setCrawling(false);
+          setCrawlResults(results);
+          fetchJobs(); // 刷新列表
+        }
+      } catch (e) {
+        clearInterval(pollTimerRef.current);
+        setCrawling(false);
+      }
+    }, 3000);
+  };
+
+  useEffect(() => {
+    return () => { if (pollTimerRef.current) clearInterval(pollTimerRef.current); };
+  }, []);
 
   // 过滤显示
   const displayedJobs = useMemo(() => {
@@ -223,6 +252,46 @@ function Jobs() {
             {crawling ? '正在启动...' : '开始爬取'}
           </button>
         </div>
+
+        {/* 爬取结果面板 */}
+        {crawlResults && (
+          <div style={{ marginBottom: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #e0e0e0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <strong style={{ fontSize: '14px' }}>上次爬取结果</strong>
+              <button onClick={() => setCrawlResults(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', fontSize: '16px' }}>✕</button>
+            </div>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+              <thead>
+                <tr style={{ background: '#e9ecef' }}>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', borderBottom: '1px solid #dee2e6' }}>来源</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', borderBottom: '1px solid #dee2e6' }}>状态</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', borderBottom: '1px solid #dee2e6' }}>新增</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', borderBottom: '1px solid #dee2e6' }}>详情</th>
+                </tr>
+              </thead>
+              <tbody>
+                {crawlResults.map((r, i) => (
+                  <tr key={i} style={{ borderBottom: '1px solid #f0f0f0' }}>
+                    <td style={{ padding: '6px 10px' }}>{r.label || '-'}</td>
+                    <td style={{ padding: '6px 10px' }}>
+                      <span style={{
+                        padding: '2px 8px', borderRadius: '4px', fontSize: '12px',
+                        background: r.status === 'success' ? '#d4edda' : r.status === 'error' ? '#f8d7da' : '#fff3cd',
+                        color: r.status === 'success' ? '#155724' : r.status === 'error' ? '#721c24' : '#856404'
+                      }}>
+                        {r.status === 'success' ? '✓ 成功' : r.status === 'error' ? '✗ 失败' : '跳过'}
+                      </span>
+                    </td>
+                    <td style={{ padding: '6px 10px', fontWeight: r.new_count > 0 ? 'bold' : 'normal', color: r.new_count > 0 ? '#28a745' : '#666' }}>
+                      {r.new_count > 0 ? `+${r.new_count}` : r.status === 'success' ? '0' : '-'}
+                    </td>
+                    <td style={{ padding: '6px 10px', color: '#666', fontSize: '12px' }}>{r.message}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {error && <div className="error">{error}</div>}
 

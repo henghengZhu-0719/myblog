@@ -296,18 +296,20 @@ def fetch_html(url: str, wait_selector: str) -> str:
     """使用 Playwright 爬取页面 HTML"""
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        page.goto(url)
+        try:
+            page = browser.new_page()
+            page.goto(url, timeout=30000)
 
-        if wait_selector:
-            try:
-                page.wait_for_selector(wait_selector, timeout=10000)
-            except Exception as e:
-                print(f"⚠️ 等待元素 {wait_selector} 超时，直接获取页面内容")
+            if wait_selector:
+                try:
+                    page.wait_for_selector(wait_selector, timeout=10000)
+                except Exception as e:
+                    print(f"⚠️ 等待元素 {wait_selector} 超时，直接获取页面内容")
 
-        html = page.content()
-        browser.close()
-    return html
+            html = page.content()
+            return html
+        finally:
+            browser.close()
 
 
 def send_email(label: str, new_results: list[Job]):
@@ -363,9 +365,10 @@ def send_email(label: str, new_results: list[Job]):
 
     except Exception as e:
         print(f"❌ 邮件发送失败：{e}")
-def run_crawler():
-    """执行爬虫主逻辑"""
-    
+def run_crawler() -> list[dict]:
+    """执行爬虫主逻辑，返回每个URL的执行结果列表"""
+    results = []
+
     # 确保 TARGETS_FILE 是绝对路径，或者相对于脚本运行的路径
     target_path = TARGETS_FILE
     if not os.path.isabs(target_path):
@@ -379,16 +382,22 @@ def run_crawler():
         with open(target_path, "r") as f:
             urls = [line.strip() for line in f if line.strip()]
     except FileNotFoundError:
-        return
+        return [{"url": target_path, "label": "配置文件", "status": "error", "message": "targets.txt 文件不存在", "new_count": 0}]
 
     existing_urls = get_existing_urls()
     
     for url in urls:
+        entry = {"url": url, "label": "", "status": "", "message": "", "new_count": 0}
         try:
             # 1. 获取规则
             rule = get_rule_for_url(url)
             if not rule:
+                entry["status"] = "skip"
+                entry["message"] = "没有匹配的解析规则"
+                results.append(entry)
                 continue
+
+            entry["label"] = rule["label"]
 
             # 2. 爬取
             html = fetch_html(url, rule["wait_selector"])
@@ -396,13 +405,11 @@ def run_crawler():
             # 3. 解析
             parse_func = rule["parser"]
             jobs = parse_func(html)
-            label = rule["label"]
             
             # 4. 过滤已存在的条目
             new_jobs = [j for j in jobs if j.url not in existing_urls]
             
             if new_jobs:
-
                 # 5. 保存到数据库
                 saved_jobs = save_jobs(new_jobs)
                 
@@ -411,14 +418,27 @@ def run_crawler():
                     existing_urls.add(j["url"])
                 
                 # 7. 发送邮件
-                send_email(label, saved_jobs)
+                send_email(rule["label"], saved_jobs)
+
+                entry["status"] = "success"
+                entry["new_count"] = len(saved_jobs)
+                entry["message"] = f"新增 {len(saved_jobs)} 条，共解析 {len(jobs)} 条"
             else:
-                print(f"✅ [{label}] 无新增内容")
+                entry["status"] = "success"
+                entry["new_count"] = 0
+                entry["message"] = f"无新增内容，共解析 {len(jobs)} 条"
+                print(f"✅ [{rule['label']}] 无新增内容")
                 
         except Exception as e:
             import traceback
             traceback.print_exc()
-        
+            entry["status"] = "error"
+            entry["message"] = str(e)
+
+        results.append(entry)
+
+    return results
+
 
 if __name__ == "__main__":
     run_crawler()

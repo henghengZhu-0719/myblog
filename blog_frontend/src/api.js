@@ -25,6 +25,7 @@ export const deleteArticle = (id) => api.delete(`/articles/${id}`);
 export const editArticle = (id, data) => api.put(`/articles/${id}`, data);
 export const getJobs = (date, range = 'weekly') => api.get('/jobs', { params: { query_date: date, range } });
 export const triggerCrawl = () => api.post('/actions/crawl');
+export const getCrawlResult = () => api.get('/actions/crawl/result');
 export const analyzeBills = (formData) => api.post('/actions/bill', formData, {
   headers: {
     'Content-Type': 'multipart/form-data',
