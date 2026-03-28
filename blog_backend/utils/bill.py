@@ -5,28 +5,20 @@ import base64
 from openai import OpenAI
 import anthropic
 from langchain.chat_models import init_chat_model
+from langchain_anthropic import ChatAnthropic
 
-# Initialize OpenAI client for Alibaba Cloud Bailian
-# Note: In a production environment, it is recommended to use environment variables
+
 API_KEY = "sk-cp-tP-n3FkUJPYRQqZb_w5nMIZYjQHwwsiEjQg-zldzQOfNQfYZKT8qnkxxu2EdBG2ORDs2yMcd-XNjxKRWxxbW0CwsVEnCzf5aHUfx4qIMYwEgCCJAzn1NmlQ"
 
 # 使用minimax模型
-
 BASE_URL = "https://api.minimaxi.com/anthropic"
-
-client = anthropic.Client(
+model = ChatAnthropic(
+    model="MiniMax-M2.7",
     api_key=API_KEY,
-    base_url=BASE_URL
+    base_url=BASE_URL,
 )
 
-chat_model = init_chat_model(
-    model_name="MiniMax-M2.7",
-    api_key=API_KEY,
-    base_url=BASE_URL
-)
-
-
-def analyze_receipt(image_bytes, model_name="MiniMax-M2.7"):
+def analyze_receipt(image_bytes):
     """
     发送信息给 LLM 进行分析并识别为结构化数据，用于创建账单
     """
@@ -64,7 +56,7 @@ def analyze_receipt(image_bytes, model_name="MiniMax-M2.7"):
     """
 
     try:
-        response = chat_model.invoke(
+        response = model.invoke(
             messages=[
                 {
                     "role": "user",

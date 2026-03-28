@@ -36,4 +36,6 @@ export const getBills = (date, range = 'weekly') => api.get('/bills', { params: 
 export const crawlBoss = (urls) => api.post('/boss/crawl', urls);
 export const createBoss = (data) => api.post('/boss', data);
 
+// AI Chat is handled using fetch for SSE in the component directly, so we can remove sendChatMessage from here.
+
 export default api;

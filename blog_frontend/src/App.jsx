@@ -11,6 +11,7 @@ import ArticleEdit from './components/ArticleEdit';
 import Jobs from './components/Jobs';
 import Bills from './components/Bills';
 import Boss from './components/Boss';
+import AIChat from './components/AIChat';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function Navigation() {
           <Link to="/jobs" style={{marginLeft: '20px', color: 'white', textDecoration: 'none'}}>招聘信息</Link>
           <Link to="/bills" style={{marginLeft: '20px', color: 'white', textDecoration: 'none'}}>智能记账</Link>
           <Link to="/boss" style={{marginLeft: '20px', color: 'white', textDecoration: 'none'}}>投递简历</Link>
+          <Link to="/ai" style={{marginLeft: '20px', color: 'white', textDecoration: 'none'}}>AI助手</Link>
         </div>
         <div>
           {token ? (
@@ -66,6 +68,7 @@ function App() {
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/bills" element={<Bills />} />
           <Route path="/boss" element={<Boss />} />
+          <Route path="/ai" element={<AIChat />} />
           <Route path="/user/:id" element={<UserHome />} />
           <Route path="/article/:id" element={<ArticleDetail />} />
           <Route path="/edit/:id" element={<ArticleEdit />} />
