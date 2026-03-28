@@ -6,6 +6,7 @@ function AIChat() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -15,6 +16,33 @@ function AIChat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // 获取当前登录用户的 user_id，用于与后端会话关联
+  useEffect(() => {
+    const username = localStorage.getItem('username');
+    const token = localStorage.getItem('token');
+    if (!username || !token) return;
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const res = await fetch(`/api/users/by-username/${encodeURIComponent(username)}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          signal: controller.signal
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.user_id) {
+            setUserId(data.user_id);
+          }
+        }
+      } catch (_) {
+        // 忽略获取失败，后续请求仍可不带 user_id
+      }
+    })();
+    return () => controller.abort();
+  }, []);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -35,7 +63,7 @@ function AIChat() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}` // 如果需要的话
         },
-        body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify({ message: userMessage, user_id: userId })
       });
 
       if (!response.ok) {
@@ -45,15 +73,32 @@ function AIChat() {
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
       let aiReply = '';
+      let lastUpdateTime = Date.now();
+
+      // 节流：每 80ms 更新一次状态，实现流式打字机效果
+      const updateStream = () => {
+        setMessages(prev => {
+          const newMsgs = [...prev];
+          newMsgs[newMsgs.length - 1].content = aiReply;
+          return newMsgs;
+        });
+      };
+
+      const intervalId = setInterval(() => {
+        const now = Date.now();
+        if (now - lastUpdateTime >= 80 && aiReply) {
+          updateStream();
+          lastUpdateTime = now;
+        }
+      }, 80);
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const chunkText = decoder.decode(value, { stream: true });
-        // chunkText 可能是多个 SSE 事件组合，用 \n\n 分割
         const lines = chunkText.split('\n\n');
-        
+
         for (const line of lines) {
           if (line.startsWith('data: ')) {
             const dataStr = line.replace('data: ', '').trim();
@@ -64,19 +109,9 @@ function AIChat() {
               const data = JSON.parse(dataStr);
               if (data.text) {
                 aiReply += data.text;
-                // 更新最后一条消息的内容
-                setMessages(prev => {
-                  const newMsgs = [...prev];
-                  newMsgs[newMsgs.length - 1].content = aiReply;
-                  return newMsgs;
-                });
               } else if (data.error) {
                 console.error('Server error:', data.error);
-                setMessages(prev => {
-                  const newMsgs = [...prev];
-                  newMsgs[newMsgs.length - 1].content += `\n[错误: ${data.error}]`;
-                  return newMsgs;
-                });
+                aiReply += `\n[错误: ${data.error}]`;
               }
             } catch (err) {
               console.error('Failed to parse SSE data:', err, dataStr);
@@ -84,6 +119,10 @@ function AIChat() {
           }
         }
       }
+
+      // 流结束后做最后一次更新，确保内容完整
+      clearInterval(intervalId);
+      updateStream();
     } catch (error) {
       console.error('Chat error:', error);
       setMessages(prev => {

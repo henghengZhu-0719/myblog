@@ -99,3 +99,12 @@ def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
     if not db_user:
         raise HTTPException(status_code=404, detail="用户不存在")
     return {"username": db_user.username, "avatar": db_user.avatar, "id": db_user.id, "create_time": db_user.create_time}
+
+# 获取当前用户的user_id
+@router.get("/users/by-username/{username}")
+def get_current_user_id(username: str, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")   
+    return {"user_id": user.id}
+

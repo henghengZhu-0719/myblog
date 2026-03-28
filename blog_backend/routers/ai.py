@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 import json
+import asyncio
 from agent.agent import Agent
 
 router = APIRouter()
@@ -9,6 +10,7 @@ router = APIRouter()
 # 定义请求模型
 class ChatRequest(BaseModel):
     message: str
+    user_id: int | str | None = None
 
 # 初始化 Agent
 try:
@@ -25,10 +27,9 @@ async def ai_chat(request: ChatRequest):
     async def generate_response():
         try:
             # 调用 Agent 里的生成器方法
-            async for chunk_text in ai_agent.astream_chat(request.message):
+            async for chunk_text, _ in ai_agent.astream_chat(request.message, request.user_id):
                 # 返回 SSE 格式的数据
                 yield f"data: {json.dumps({'text': chunk_text})}\n\n"
-            
             # 结束标志
             yield "data: [DONE]\n\n"
         except Exception as e:
