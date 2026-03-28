@@ -59,15 +59,20 @@ function ArticleList() {
       {articles.length === 0 ? (
         <div className="card">暂无文章。</div>
       ) : (
-        articles.map((article) => (
-          <div key={article.id} className="card">
-            <h3><Link to={`/article/${article.id}`}>{article.title}</Link></h3>
-            <div style={{ maxHeight: '100px', overflow: 'hidden' }}>
-              <Markdown remarkPlugins={[remarkGfm]}>{(article.content || '').substring(0, 200)}</Markdown>
+        <div className="article-grid">
+          {articles.map((article) => (
+            <div key={article.id} className="article-card">
+              <h3><Link to={`/article/${article.id}`}>{article.title}</Link></h3>
+              <div className="article-card-content">
+                <Markdown remarkPlugins={[remarkGfm]}>{(article.content || '').substring(0, 200)}</Markdown>
+              </div>
+              <div className="article-card-footer">
+                <span>阅读量: {article.view_count || 0}</span>
+                <Link to={`/article/${article.id}`} style={{ color: '#007bff', textDecoration: 'none' }}>阅读全文 →</Link>
+              </div>
             </div>
-            <small>阅读量: {article.view_count}</small>
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </div>
   );

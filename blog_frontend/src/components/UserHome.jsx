@@ -107,15 +107,20 @@ function UserHome() {
         {articles.length === 0 ? (
           <p>该用户暂无文章。</p>
         ) : (
-          <div>
+          <div className="article-grid">
             {articles.map(article => (
-              <div key={article.id} style={{borderBottom: '1px solid #eee', padding: '10px 0'}}>
-                <h5 style={{margin: '0 0 5px 0'}}>
+              <div key={article.id} className="article-card">
+                <h3>
                   <Link to={`/article/${article.id}`}>{article.title}</Link>
-                </h5>
-                <small>
-                  阅读量: {article.view_count} | 发布于: {new Date(article.created_at || article.create_time).toLocaleDateString()}
-                </small>
+                </h3>
+                <div className="article-card-content">
+                  {/* 用户主页这里没有内容摘要，可以加上简单的描述或者留空 */}
+                  <p>{(article.content || '').substring(0, 100)}</p>
+                </div>
+                <div className="article-card-footer">
+                  <span>阅读量: {article.view_count || 0}</span>
+                  <span>发布于: {new Date(article.created_at || article.create_time).toLocaleDateString()}</span>
+                </div>
               </div>
             ))}
           </div>
