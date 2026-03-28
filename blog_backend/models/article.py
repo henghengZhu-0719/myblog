@@ -1,5 +1,6 @@
 # models/article.py
-from sqlalchemy import Column, BigInteger, String, Text, Integer, DateTime, Table, ForeignKey, LONGTEXT
+from sqlalchemy import Column, BigInteger, String, Text, Integer, DateTime, Table, ForeignKey
+from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from database import Base
