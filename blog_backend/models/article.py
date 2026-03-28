@@ -1,5 +1,6 @@
 # models/article.py
 from sqlalchemy import Column, BigInteger, String, Text, Integer, DateTime, Table, ForeignKey
+from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from database import Base
@@ -19,7 +20,7 @@ class Article(Base):
     id         = Column(BigInteger, primary_key=True, autoincrement=True)
     user_id    = Column(BigInteger, ForeignKey("user.id"), nullable=False)
     title      = Column(String(200), nullable=False)
-    content    = Column(Text, nullable=False)
+    content    = Column(LONGTEXT, nullable=False)
     cover      = Column(String(200))
     status     = Column(Integer, default=1)
     view_count = Column(Integer, default=0)
