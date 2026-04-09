@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Sparkles, Bot, PenLine, Menu, X, Users, Briefcase, Wallet, Send, LogOut, User } from 'lucide-react';
 import Login from './components/Login';
 import Register from './components/Register';
 import ArticleList from './components/ArticleList';
@@ -38,33 +39,34 @@ function Navigation() {
     <nav>
       <div className="nav-container">
         <Link to="/" className="nav-brand" onClick={handleLinkClick}>
-          ✨ 我的博客
+          <Sparkles size={18} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+          我的博客
         </Link>
-        
+
         <div className="nav-right">
-          <Link to="/ai" className="btn-ai" onClick={handleLinkClick}>
-            🤖 AI助手
+          <Link to="/ai" className="btn-ai" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <Bot size={16} /> AI助手
           </Link>
-          
+
           {token ? (
             <>
-              <Link to="/publish" className="btn-publish" onClick={handleLinkClick}>
-                ✍️ 发布
+              <Link to="/publish" className="btn-publish" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <PenLine size={16} /> 发布
               </Link>
               <div className="dropdown">
-                <button className="dropdown-btn" onClick={toggleMenu}>
-                  {isMenuOpen ? '✕ 关闭' : '☰ 更多'}
+                <button className="dropdown-btn" onClick={toggleMenu} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  {isMenuOpen ? <><X size={16} /> 关闭</> : <><Menu size={16} /> 更多</>}
                 </button>
                 <div className={`dropdown-menu ${isMenuOpen ? 'active' : ''}`}>
-                  <Link to="/search" className="dropdown-item" onClick={handleLinkClick}>👥 搜索用户</Link>
-                  <Link to="/jobs" className="dropdown-item" onClick={handleLinkClick}>💼 招聘信息</Link>
-                  <Link to="/bills" className="dropdown-item" onClick={handleLinkClick}>💰 智能记账</Link>
-                  <Link to="/boss" className="dropdown-item" onClick={handleLinkClick}>📨 投递简历</Link>
+                  <Link to="/search" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Users size={15} /> 搜索用户</Link>
+                  <Link to="/jobs" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Briefcase size={15} /> 招聘信息</Link>
+                  <Link to="/bills" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Wallet size={15} /> 智能记账</Link>
+                  <Link to="/boss" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Send size={15} /> 投递简历</Link>
                   <div className="dropdown-divider"></div>
                   <div className="dropdown-user">
-                    <span>👋 {username}</span>
-                    <button className="btn-logout-small" onClick={handleLogout}>
-                      退出登录
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><User size={14} /> {username}</span>
+                    <button className="btn-logout-small" onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <LogOut size={13} /> 退出
                     </button>
                   </div>
                 </div>

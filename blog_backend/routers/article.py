@@ -1,6 +1,7 @@
 # router/article.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import func
 from database import get_db
 from models import Article, User
 from schemas import ArticleCreate
@@ -36,7 +37,7 @@ def get_article_list(username: str, page: int = 1, size: int = 10, db: Session =
     offset = (page - 1) * size
 
     # 查询用户的全部文章
-    db_articles = db.query(Article).filter(Article.user_id == db_user.id).offset(offset).limit(size).all()
+    db_articles = db.query(Article).filter(Article.user_id == db_user.id).order_by(Article.updated_at.desc()).offset(offset).limit(size).all()
     # 计算总页数
     total = db.query(Article).filter(Article.user_id == db_user.id).count()
     total_page = (total + size - 1) // size
@@ -49,6 +50,9 @@ def get_article_detail(article_id: int, db: Session = Depends(get_db)):
     db_article = db.query(Article).filter(Article.id == article_id).first()
     if not db_article:
         raise HTTPException(status_code=404, detail="文章不存在")
+    db_article.updated_at = func.now()
+    db.commit()
+    db.refresh(db_article)
     db_author = db.query(User).filter(User.id == db_article.user_id).first()
     return {"article": db_article, "author": db_author.username}
 
