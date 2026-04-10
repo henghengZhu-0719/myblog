@@ -4,8 +4,8 @@ import {
   StyleSheet, Alert, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useAuth } from '../../lib/auth';
-import { PRIMARY } from '../../lib/colors';
+import { useAuth } from '../lib/auth';
+import { PRIMARY } from '../lib/colors';
 
 export default function Login() {
   const [username, setUsername] = useState('');

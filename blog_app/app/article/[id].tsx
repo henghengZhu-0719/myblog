@@ -4,9 +4,9 @@ import {
   TouchableOpacity, Alert, ActivityIndicator,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import api from '../../lib/api';
-import { useAuth } from '../../lib/auth';
-import { PRIMARY, GRAY, BORDER } from '../../lib/colors';
+import api from '../lib/api';
+import { useAuth } from '../lib/auth';
+import { PRIMARY, GRAY, BORDER } from '../lib/colors';
 
 interface Article {
   id: number;

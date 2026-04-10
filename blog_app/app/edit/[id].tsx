@@ -4,8 +4,8 @@ import {
   StyleSheet, Alert, ScrollView, SafeAreaView, ActivityIndicator,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import api from '../../lib/api';
-import { PRIMARY, BORDER, GRAY } from '../../lib/colors';
+import api from '../lib/api';
+import { PRIMARY, BORDER, GRAY } from '../lib/colors';
 
 export default function ArticleEdit() {
   const { id } = useLocalSearchParams<{ id: string }>();

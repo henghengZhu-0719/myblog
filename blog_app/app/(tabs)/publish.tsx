@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
-import api from '../../lib/api';
-import { PRIMARY, BORDER, GRAY } from '../../lib/colors';
+import api from '../lib/api';
+import { PRIMARY, BORDER, GRAY } from '../lib/colors';
 
 export default function Publish() {
   const [title, setTitle] = useState('');

@@ -4,8 +4,8 @@ import {
   SafeAreaView, Alert, Image,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import api from '../../lib/api';
-import { PRIMARY, BG, GRAY, BORDER } from '../../lib/colors';
+import api from '../lib/api';
+import { PRIMARY, BG, GRAY, BORDER } from '../lib/colors';
 
 interface Bill {
   id: number;

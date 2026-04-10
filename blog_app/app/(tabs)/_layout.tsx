@@ -1,5 +1,4 @@
 import { Tabs } from 'expo-router';
-import { PRIMARY } from '../../lib/colors';
 import { Text } from 'react-native';
 
 function Icon({ label }: { label: string }) {
@@ -8,7 +7,7 @@ function Icon({ label }: { label: string }) {
 
 export default function TabsLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: PRIMARY, headerShown: false }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#fe2c55', headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{ title: '首页', tabBarIcon: () => <Icon label="🏠" /> }}

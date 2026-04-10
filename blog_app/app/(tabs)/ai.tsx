@@ -3,8 +3,8 @@ import {
   View, Text, TextInput, TouchableOpacity, FlatList,
   StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform,
 } from 'react-native';
-import api from '../../lib/api';
-import { PRIMARY, BG, GRAY, BORDER } from '../../lib/colors';
+import api from '../lib/api';
+import { PRIMARY, BG, GRAY, BORDER } from '../lib/colors';
 
 interface Message {
   id: string;

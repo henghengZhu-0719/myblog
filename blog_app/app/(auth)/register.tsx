@@ -4,8 +4,8 @@ import {
   StyleSheet, Alert, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import api from '../../lib/api';
-import { PRIMARY } from '../../lib/colors';
+import api from '../lib/api';
+import { PRIMARY } from '../lib/colors';
 
 export default function Register() {
   const [username, setUsername] = useState('');

@@ -3,8 +3,8 @@ import {
   View, Text, FlatList, TouchableOpacity, StyleSheet,
   SafeAreaView, ActivityIndicator, Linking,
 } from 'react-native';
-import api from '../../lib/api';
-import { PRIMARY, BG, GRAY, BORDER } from '../../lib/colors';
+import api from '../lib/api';
+import { PRIMARY, BG, GRAY, BORDER } from '../lib/colors';
 
 interface Job {
   id: number;

@@ -4,9 +4,9 @@ import {
   StyleSheet, RefreshControl, SafeAreaView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import api from '../../lib/api';
-import { useAuth } from '../../lib/auth';
-import { PRIMARY, BG, GRAY, BORDER } from '../../lib/colors';
+import api from '../lib/api';
+import { useAuth } from '../lib/auth';
+import { PRIMARY, BG, GRAY, BORDER } from '../lib/colors';
 
 interface Article {
   id: number;
