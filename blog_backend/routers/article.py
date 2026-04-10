@@ -15,11 +15,11 @@ router = APIRouter()
 @router.post("/articles")
 async def publish_article(article_create: ArticleCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     # 模型清洗内容（去除Emoji等）
-    result = await check_article(article_create.content, article_create.title)
+    # result = await check_article(article_create.content, article_create.title)
 
     db_article = Article(
-        title=result.title,    # 存清洗后的
-        content=result.content,
+        title=article_create.title,    # 存清洗后的
+        content=article_create.content,
         cover=article_create.cover,
         user_id=current_user.id,
     )
