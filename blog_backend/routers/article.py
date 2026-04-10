@@ -24,8 +24,8 @@ async def publish_article(article_create: ArticleCreate, db: Session = Depends(g
         user_id=current_user.id,
     )
     db.add(db_article)
-    await db.commit()
-    await db.refresh(db_article)
+    db.commit()
+    db.refresh(db_article)
     return db_article
 
 # 获取用户发布的全部文章，分页
