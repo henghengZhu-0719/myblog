@@ -15,7 +15,7 @@ function Login() {
     setError('');
 
     try {
-      const data = await login(username, password);
+      const { data } = await login(username, password);
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('username', username);
       navigate('/');
