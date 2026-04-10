@@ -3,22 +3,18 @@ import json
 import re
 import base64
 from openai import OpenAI
-import anthropic
-from langchain.chat_models import init_chat_model
-from langchain_anthropic import ChatAnthropic
 
+# Initialize OpenAI client for Alibaba Cloud Bailian
+# Note: In a production environment, it is recommended to use environment variables
+API_KEY = "sk-f434639a7e1345ed99c660461d92389d" 
+BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 
-API_KEY = "sk-cp-tP-n3FkUJPYRQqZb_w5nMIZYjQHwwsiEjQg-zldzQOfNQfYZKT8qnkxxu2EdBG2ORDs2yMcd-XNjxKRWxxbW0CwsVEnCzf5aHUfx4qIMYwEgCCJAzn1NmlQ"
-
-# 使用minimax模型
-BASE_URL = "https://api.minimaxi.com/anthropic"
-model = ChatAnthropic(
-    model="MiniMax-M2.7",
+client = OpenAI(
     api_key=API_KEY,
-    base_url=BASE_URL,
+    base_url=BASE_URL
 )
 
-def analyze_receipt(image_bytes):
+def analyze_receipt(image_bytes, model_name="qwen-vl-max"):
     """
     发送信息给 LLM 进行分析并识别为结构化数据，用于创建账单
     """
@@ -56,7 +52,8 @@ def analyze_receipt(image_bytes):
     """
 
     try:
-        response = model.invoke(
+        response = client.chat.completions.create(
+            model=model_name,
             messages=[
                 {
                     "role": "user",

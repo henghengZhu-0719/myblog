@@ -6,25 +6,27 @@ from database import get_db
 from models import Article, User
 from schemas import ArticleCreate
 from utils.auth_token import get_current_user
+from agent.article_agent import check_article
+import asyncio
 
 router = APIRouter()
 
 # 发布文章
 @router.post("/articles")
-def publish_article(article_create: ArticleCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    # 文章
+async def publish_article(article_create: ArticleCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    # 模型清洗内容（去除Emoji等）
+    result = await check_article(article_create.content, article_create.title)
+
     db_article = Article(
-        title=article_create.title,
-        content=article_create.content,
+        title=result.title,    # 存清洗后的
+        content=result.content,
         cover=article_create.cover,
         user_id=current_user.id,
     )
-    # 加入数据库
     db.add(db_article)
-    db.commit()
-    db.refresh(db_article)
+    await db.commit()
+    await db.refresh(db_article)
     return db_article
-
 
 # 获取用户发布的全部文章，分页
 @router.get("/users/{username}/articles")
