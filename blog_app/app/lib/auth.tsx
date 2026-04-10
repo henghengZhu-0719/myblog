@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getToken, removeToken, saveToken } from '../lib/api';
-import api from '../lib/api';
+import { getToken, removeToken, saveToken } from './api';
+import api from './api';
 
 interface User {
   id: number;
