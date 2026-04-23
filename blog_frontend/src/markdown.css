@@ -2,8 +2,45 @@
 .markdown-content {
   line-height: 1.6;
   color: #333;
-  overflow-wrap: break-word; /* 确保长单词换行 */
+  overflow-wrap: break-word;
   word-wrap: break-word;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  counter-reset: list-item;
+}
+
+.markdown-content h1 + ol,
+.markdown-content h2 + ol,
+.markdown-content h3 + ol,
+.markdown-content h4 + ol,
+.markdown-content h5 + ol,
+.markdown-content h6 + ol {
+  counter-reset: list-item;
+}
+
+.markdown-content ol {
+  list-style: none;
+  padding-left: 2em;
+  margin-bottom: 1em;
+}
+
+.markdown-content ol > li {
+  counter-increment: list-item;
+  position: relative;
+  margin-bottom: 0.5em;
+}
+
+.markdown-content ol > li::before {
+  content: counter(list-item) ". ";
+  position: absolute;
+  left: -1.5em;
+  font-weight: 600;
 }
 
 .markdown-content img {
@@ -43,6 +80,34 @@
   color: #6a737d;
   padding: 0 1em;
   margin: 0 0 16px 0;
+}
+
+.markdown-content p {
+  margin-bottom: 1em;
+}
+
+.markdown-content em {
+  font-style: italic;
+}
+
+.markdown-content strong {
+  font-weight: 700;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-left: 2em;
+  margin-bottom: 1em;
+}
+
+.markdown-content li {
+  margin-bottom: 0.5em;
+}
+
+.markdown-content hr {
+  border: none;
+  border-top: 1px solid #e1e4e8;
+  margin: 1.5em 0;
 }
 
 .markdown-content table {
@@ -98,5 +163,31 @@
   .article-actions {
     width: 100%;
     justify-content: flex-end;
+  }
+  
+  .markdown-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .markdown-content h2 {
+    font-size: 1.3rem;
+  }
+  
+  .markdown-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .markdown-content h4,
+  .markdown-content h5,
+  .markdown-content h6 {
+    font-size: 1rem;
+  }
+  
+  .markdown-content p {
+    font-size: 0.95rem;
+  }
+  
+  .markdown-content pre {
+    font-size: 12px;
   }
 }
