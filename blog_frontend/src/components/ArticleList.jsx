@@ -139,7 +139,7 @@ function ArticleList() {
       <style>{`
         .article-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
           gap: 1.5rem;
         }
         .article-card {
@@ -163,6 +163,55 @@ function ArticleList() {
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
+        }
+        /* 平板端：小屏三列 */
+        @media (max-width: 1024px) {
+          .article-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+          }
+        }
+        /* 手机端：大屏手机三列，小屏两列 */
+        @media (max-width: 768px) {
+          .article-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+          }
+          .article-card {
+            border-radius: 8px;
+          }
+          .article-card img {
+            height: 120px !important;
+          }
+          .article-card > div {
+            padding: 0.875rem !important;
+          }
+          .article-card h3 {
+            font-size: 0.95rem !important;
+            margin-bottom: 0.5rem !important;
+            -webkit-line-clamp: 2 !important;
+          }
+          .article-card p,
+          .article-card .markdown-body {
+            -webkit-line-clamp: 2 !important;
+            font-size: 0.85rem !important;
+            margin-bottom: 0.75rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .article-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.625rem;
+          }
+          .article-card img {
+            height: 100px !important;
+          }
+          .article-card > div {
+            padding: 0.625rem !important;
+          }
+          .article-card h3 {
+            font-size: 0.9rem !important;
+          }
         }
       `}</style>
     </div>
