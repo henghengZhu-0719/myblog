@@ -17,8 +17,8 @@ from langchain.tools import tool, ToolRuntime
 from langgraph.checkpoint.memory import InMemorySaver
 
 # 初始化模型
-API_KEY = "sk-cp-tP-n3FkUJPYRQqZb_w5nMIZYjQHwwsiEjQg-zldzQOfNQfYZKT8qnkxxu2EdBG2ORDs2yMcd-XNjxKRWxxbW0CwsVEnCzf5aHUfx4qIMYwEgCCJAzn1NmlQ"
-BASE_URL = "https://api.minimaxi.com/anthropic"
+API_KEY = "sk-e146a0bd7f344bc58f61f5c3ee9b7ab7"
+BASE_URL = "https://api.deepseek.com/anthropic"
 
 @dataclass
 class Context:
@@ -26,7 +26,7 @@ class Context:
     user_id: str
 
 class Agent:
-    def __init__(self, model_name="MiniMax-M2.7"):
+    def __init__(self, model_name="DeepSeek-V4-Pro"):
         self.chat_model = ChatAnthropic(
             model=model_name,
             api_key=API_KEY,
