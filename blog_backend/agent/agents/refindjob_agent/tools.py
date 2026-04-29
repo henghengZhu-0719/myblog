@@ -42,7 +42,7 @@ def fetch_webpage_content(url: str, timeout: float = 10.0) -> str:
 
 
 @tool(parse_docstring=True)
-def tavily_search(
+def job_tavily_search(
     query: str,
     max_results: Annotated[int, InjectedToolArg] = 1,
     topic: Annotated[
@@ -95,7 +95,7 @@ def tavily_search(
 
 
 @tool(parse_docstring=True)
-def think_tool(reflection: str) -> str:
+def job_think_tool(reflection: str) -> str:
     """用于对研究进展和决策进行战略性反思的工具。
 
         在每次搜索后使用此工具，系统性地分析结果并规划下一步。

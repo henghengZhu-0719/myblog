@@ -1,0 +1,30 @@
+domain:
+  name: "AI Agent"
+
+  goal:
+    - "发现新论文"
+    - "发现新开源项目"
+    - "发现新产品/方案"
+    - "发现行业应用案例"
+
+  include:
+    - "LLM Agent"
+    - "multi-agent"
+    - "tool use"
+    - "agent workflow"
+    - "agent memory"
+    - "agent evaluation"
+    - "MCP"
+    - "browser agent"
+    - "coding agent"
+
+  exclude:
+    - "普通 AI 新闻"
+    - "纯模型发布但无 agent 能力"
+    - "泛自动化工具"
+    - "营销软文"
+
+  output:
+    frequency: daily
+    top_n: 5
+    lookback_days: 3

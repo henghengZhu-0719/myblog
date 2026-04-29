@@ -66,6 +66,7 @@ def tavily_search(
         query,
         max_results=max_results,
         topic=topic,
+        timeout = 10,
     )
 
     # Fetch full content for each URL

@@ -1,0 +1,40 @@
+queries:
+  core:
+    - "AI agent"
+    - "LLM agent"
+    - "autonomous agent"
+    - "multi-agent system"
+    - "agentic AI"
+
+  technical:
+    - "tool use"
+    - "function calling"
+    - "agent planning"
+    - "agent memory"
+    - "agent evaluation"
+    - "agent benchmark"
+    - "agent workflow"
+    - "reasoning agent"
+
+  ecosystem:
+    - "MCP"
+    - "Model Context Protocol"
+    - "A2A"
+    - "LangChain agent"
+    - "LlamaIndex agent"
+    - "AutoGen"
+    - "CrewAI"
+    - "OpenHands"
+
+  application:
+    - "browser agent"
+    - "coding agent"
+    - "research agent"
+    - "enterprise agent"
+    - "customer support agent"
+    - "workflow automation agent"
+
+  exclude:
+    - "real estate agent"
+    - "travel agent"
+    - "insurance agent"

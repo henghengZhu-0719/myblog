@@ -53,15 +53,14 @@ function AIChat() {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
-    // 占位一条 AI 回复
-    setMessages(prev => [...prev, { role: 'ai', content: '' }]);
+    setMessages(prev => [...prev, { role: 'ai', content: '', events: [] }]);
 
     try {
       const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}` // 如果需要的话
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ message: userMessage, user_id: userId })
       });
@@ -72,62 +71,70 @@ function AIChat() {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
-      let aiReply = '';
-      let lastUpdateTime = Date.now();
+      let aiText = '';
+      let buffer = '';
 
-      // 节流：每 80ms 更新一次状态，实现流式打字机效果
-      const updateStream = () => {
+      const updateEvents = () => {
         setMessages(prev => {
           const newMsgs = [...prev];
-          newMsgs[newMsgs.length - 1].content = aiReply;
+          const last = newMsgs[newMsgs.length - 1];
+          last.content = aiText;
           return newMsgs;
         });
       };
 
-      const intervalId = setInterval(() => {
-        const now = Date.now();
-        if (now - lastUpdateTime >= 80 && aiReply) {
-          updateStream();
-          lastUpdateTime = now;
-        }
-      }, 80);
+      const updateTextLoop = async () => {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+          buffer += decoder.decode(value, { stream: true });
 
-        const chunkText = decoder.decode(value, { stream: true });
-        const lines = chunkText.split('\n\n');
+          const parts = buffer.split('\n\n');
+          buffer = parts.pop() || '';
 
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const dataStr = line.replace('data: ', '').trim();
-            if (dataStr === '[DONE]') {
-              continue;
-            }
-            try {
-              const data = JSON.parse(dataStr);
-              if (data.text) {
-                aiReply += data.text;
-              } else if (data.error) {
-                console.error('Server error:', data.error);
-                aiReply += `\n[错误: ${data.error}]`;
+          for (const part of parts) {
+            const line = part.trim();
+            if (line.startsWith('data: ')) {
+              const dataStr = line.slice(6).trim();
+              if (dataStr === '[DONE]') {
+                continue;
               }
-            } catch (err) {
-              console.error('Failed to parse SSE data:', err, dataStr);
+              try {
+                const data = JSON.parse(dataStr);
+                if (data.type === 'text' && data.content) {
+                  aiText += data.content;
+                  updateEvents();
+                } else if (data.type === 'tool_start') {
+                  setMessages(prev => {
+                    const newMsgs = [...prev];
+                    const last = { ...newMsgs[newMsgs.length - 1] };
+                    last.events = [...(last.events || []), { type: 'tool_start', tool: data.tool }];
+                    newMsgs[newMsgs.length - 1] = last;
+                    return newMsgs;
+                  });
+                } else if (data.type === 'tool_end') {
+                  setMessages(prev => {
+                    const newMsgs = [...prev];
+                    const last = { ...newMsgs[newMsgs.length - 1] };
+                    last.events = [...(last.events || []), { type: 'tool_end', tool: data.tool }];
+                    newMsgs[newMsgs.length - 1] = last;
+                    return newMsgs;
+                  });
+                }
+              } catch (err) {
+                console.error('Failed to parse SSE data:', err, dataStr);
+              }
             }
           }
         }
-      }
+      };
 
-      // 流结束后做最后一次更新，确保内容完整
-      clearInterval(intervalId);
-      updateStream();
+      await updateTextLoop();
     } catch (error) {
       console.error('Chat error:', error);
       setMessages(prev => {
         const newMsgs = [...prev];
-        // 移除刚才占位的空消息，替换为错误消息
         newMsgs.pop();
         return [...newMsgs, { role: 'error', content: '请求失败，请稍后重试。' }];
       });
@@ -138,7 +145,7 @@ function AIChat() {
 
   return (
     <div className="card" style={{ display: 'flex', flexDirection: 'column', height: '80vh' }}>
-      <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '10px' }}>AI 助手 (MiniMax)</h2>
+      <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '10px' }}>AI 智能助手</h2>
       
       <div style={{ flex: 1, overflowY: 'auto', padding: '10px 0', display: 'flex', flexDirection: 'column', gap: '15px' }}>
         {messages.length === 0 ? (
@@ -147,23 +154,67 @@ function AIChat() {
           </div>
         ) : (
           messages.map((msg, idx) => (
-            <div 
-              key={idx} 
-              style={{
-                alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                maxWidth: '80%',
-                backgroundColor: msg.role === 'user' ? '#007bff' : (msg.role === 'error' ? '#f8d7da' : '#f1f1f1'),
-                color: msg.role === 'user' ? 'white' : (msg.role === 'error' ? '#721c24' : '#333'),
-                padding: '10px 15px',
-                borderRadius: '8px',
-                boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
-              }}
-            >
+            <div key={idx}>
               {msg.role === 'user' ? (
-                <div style={{ whiteSpace: 'pre-wrap' }}>{msg.content}</div>
+                <div style={{
+                  alignSelf: 'flex-end',
+                  maxWidth: '80%',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  padding: '10px 15px',
+                  borderRadius: '8px',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                  whiteSpace: 'pre-wrap',
+                  marginLeft: 'auto',
+                  marginBottom: '8px'
+                }}>
+                  {msg.content}
+                </div>
+              ) : msg.role === 'error' ? (
+                <div style={{
+                  alignSelf: 'flex-start',
+                  maxWidth: '80%',
+                  backgroundColor: '#f8d7da',
+                  color: '#721c24',
+                  padding: '10px 15px',
+                  borderRadius: '8px',
+                  marginBottom: '8px'
+                }}>
+                  {msg.content}
+                </div>
               ) : (
-                <div className="markdown-content" style={{ margin: 0 }}>
-                  <Markdown remarkPlugins={[remarkGfm]}>{msg.content}</Markdown>
+                <div style={{ alignSelf: 'flex-start', maxWidth: '80%', marginBottom: '8px' }}>
+                  {msg.events && msg.events.map((evt, ei) => (
+                    <div key={ei} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '6px 12px',
+                      marginBottom: '4px',
+                      borderRadius: '6px',
+                      fontSize: '13px',
+                      backgroundColor: evt.type === 'tool_start' ? '#fff3cd' : '#d1ecf1',
+                      color: evt.type === 'tool_start' ? '#856404' : '#0c5460',
+                      border: `1px solid ${evt.type === 'tool_start' ? '#ffc107' : '#17a2b8'}`
+                    }}>
+                      <span>{evt.type === 'tool_start' ? '🔧' : '✅'}</span>
+                      <span>{evt.type === 'tool_start' ? `正在执行: ${evt.tool}` : `完成: ${evt.tool}`}</span>
+                    </div>
+                  ))}
+                  {msg.content && (
+                    <div style={{
+                      backgroundColor: '#f1f1f1',
+                      color: '#333',
+                      padding: '10px 15px',
+                      borderRadius: '8px',
+                      boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                      marginTop: msg.events && msg.events.length > 0 ? '8px' : 0
+                    }}>
+                      <div className="markdown-content" style={{ margin: 0 }}>
+                        <Markdown remarkPlugins={[remarkGfm]}>{msg.content}</Markdown>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

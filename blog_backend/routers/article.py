@@ -6,7 +6,6 @@ from database import get_db
 from models import Article, User
 from schemas import ArticleCreate
 from utils.auth_token import get_current_user
-from agent.article_agent import check_article
 import asyncio
 
 router = APIRouter()

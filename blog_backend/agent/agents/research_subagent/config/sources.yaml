@@ -1,0 +1,75 @@
+sources:
+  # 官方/产品
+  - id: openai_news
+    name: OpenAI News
+    type: rss
+    url: https://openai.com/news/rss.xml
+    category: official
+    priority: high
+
+  - id: anthropic_news
+    name: Anthropic News
+    type: web
+    url: https://www.anthropic.com/news
+    category: official
+    priority: high
+
+  - id: google_deepmind_blog
+    name: Google DeepMind Blog
+    type: rss
+    url: https://deepmind.google/discover/blog/rss.xml
+    category: official
+    priority: high
+
+  # 论文
+  - id: arxiv_cs_ai
+    name: arXiv cs.AI
+    type: arxiv
+    url: http://export.arxiv.org/api/query
+    category: paper
+    priority: high
+
+  - id: arxiv_cs_cl
+    name: arXiv cs.CL
+    type: arxiv
+    url: http://export.arxiv.org/api/query
+    category: paper
+    priority: medium
+
+  # 开源
+  - id: github_search
+    name: GitHub Search
+    type: github
+    url: https://api.github.com/search/repositories
+    category: opensource
+    priority: high
+
+  - id: huggingface_papers
+    name: Hugging Face Papers
+    type: web
+    url: https://huggingface.co/papers
+    category: paper
+    priority: medium
+
+  # 媒体
+  - id: techcrunch_ai
+    name: TechCrunch AI
+    type: rss
+    url: https://techcrunch.com/category/artificial-intelligence/feed/
+    category: media
+    priority: medium
+
+  - id: venturebeat_ai
+    name: VentureBeat AI
+    type: rss
+    url: https://venturebeat.com/category/ai/feed/
+    category: media
+    priority: medium
+
+  # 社区
+  - id: hackernews
+    name: Hacker News
+    type: hn
+    url: https://hn.algolia.com/api/v1/search_by_date
+    category: community
+    priority: medium
