@@ -3,6 +3,7 @@
 from md_parser_service import MarkdownParserService
 from embedding_service import EmbeddingService
 from vector_store import VectorStore
+from SparseEncoder_service import SparseEncoder
 
 CHUNK_SIZE = 500
 OVERLAP = 100
@@ -30,7 +31,8 @@ print("2. 向量化 & 存入 Qdrant")
 print("=" * 60)
 
 embedder = EmbeddingService()
-store = VectorStore(embedder=embedder)
+sparse_encoder = SparseEncoder()
+store = VectorStore(embedder=embedder, sparse_encoder=sparse_encoder)
 
 store.store_chunks(chunks, source_file=SOURCE_FILE)
 print("写入完成！")
@@ -48,9 +50,9 @@ test_queries = [
 for query in test_queries:
     print(f"\n查询：{query}")
     print("-" * 40)
-    results = store.search(query, top_k=2)
+    results = store.search(query, top_k=5)
     for r in results:
         print(f"  相关度: {r.score:.4f}")
         print(f"  标题路径: {' > '.join(r.headings)}")
-        print(f"  内容预览: {r.content[:120]}...")
+        print(f"  内容预览: {r.content}...")
         print()

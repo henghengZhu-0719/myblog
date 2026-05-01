@@ -183,9 +183,7 @@ class MarkdownParserService:
     #  Step 3：对单个 Section 按 chunk_size 切分
     # ------------------------------------------------------------------
 
-    def _split_section(
-        self, section: Section, chunk_size: int
-    ) -> list[Chunk]:
+    def _split_section(self, section: Section, chunk_size: int) -> list[Chunk]:
         """对单个 section 的 content 进行切分，优先保持代码块和表格完整"""
         content = section.content
         headings = section.headings
@@ -403,28 +401,5 @@ class MarkdownParserService:
             pos = original_pos
 
         return text[pos:].lstrip()
-# ==================== 测试 ====================
-
-CHUNK_SIZE = 500
-OVERLAP = 100
-
-service = MarkdownParserService(chunk_size=CHUNK_SIZE, overlap=OVERLAP)
-
-with open("/Users/zhuyq/Desktop/DeepAgents.md", "r", encoding="utf-8") as f:
-    text = f.read()
 
 
-
-chunks = service.split_markdown_into_chunks(text, CHUNK_SIZE, OVERLAP)
-
-
-print(f"共切分为 {len(chunks)} 个 chunk\n")
-for i, chunk in enumerate(chunks):
-    print(f"【Chunk {i+1}】长度={len(chunk.content)}")
-    # print(chunk.content)
-    print(f"headings: {chunk.headings}")
-    print("-" * 60)
-
-# 保存chunks
-with open("chunks.json", "w") as f:
-    json.dump([c.to_dict() for c in chunks], f, ensure_ascii=False, indent=4)

@@ -5,7 +5,16 @@ from typing import Optional
 
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, PointStruct, VectorParams
+from qdrant_client.models import (
+    Distance,
+    Fusion,
+    FusionQuery,
+    PointStruct,
+    Prefetch,
+    SparseIndexParams,
+    SparseVectorParams,
+    VectorParams,
+)
 
 from embedding_service import EmbeddingService, EMBEDDING_DIMENSIONS
 
@@ -39,15 +48,19 @@ class VectorStore:
     def __init__(
         self,
         embedder: EmbeddingService,
+        sparse_encoder,
         collection: str = QDRANT_COLLECTION,
         host: str = QDRANT_HOST,
         port: int = QDRANT_PORT,
         vector_name: str = "dense-vector",
+        sparse_vector_name: str = "sparse-vector",
         upsert_batch_size: int = 20,
     ):
         self.embedder = embedder
+        self.sparse_encoder = sparse_encoder
         self.collection = collection
         self.VECTOR_NAME = vector_name
+        self.SPARSE_VECTOR_NAME = sparse_vector_name
         self.UPSERT_BATCH_SIZE = upsert_batch_size
         self.client = QdrantClient(host=host, port=port)
 
@@ -64,6 +77,11 @@ class VectorStore:
                         distance=Distance.COSINE,
                     ),
                 },
+                sparse_vectors_config={
+                    self.SPARSE_VECTOR_NAME: SparseVectorParams(
+                        index=SparseIndexParams(on_disk=True)
+                    ),
+                },
             )
             logger.info(f"Created collection '{self.collection}'")
 
@@ -77,12 +95,16 @@ class VectorStore:
         self.ensure_collection()
 
         texts = [c.content for c in chunks]
-        vectors = self.embedder.embed_documents(texts)
+        dense_vectors = self.embedder.embed_documents(texts)
+        sparse_vectors = self.sparse_encoder.encode_documents(texts)
 
         points = [
             PointStruct(
                 id=i,
-                vector={self.VECTOR_NAME: vector},
+                vector={
+                    self.VECTOR_NAME: dense_vector,
+                    self.SPARSE_VECTOR_NAME: sparse_vector,
+                },
                 payload={
                     "content":     chunk.content,
                     "headings":    chunk.headings,
@@ -90,7 +112,9 @@ class VectorStore:
                     "source_file": source_file,
                 },
             )
-            for i, (chunk, vector) in enumerate(zip(chunks, vectors))
+            for i, (chunk, dense_vector, sparse_vector) in enumerate(
+                zip(chunks, dense_vectors, sparse_vectors)
+            )
         ]
 
         for start in range(0, len(points), self.UPSERT_BATCH_SIZE):
@@ -109,12 +133,24 @@ class VectorStore:
         top_k: int = 5,
         score_threshold: Optional[float] = None,
     ) -> list[SearchResult]:
-        query_vector = self.embedder.embed_query(query)
+        dense_vector = self.embedder.embed_query(query)
+        sparse_vector = self.sparse_encoder.encode_query(query)
 
         kwargs = dict(
             collection_name=self.collection,
-            query=query_vector,
-            using=self.VECTOR_NAME,
+            prefetch=[
+                Prefetch(
+                    query=dense_vector,
+                    using=self.VECTOR_NAME,
+                    limit=top_k * 2,
+                ),
+                Prefetch(
+                    query=sparse_vector,
+                    using=self.SPARSE_VECTOR_NAME,
+                    limit=top_k * 2,
+                ),
+            ],
+            query=FusionQuery(fusion=Fusion.RRF),
             limit=top_k,
             with_payload=True,
         )

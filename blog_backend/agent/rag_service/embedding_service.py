@@ -1,6 +1,5 @@
 import os
 import logging
-from dataclasses import dataclass, field
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -15,22 +14,9 @@ EMBEDDING_MODEL = "text-embedding-v3"
 EMBEDDING_DIMENSIONS = 1024
 
 
-@dataclass
-class EmbeddingVector:
-    """文本向量的结构体"""
-    text: str
-    vector: list[float] = field(default_factory=list)
-
-    def to_dict(self) -> dict:
-        return {"text": self.text, "vector": self.vector}
-
-
-@dataclass
 class EmbeddingService:
-    batch_size: int = 10
-    _client: OpenAI = field(init=False, repr=False)
-
-    def __post_init__(self):
+    def __init__(self, batch_size: int = 10):
+        self.batch_size = batch_size
         self._client = OpenAI(
             api_key=DASHSCOPE_API_KEY,
             base_url=DASHSCOPE_BASE_URL,
