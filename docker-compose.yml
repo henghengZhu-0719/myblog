@@ -11,6 +11,16 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: always
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
   backend:
     build: ./blog_backend
     container_name: blog-backend
@@ -23,8 +33,18 @@ services:
       DB_USER: root
       DB_PASSWORD: "020110"
       DB_NAME: myapp
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6333
+      QDRANT_COLLECTION: MyBlog
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      ANTHROPIC_BASE_URL: ${ANTHROPIC_BASE_URL}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-deepseek-chat}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+      AGENT_ROOT: ${AGENT_ROOT:-./data}
     depends_on:
       - db
+      - qdrant
 
   frontend:
     build: ./blog_frontend
@@ -37,3 +57,4 @@ services:
 
 volumes:
   mysql_data:
+  qdrant_data:

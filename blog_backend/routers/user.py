@@ -4,7 +4,6 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from models import User
 from database import get_db
-import passlib.hash as pwd
 from models.article import Article
 from schemas import UserRegister, UserLogin, user
 from fastapi import HTTPException
