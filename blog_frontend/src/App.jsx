@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { Sparkles, Bot, PenLine, Menu, X, Users, Briefcase, Wallet, Send, LogOut, User } from 'lucide-react';
+import { Sparkles, Bot, PenLine, Menu, X, Users, Briefcase, Wallet, Send, LogOut, User, FileText, Search, BookOpen } from 'lucide-react';
 import Login from './components/Login';
 import Register from './components/Register';
 import ArticleList from './components/ArticleList';
@@ -13,6 +13,9 @@ import Jobs from './components/Jobs';
 import Bills from './components/Bills';
 import Boss from './components/Boss';
 import AIChat from './components/AIChat';
+import RagChat from './components/RagChat';
+import RagUpload from './components/RagUpload';
+import RagSearch from './components/RagSearch';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -44,8 +47,8 @@ function Navigation() {
         </Link>
 
         <div className="nav-right">
-          <Link to="/ai" className="btn-ai" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <Bot size={16} /> AI助手
+          <Link to="/rag-chat" className="btn-chat" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <BookOpen size={16} /> 知识库问答
           </Link>
 
           {token ? (
@@ -62,6 +65,9 @@ function Navigation() {
                   <Link to="/jobs" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Briefcase size={15} /> 招聘信息</Link>
                   <Link to="/bills" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Wallet size={15} /> 智能记账</Link>
                   <Link to="/boss" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Send size={15} /> 投递简历</Link>
+                  <Link to="/rag" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><FileText size={15} /> 文档解析</Link>
+                  <Link to="/rag-search" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Search size={15} /> 召回测试</Link>
+                  <Link to="/rag-chat" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><BookOpen size={15} /> 知识库问答</Link>
                   <div className="dropdown-divider"></div>
                   <div className="dropdown-user">
                     <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><User size={14} /> {username}</span>
@@ -120,7 +126,7 @@ function Navigation() {
           gap: 0.75rem;
         }
 
-        .btn-ai {
+        .btn-chat {
           padding: 0.6rem 1rem;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           border-radius: var(--radius-sm);
@@ -132,7 +138,7 @@ function Navigation() {
           white-space: nowrap;
         }
 
-        .btn-ai:hover {
+        .btn-chat:hover {
           transform: translateY(-1px);
           box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
@@ -305,7 +311,7 @@ function Navigation() {
             gap: 0.4rem;
           }
 
-          .btn-ai, .btn-publish, .btn-login, .btn-register {
+          .btn-chat, .btn-publish, .btn-login, .btn-register {
             padding: 0.5rem 0.7rem;
             font-size: 0.85rem;
           }
@@ -344,6 +350,9 @@ function App() {
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/bills" element={<Bills />} />
           <Route path="/boss" element={<Boss />} />
+          <Route path="/rag" element={<RagUpload />} />
+          <Route path="/rag-search" element={<RagSearch />} />
+          <Route path="/rag-chat" element={<RagChat />} />
           <Route path="/ai" element={<AIChat />} />
           <Route path="/user/:id" element={<UserHome />} />
           <Route path="/article/:id" element={<ArticleDetail />} />
