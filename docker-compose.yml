@@ -12,7 +12,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   qdrant:
-    image: qdrant/qdrant:latest
+    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/qdrant/qdrant:v1.16.3-linuxarm64
     container_name: qdrant
     restart: always
     ports:
