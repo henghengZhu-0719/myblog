@@ -267,36 +267,9 @@ class RagGraph:
         workflow.add_edge("build_prompt",      "generate_answer")
         workflow.add_edge("generate_answer",   END)
         workflow.add_edge("chat_response",     END)
+        rag_graph = workflow.compile(checkpointer=self._memory)
 
-        return workflow.compile(checkpointer=self._memory)
-
-    def invoke(self, query: str, thread_id: str = "default") -> RagState:
-        history = self._conversations.get(thread_id, [])
-        return self.graph.invoke({
-            "original_query":   query,
-            "intent":           "",
-            "dense_query":      "",
-            "sparse_query":     "",
-            "retrieved_chunks": [],
-            "context":          "",
-            "prompt":           "",
-            "answer":           "",
-            "messages":         history,
-        }, config={"configurable": {"thread_id": thread_id}})
-
-    def stream(self, query: str, thread_id: str = "default"):
-        history = self._conversations.get(thread_id, [])
-        return self.graph.stream({
-            "original_query":   query,
-            "intent":           "",
-            "dense_query":      "",
-            "sparse_query":     "",
-            "retrieved_chunks": [],
-            "context":          "",
-            "prompt":           "",
-            "answer":           "",
-            "messages":         history,
-        }, config={"configurable": {"thread_id": thread_id}})
+        return rag_graph
 
     def stream_answer(self, query: str, thread_id: str = "default"):
         history = self._conversations.get(thread_id, [])
