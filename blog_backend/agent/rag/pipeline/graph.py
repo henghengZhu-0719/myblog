@@ -1,3 +1,4 @@
+
 import json
 import logging
 import os
@@ -7,6 +8,7 @@ import re
 from openai import OpenAI
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
+from langchain_core.messages import AnyMessage, HumanMessage
 
 from agent.rag.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL
 from agent.rag.pipeline.state import RagState
@@ -14,6 +16,7 @@ from agent.rag.retrieval.dense import EmbeddingService
 from agent.rag.retrieval.sparse import SparseEncoder
 from agent.rag.retrieval.reranker import RerankerService
 from agent.rag.retrieval.store import VectorStore
+
 
 logger = logging.getLogger(__name__)
 
@@ -65,12 +68,12 @@ RAG_SYSTEM_PROMPT = """你是一个专业的博客知识助手，基于提供的
 class RagGraph:
     def __init__(
         self,
-        llm_model:              str             = DEEPSEEK_MODEL,
-        top_k:                  int             = 10,
-        use_reranker:           bool            = True,
-        rerank_multiplier:      int             = 3,
-        rerank_score_threshold: float           = None,
-        max_history_turns:      int             = 5,
+        llm_model:              str   = DEEPSEEK_MODEL,
+        top_k:                  int   = 10,
+        use_reranker:           bool  = True,
+        rerank_multiplier:      int   = 3,
+        rerank_score_threshold: float = None,
+        max_history_turns:      int   = 5,
     ):
         self.llm_model              = llm_model
         self.top_k                  = top_k
@@ -84,9 +87,9 @@ class RagGraph:
             base_url=DEEPSEEK_BASE_URL,
         )
 
-        embedder       = EmbeddingService()
-        sparse_encoder = SparseEncoder()
-        self.reranker  = RerankerService() if use_reranker else None
+        embedder          = EmbeddingService()
+        sparse_encoder    = SparseEncoder()
+        self.reranker     = RerankerService() if use_reranker else None
         self.vector_store = VectorStore(
             embedder=embedder,
             sparse_encoder=sparse_encoder,
@@ -94,7 +97,11 @@ class RagGraph:
 
         self._conversations: dict[str, list[dict]] = {}
         self._memory = MemorySaver()
-        self.graph = self._build_graph()
+        self.graph   = self._build_graph()
+
+    # ──────────────────────────────────────────────
+    # LLM 调用
+    # ──────────────────────────────────────────────
 
     def _call_llm(self, system_prompt: str, user_message: str) -> str:
         resp = self._llm_client.chat.completions.create(
@@ -126,37 +133,56 @@ class RagGraph:
             if token:
                 yield token
 
-    def _classify_intent(self, state: RagState) -> RagState:
+    # ──────────────────────────────────────────────
+    # Graph 节点
+    # ──────────────────────────────────────────────
+
+    def _init_state(self, state: RagState) -> dict:
+        """
+        统一入口初始化节点。
+        - 独立入口（stream_answer）：original_query 已由 stream_answer 填入，直接跳过提取
+        - SubAgent 入口：deepagents 只传入 messages，从最后一条 human 消息提取 original_query
+        """
+        # 已有 original_query 则无需提取
+        if state.get("original_query"):
+            return {}
+
+        query = ""
+        for msg in reversed(state.get("messages", [])):
+            # LangChain BaseMessage 对象（HumanMessage / type == "human"）
+            if hasattr(msg, "type") and msg.type == "human":
+                query = msg.content
+                break
+            # dict 格式 {"role": "user", "content": "..."}
+            elif isinstance(msg, dict) and msg.get("role") == "user":
+                query = msg["content"]
+                break
+
+        return {
+            "original_query":   query,
+            "llm_calls":        state.get("llm_calls", 0),
+            "retrieved_chunks": state.get("retrieved_chunks", []),
+        }
+
+    def _classify_intent(self, state: RagState) -> dict:
         user_message = INTENT_CLASSIFY_PROMPT.format(query=state["original_query"])
-        raw = self._call_llm("", user_message)
+        raw    = self._call_llm("", user_message)
         intent = raw.strip().lower()
         if intent not in ("rag", "chat"):
             logger.warning("意图识别结果异常: %s，默认走 rag", raw)
             intent = "rag"
         logger.info("意图识别: %s → %s", state["original_query"][:50], intent)
-        return {**state, "intent": intent}
+        return {"intent": intent}
 
-    def _chat_response(self, state: RagState) -> RagState:
+    def _chat_response(self, state: RagState) -> dict:
         history_section = self._format_history(state.get("messages", []))
-        prompt = f"""## 用户问题
-
-{state['original_query']}
-
-{history_section}## 回答
-
-        """
+        prompt = f"""## 用户问题\n\n{state['original_query']}\n\n{history_section}## 回答\n\n"""
         answer = self._call_llm(CHAT_SYSTEM_PROMPT, prompt)
-        return {**state, "answer": answer}
+        return {"answer": answer}
 
     def _chat_response_stream(self, state: RagState):
         history_section = self._format_history(state.get("messages", []))
-        prompt = f"""## 用户问题
-
-{state['original_query']}
-
-{history_section}## 回答
-
-        """
+        prompt = f"""## 用户问题\n\n{state['original_query']}\n\n{history_section}## 回答\n\n"""
         for token in self._call_llm_stream(CHAT_SYSTEM_PROMPT, prompt):
             yield token
 
@@ -164,16 +190,22 @@ class RagGraph:
     def _route_by_intent(state: RagState) -> str:
         return state.get("intent", "rag")
 
-    def _format_history(self, messages: list[dict]) -> str:
+    def _format_history(self, messages: list) -> str:
         if not messages:
             return ""
         parts = []
         for m in messages[-self.max_history_turns * 2:]:
-            role = "用户" if m["role"] == "user" else "助手"
-            parts.append(f"{role}：{m['content']}")
+            # 兼容 dict 和 BaseMessage 两种格式
+            if isinstance(m, dict):
+                role    = "用户" if m["role"] == "user" else "助手"
+                content = m["content"]
+            else:
+                role    = "用户" if m.type == "human" else "助手"
+                content = m.content
+            parts.append(f"{role}：{content}")
         return "对话历史：\n" + "\n".join(parts) + "\n\n"
 
-    def _rewrite_question(self, state: RagState) -> RagState:
+    def _rewrite_question(self, state: RagState) -> dict:
         history_section = self._format_history(state.get("messages", []))
         user_message = REWRITE_USER_PROMPT.format(
             history_section=history_section,
@@ -184,7 +216,7 @@ class RagGraph:
         logger.info("重写原始输出: %s", raw)
 
         try:
-            m = re.search(r'```json\s*(\{.*?\})\s*```', raw, re.DOTALL)
+            m        = re.search(r'```json\s*(\{.*?\})\s*```', raw, re.DOTALL)
             parsed   = json.loads(m.group(1) if m else raw)
             dense_q  = parsed.get("dense_query",  "").strip()
             sparse_q = parsed.get("sparse_query", "").strip()
@@ -197,9 +229,9 @@ class RagGraph:
 
         logger.info("dense_query : %s", dense_q)
         logger.info("sparse_query: %s", sparse_q)
-        return {**state, "dense_query": dense_q, "sparse_query": sparse_q}
+        return {"dense_query": dense_q, "sparse_query": sparse_q}
 
-    def _retrieve(self, state: RagState) -> RagState:
+    def _retrieve(self, state: RagState) -> dict:
         results = self.vector_store.search(
             dense_query=state["dense_query"],
             sparse_query=state["sparse_query"],
@@ -220,30 +252,26 @@ class RagGraph:
             context_parts.append(f"{header}\n\n{r.content}")
 
         context = "\n\n---\n\n".join(context_parts) if context_parts else "未检索到相关内容。"
-        return {**state, "retrieved_chunks": chunks, "context": context}
+        return {"retrieved_chunks": chunks, "context": context}
 
-    def _build_prompt(self, state: RagState) -> RagState:
+    def _build_prompt(self, state: RagState) -> dict:
         history_section = self._format_history(state.get("messages", []))
-        prompt = f"""## 用户问题
+        prompt = f"""## 用户问题\n\n{state['original_query']}\n\n{history_section}## 参考上下文\n\n{state['context']}\n\n## 回答\n\n"""
+        return {"prompt": prompt}
 
-{state['original_query']}
-
-{history_section}## 参考上下文
-
-{state['context']}
-
-## 回答
-
-        """
-        return {**state, "prompt": prompt}
-
-    def _generate_answer(self, state: RagState) -> RagState:
+    def _generate_answer(self, state: RagState) -> dict:
         answer = self._call_llm(RAG_SYSTEM_PROMPT, state["prompt"])
-        return {**state, "answer": answer}
+        return {"answer": answer}
+
+    # ──────────────────────────────────────────────
+    # Graph 构建
+    # ──────────────────────────────────────────────
 
     def _build_graph(self):
         workflow = StateGraph(RagState)
 
+        # ✅ 新增 init_state 作为第一个节点
+        workflow.add_node("init_state",        self._init_state)
         workflow.add_node("classify_intent",   self._classify_intent)
         workflow.add_node("rewrite_question",  self._rewrite_question)
         workflow.add_node("retrieve",          self._retrieve)
@@ -251,7 +279,9 @@ class RagGraph:
         workflow.add_node("generate_answer",   self._generate_answer)
         workflow.add_node("chat_response",     self._chat_response)
 
-        workflow.add_edge(START,               "classify_intent")
+        # ✅ START → init_state → classify_intent
+        workflow.add_edge(START,              "init_state")
+        workflow.add_edge("init_state",       "classify_intent")
 
         workflow.add_conditional_edges(
             "classify_intent",
@@ -262,14 +292,17 @@ class RagGraph:
             },
         )
 
-        workflow.add_edge("rewrite_question",  "retrieve")
-        workflow.add_edge("retrieve",          "build_prompt")
-        workflow.add_edge("build_prompt",      "generate_answer")
-        workflow.add_edge("generate_answer",   END)
-        workflow.add_edge("chat_response",     END)
-        rag_graph = workflow.compile(checkpointer=self._memory)
+        workflow.add_edge("rewrite_question", "retrieve")
+        workflow.add_edge("retrieve",         "build_prompt")
+        workflow.add_edge("build_prompt",     "generate_answer")
+        workflow.add_edge("generate_answer",  END)
+        workflow.add_edge("chat_response",    END)
 
-        return rag_graph
+        return workflow.compile(checkpointer=self._memory)
+
+    # ──────────────────────────────────────────────
+    # 对外接口
+    # ──────────────────────────────────────────────
 
     def stream_answer(self, query: str, thread_id: str = "default"):
         history = self._conversations.get(thread_id, [])
@@ -283,9 +316,10 @@ class RagGraph:
             "prompt":           "",
             "answer":           "",
             "messages":         history,
+            "llm_calls":        0,
         }
 
-        state = self._classify_intent(state)
+        state = {**state, **self._classify_intent(state)}
         yield ("intent", {"intent": state["intent"]})
 
         if state["intent"] == "chat":
@@ -295,19 +329,19 @@ class RagGraph:
                 yield ("answer_token", {"token": token})
 
             answer = "".join(collected)
-            history.append({"role": "user", "content": query})
+            history.append({"role": "user",      "content": query})
             history.append({"role": "assistant", "content": answer})
             self._conversations[thread_id] = history
             yield ("answer_done", {"answer": answer})
             return
 
-        state = self._rewrite_question(state)
+        state = {**state, **self._rewrite_question(state)}
         yield ("rewrite", {"dense_query": state["dense_query"], "sparse_query": state["sparse_query"]})
 
-        state = self._retrieve(state)
+        state = {**state, **self._retrieve(state)}
         yield ("retrieve", {"chunks": state["retrieved_chunks"]})
 
-        state = self._build_prompt(state)
+        state = {**state, **self._build_prompt(state)}
         yield ("build_prompt", {"prompt_length": len(state["prompt"])})
 
         collected: list[str] = []
@@ -316,7 +350,8 @@ class RagGraph:
             yield ("answer_token", {"token": token})
 
         answer = "".join(collected)
-        history.append({"role": "user", "content": query})
+        history.append({"role": "user",      "content": query})
         history.append({"role": "assistant", "content": answer})
         self._conversations[thread_id] = history
         yield ("answer_done", {"answer": answer})
+

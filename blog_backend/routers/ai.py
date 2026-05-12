@@ -1,63 +1,69 @@
+import json
+import logging
+import sys
+from pathlib import Path
+
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-import json
-from agent.agent import AgentService
+
+# deep-research-agent 目录名带连字符，无法直接 import，需要加到 sys.path
+_deep_agent_root = Path(__file__).resolve().parent.parent / "agent" / "deep-research-agent"
+if str(_deep_agent_root) not in sys.path:
+    sys.path.insert(0, str(_deep_agent_root))
+
+from agents.mainagent.agent import AgentService, _extract_text
+from agents.mainagent.config import Settings
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
-agent_service = AgentService()
+
+_agent_service: AgentService | None = None
+
+
+def get_agent_service() -> AgentService:
+    global _agent_service
+    if _agent_service is None:
+        config = Settings.from_env()
+        _agent_service = AgentService(config)
+        _agent_service.init()
+        logger.info("Deep Research Agent 初始化完成")
+    return _agent_service
 
 
 class ChatRequest(BaseModel):
     message: str
-    user_id: int | str | None = None
+    user_id: str | int | None = None
+
 
 @router.post("/chat")
 async def chat(request: ChatRequest):
-    try:
+    agent = get_agent_service()
 
-        async def generator():
-            async for event in agent_service.stream(request.message):
-                kind = event.get("event")
+    async def generator():
+        async for event in agent.stream(request.message):
+            kind = event.get("event")
 
-                if kind == "on_chat_model_stream":
-                    chunk = event["data"]["chunk"]
-                    text = ""
+            if kind == "on_chat_model_stream":
+                chunk = event["data"]["chunk"]
+                text = _extract_text(chunk)
+                if text:
+                    yield f"data: {json.dumps({'type': 'text', 'content': text})}\n\n"
 
-                    content_blocks = getattr(chunk, "content_blocks", None)
-                    if content_blocks:
-                        for block in content_blocks:
-                            block_type = block.get("type") if isinstance(block, dict) else getattr(block, "type", None)
-                            if block_type == "text":
-                                text = block.get("text", "") if isinstance(block, dict) else getattr(block, "text", "")
-                    else:
-                        content = getattr(chunk, "content", None)
-                        if content and isinstance(content, str):
-                            text = content
-                        elif content and isinstance(content, list):
-                            for block in content:
-                                if isinstance(block, dict) and block.get("type") == "text":
-                                    text = block.get("text", "")
+            elif kind == "on_tool_start":
+                yield f"data: {json.dumps({'type': 'tool_start', 'tool': event['name']})}\n\n"
 
-                    if text:
-                        yield f"data: {json.dumps({'type': 'text', 'content': text})}\n\n"
+            elif kind == "on_tool_end":
+                yield f"data: {json.dumps({'type': 'tool_end', 'tool': event['name']})}\n\n"
 
-                elif kind == "on_tool_start":
-                    yield f"data: {json.dumps({'type': 'tool_start', 'tool': event['name']})}\n\n"
+        yield "data: [DONE]\n\n"
 
-                elif kind == "on_tool_end":
-                    yield f"data: {json.dumps({'type': 'tool_end', 'tool': event['name']})}\n\n"
-
-            yield "data: [DONE]\n\n"
-
-        return StreamingResponse(
-            generator(),
-            media_type="text/event-stream",
-            headers={
-                "Cache-Control": "no-cache",
-                "X-Accel-Buffering": "no",
-            }
-        )
-
-    except Exception as e:
-        return {"error": str(e)}
+    return StreamingResponse(
+        generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )

@@ -1,0 +1,2641 @@
+🔍 Found 1 result(s) for 'LangGraph core concepts StateGraph nodes edges state management conditional branching cycles':
+
+## LangGraph Nodes, Edges & State: Core Concepts Explained
+**URL:** https://machinelearningplus.com/gen-ai/langgraph-graph-concepts-nodes-edges-state/
+
+   LangGraph Nodes, Edges & State: Core Concepts Explained - machinelearningplus      
+
+
+
+[Skip to content](#content)
+
+[![MLP Logo](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NTgiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgOTU4IDE5MiI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgc3R5bGU9ImZpbGw6I2NmZDRkYjtmaWxsLW9wYWNpdHk6IDAuMTsiLz48L3N2Zz4=)](https://machinelearningplus.com)
+
+Menu
+
+* [Courses](#)
+  + [Data Science Coding Expert](https://edu.machinelearningplus.com/s/pages/ds-coding-expert)
+    - [Foundations Of Machine Learning (Free)](https://edu.machinelearningplus.com/courses/foundations-of-machine-learning-60ee63930cf219bfb8976e20?redirectToMicroFE=false)
+    - [Python Programming(Free)](https://edu.machinelearningplus.com/courses/Python-Programming-628f8abb0cf22aee960e8234?redirectToMicroFE=false)
+    - [Numpy For Data Science(Free)](https://edu.machinelearningplus.com/s/store/courses/description/Numpy-for-Data-Science)
+    - [Pandas For Data Science(Free)](https://edu.machinelearningplus.com/s/store/courses/description/Pandas-for-Data-Science)
+    - [Linux Command Line(Free)](https://edu.machinelearningplus.com/courses/Linux-command-line-63c19eb7e4b0fe07b03d04d1)
+    - [SQL for Data Science – I(Free)](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---I-64e44a6ae4b029e71084e061)
+    - [SQL for Data Science – II(Free)](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Level-2-64eda5c3e4b0acf4a9d5a44a)
+    - [SQL for Data Science – III(Free)](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Level-3-1693983225181-64f821f9e4b0bfa66a900c29)
+    - [SQL for Data Science – Window Functions(Free)](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Window-Functions-6512753de4b01fed60989c71)
+    - [Machine Learning Expert](https://edu.machinelearningplus.com/s/pages/ml-expert)
+    - [Linear Algebra for ML](https://edu.machinelearningplus.com/courses/Linear-Algebra-65448bb1e4b0841e3a4fc1dc)
+    - [Statistics for Data Science](https://edu.machinelearningplus.com/courses/Statistics-for-Data-Science-6603e7077dfa1d5b9cb50fb1)
+    - [Data Pre-Processing and EDA](https://edu.machinelearningplus.com/s/store/courses/description/data-pre-processing-and-eda)
+    - [Linear Regression and Regularisation](https://edu.machinelearningplus.com/s/store/courses/description/Linear-Regression-and-Regularisation)
+    - [Classification: Logistic Regression](https://edu.machinelearningplus.com/s/store/courses/description/Logistic-Regression)
+    - [Supervised ML Algorithms](https://edu.machinelearningplus.com/s/store/courses/description/Supervised-ML-Algorithms)
+    - [Imbalanced Classification](https://edu.machinelearningplus.com/s/store/courses/description/Imbalanced-Classification)
+    - [Ensemble Learning](https://edu.machinelearningplus.com/s/store/courses/description/Ensemble-Learning)
+    - [Time Series Forecasting Expert](https://edu.machinelearningplus.com/s/pages/forecasting-expert)
+    - [Introduction to Time Series Analysis](https://edu.machinelearningplus.com/s/store/courses/description/Introduction-to-Time-Series-Analysis)
+    - [Time Series Analysis – I (Beginners)](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Analysis-Part1-64195c12e4b0c09eb19a078d)
+    - [Time Series Analysis – II (Intermediate)](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Analysis-Part-2-6433bfb8e4b0fc4ff3d2ff3e)
+    - [Time Series Forecasting Part 1 – Statistical Models](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Forecasting-Part-1---Statistical-Models-1681722290492-643d0bb2e4b0687fa0313bd9)
+    - [Time Series Forecasting Part 2 – ARIMA modeling and Tests](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Forecasting-Part-2---Complete-ARIMA-Modeling-and-Tests-1684138875722-6461eb7be4b08ceb88377a56)
+    - [Time Series Forecasting Part 3 – Vector Auto Regression](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Multi-Time-Series-Forecasting---Vector-Auto-Regression-64880db3e4b0618a5161d41b)
+    - [Time Series Analysis – III: Singular Spectrum Analysis](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series---Singular-Spectrum-Analysis-64a3d105e4b05989724fc407)
+    - [Feature Engineering for Time Series Projects – Part 1](https://edu.machinelearningplus.com/courses/Feature-Engineering-and-Intervention-Analysis-for-Time-Series-Projects---Part-1-1689663510598-64b63816e4b0493d3bdf0c22)
+    - [Feature Engineering for Time Series Projects – Part 2](https://edu.machinelearningplus.com/courses/Feature-Engineering-and-Intervention-Analysis-for-Time-Series-Projects---Part-2-64c0bb33e4b06ae8ef38eb5e)
+  + [Deployment Expert](https://edu.machinelearningplus.com/s/pages/deployment-expert)
+    - [ML Deployment in AWS EC2](https://edu.machinelearningplus.com/s/store/courses/description/ml-deployment-aws-ec2)
+    - [Deploy ML Models in AWS Lamda](https://edu.machinelearningplus.com/s/store/courses/description/Deploy-ML-Models-in-AWS-Lamda)
+    - [Deploy ML Models in AWS Sagemaker](https://edu.machinelearningplus.com/s/store/courses/description/Deploy-ML-models-in-AWS-Sagemaker)
+    - [PySpark for Data Science – I: Fundamentals](https://edu.machinelearningplus.com/courses/PySpark-for-Machine-Learning---Level-I-652ea5e4e4b025ebcd522a94)
+    - [PySpark for Data Science – II: Statistics for Big Data](https://edu.machinelearningplus.com/courses/PySpark-for-Data-Science---II-Statistics-for-Big-Data-6538a705e4b0289585b852cb)
+    - [PySpark for Data Science – III: Data Cleaning and Analysis](https://edu.machinelearningplus.com/courses/PySpark-for-Data-Science---III-Data-Analysis-65411888e4b003bc06c6091f)
+    - [PySpark for Data Science – IV: Machine Learning](https://edu.machinelearningplus.com/courses/PySpark-for-Data-Science---IV-Machine-Learning-654a23c1e4b02e6900efcf1f)
+    - [PySpark for Data Science-V : ML Pipelines](https://edu.machinelearningplus.com/courses/PySpark-for-Data-Science---IV-ML-Pipelines-655c7433e4b0a1013b692c94)
+    - [Deep Learning Expert](https://edu.machinelearningplus.com/s/pages/deep-learning-expert)
+    - [Foundations Of Deep Learning in Python](https://edu.machinelearningplus.com/s/store/courses/description/Foundations-of-Deep-Learning-in-Python)
+    - [Foundations Of Deep Learning in Python 2](https://edu.machinelearningplus.com/s/store/courses/description//Foundation-of-Deep-Learning-Part-2)
+    - [Applied Deep Learning with PyTorch](https://edu.machinelearningplus.com/s/store/courses/description/Applied-Deep-Learning-with-PyTorch)
+    - [Detecting Defects in Steel Sheets with Computer-Vision](https://edu.machinelearningplus.com/s/store/courses/description/Detecting-Defects-in-Steel-Sheets-with-Computer-Vision)
+    - [Project Text Generation using Language Models with LSTM](https://edu.machinelearningplus.com/s/store/courses/description/Project-Text-Generation-using-Language-Models-with-LSTM)
+    - [Project Classifying Sentiment of Reviews using BERT NLP](https://edu.machinelearningplus.com/s/store/courses/description/Project-Classifying-Sentiment-of-Reviews-using-BERT-NLP)
+  + [Industry Projects Expert](https://edu.machinelearningplus.com/s/pages/industry-projects-expert)
+    - [Estimating Customer Lifetime Value for Business](https://edu.machinelearningplus.com/s/store/courses/description/Estimating-Customer-Lifetime-Value-for-Business)
+    - [Microsoft Malware Detection Project](https://edu.machinelearningplus.com/s/store/courses/description/Microsoft-Malware-Detection-Project)
+    - [Credit Card Fraud Detection](https://edu.machinelearningplus.com/s/store/courses/description/credit-card-fraud-detection)
+    - [Restaurant Visitor Forecasting](https://edu.machinelearningplus.com/s/store/courses/description/Restaurant-Visitor-Forecasting)
+    - [Optimizing Marketing Budget Spend with Market Mix Modelling](https://edu.machinelearningplus.com/s/store/courses/description/Optimizing-Marketing-Budget-Spend-with-Market-Mix-Modelling)
+    - [Predict Rating given Amazon Product Reviews using NLP](https://edu.machinelearningplus.com/s/store/courses/description/Predict-Rating-given-Amazon-Product-Reviews-using-NLP)
+    - [Uplift modeling: Estimating incremental impact of Marketing Campaigns](https://edu.machinelearningplus.com/courses/Uplift-modeling-Estimating-incremental-impact-of-MarketingCampaigns-65788978e4b03791403f00d1)
+    - [Uplift Modeling Part 2: Modeling-Strategies](https://edu.machinelearningplus.com/courses/Uplift-Modeling-Part-2-Modeling-Strategies-6581bae3e4b00ad395dcf7da)
+    - [Survival Analysis: Predicting Time to Event in real world applications](https://edu.machinelearningplus.com/courses/Survival-Analysis-Predicting-Time-to-Event-in-real-worldapplications-658bbc01e4b01cef840c0cb8)
+    - [Survival Analysis Part 2: Predicting Time to Event for Lungs Cancer Patients](https://edu.machinelearningplus.com/courses/Survival-Analysis-Part-2-Predicting-Time-to-Event-for-Lungs-Cancer-Patients-659d75aae4b0443efff2d5ee)
+    - [Attribution Models in Marketing](https://edu.machinelearningplus.com/courses/Attribution-Models-in-Marketing-65a563e9e4b0815cb0885cdb)
+    - [Dynamic pricing using Multi Armed Bandit (Reinforcement Learning)](https://edu.machinelearningplus.com/courses/Dynamic-pricing-using-Multi-Armed-Bandit-ReinforcementLearning-65d46ff9e4b09b13eb25ca49)
+    - [Reinforcement learning for Online Ad Serving with Multi Armed Bandits](https://edu.machinelearningplus.com/courses/Reinforcement-learning-for-Online-Ad-Serving-with-Multi-Armed-Bandits-65fbd46000db6011aeff41cb)
+    - [MLFlow in Action: Hands on guide to ML experiments](https://edu.machinelearningplus.com/courses/MLFlow-in-Action-Hands-on-guide-to-ML-experiments-660404c157a8cf7ee43ab995)
+  + [Supplementary Courses](https://edu.machinelearningplus.com/s/pages/advanced-data-science)
+    - [Base R Programming](https://edu.machinelearningplus.com/s/store/courses/description/Base-R-Programming)
+    - [Dplyr for Data Wrangling](https://edu.machinelearningplus.com/s/store/courses/description/Dplyr-for-data-wrangling)
+    - [Wrangling Data with DataTable](https://edu.machinelearningplus.com/s/store/courses/description/Wrangling-data-with-DataTable)
+    - [GGPlot2 Visualization for Data Analysis](https://edu.machinelearningplus.com/s/store/courses/description/GGPlot2-visualization-for-data-analysis)
+    - [Statistical Foundations for ML in R](https://edu.machinelearningplus.com/s/store/courses/description/Statistical-Foundations-for-ML-in-R)
+    - [Statistical Modeling with Linear Logistics Regression](https://edu.machinelearningplus.com/s/store/courses/description/Statistical-modeling-with-linear--logistics-regression)
+    - [Caret package in R](https://edu.machinelearningplus.com/courses/Caret-package-in-R-60d87e5e0cf2b1116467c0a2?redirectToMicroFE=false)
+    - [Spacy for NLP](https://edu.machinelearningplus.com/courses/Spacy-for-NLP-60d87e140cf234f1005f3760?redirectToMicroFE=false)
+    - [View All Courses](https://edu.machinelearningplus.com/s/pages/ds-career-path)
+  + Close
+
+* [Blog](http://machinelearningplus.com/blog)
+  + [Resources](https://machinelearningplus.com/?page_id=8922)
+    - [Data Science Project Template](https://machinelearningplus.com/?page_id=10027)
+    - [Time Series Project Template](https://machinelearningplus.com/?page_id=9904)
+    - [Numpy Cheatsheets](https://machinelearningplus.com/?page_id=9931)
+    - [Data Science Projects Bluebook](https://machinelearningplus.com/?page_id=9884)
+    - [All Resources](https://machinelearningplus.com/resources/)
+  + [Practice Exercises](#)
+    - [101 NumPy Exercises for Data Analysis (Python)](https://machinelearningplus.com/python/101-numpy-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [101 PySpark Exercises for Data Analysis](https://machinelearningplus.com/pyspark/pyspark-exercises-101-pyspark-exercises-for-data-analysis/)
+    - [101 Python datatable Exercises (pydatatable)](https://machinelearningplus.com/data-manipulation/101-python-datatable-exercises-pydatatable/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+    - [101 R data.table Exercises](https://machinelearningplus.com/data-manipulation/101-r-data-table-exercises/)
+  + [Python](https://machinelearningplus.com/category/python/)
+    - [Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+    - [How to speed up Python using Cython](https://machinelearningplus.com/python/how-to-convert-python-code-to-cython-and-speed-up-100x/)
+    - [Python to Cython in Jupyter](https://machinelearningplus.com/python/how-to-convert-python-to-cython-inside-jupyter-notebooks/)
+    - [How to deal with Big Data in Python for ML Projects (100+ GB)?](https://machinelearningplus.com/python/how-to-deal-with-big-data-in-python/)
+    - [Decorators in Python – How to enhance functions without changing the code?](https://machinelearningplus.com/python/decorators-in-python-how-to-enhance-functions-without-changing-the-code/)
+    - [Generators in Python – How to lazily return values only when needed and save memory?](https://machinelearningplus.com/python/generators-in-python/)
+    - [Iterators in Python – What are Iterators and Iterables?](https://machinelearningplus.com/python/iterators-in-python-iterables-vs-iterators/)
+    - [Python Module – What are modules and packages in python?](https://machinelearningplus.com/python/python-module-packages/)
+    - [Object Oriented Programming (OOPS) in Python](https://machinelearningplus.com/python/object-oriented-programming-oops-in-python/)
+    - [Conda virtual environment](https://machinelearningplus.com/deployment/conda-create-environment-and-everything-you-need-to-know-to-manage-conda-virtual-environment/)
+    - [List Comprehensions in Python – My Simplified Guide](https://machinelearningplus.com/python/list-comprehensions-in-python/)
+    - [Parallel Processing in Python – A Practical Guide with Examples](https://machinelearningplus.com/python/parallel-processing-python/)
+    - [Python @Property Explained – How to Use and When? (Full Examples)](https://machinelearningplus.com/python/python-property/)
+    - [pdb – How to use Python debugger](https://machinelearningplus.com/python/python-debugger-pdb/)
+    - [Python Regular Expressions Tutorial and Examples: A Simplified Guide](https://machinelearningplus.com/python/python-regex-tutorial-examples/)
+    - [Python Logging – Simplest Guide with Full Code and Examples](https://machinelearningplus.com/python/python-logging-guide/)
+    - [datetime in Python – Simplified Guide with Clear Examples](https://machinelearningplus.com/python/datetime-python-examples/)
+    - [Requests in Python Tutorial – How to send HTTP requests in Python?](https://machinelearningplus.com/python/requests-in-python/)
+    - [Python JSON – Guide](https://machinelearningplus.com/python-json-guide/)
+    - [Python Collections – An Introductory Guide](https://machinelearningplus.com/python-collections-guide/)
+    - [cProfile – How to profile your python code](https://machinelearningplus.com/python/cprofile-how-to-profile-your-python-code/)
+    - [Python Yield – What does the yield keyword do?](https://machinelearningplus.com/python/what-does-yield-keyword-do/)
+    - [Lambda Function in Python – How and When to use?](https://machinelearningplus.com/python/lambda-function/)
+    - [What does Python Global Interpreter Lock – (GIL) do?](https://machinelearningplus.com/python/python-global-interpreter-lock-gil/)
+  + [Time Series](https://machinelearningplus.com/category/time-series/)
+    - [Granger Causality Test](https://machinelearningplus.com/time-series/granger-causality-test/)
+    - [Augmented Dickey Fuller Test (ADF Test) – Must Read Guide](https://machinelearningplus.com/time-series/augmented-dickey-fuller-test/)
+    - [KPSS Test for Stationarity](https://machinelearningplus.com/time-series/kpss-test-for-stationarity/)
+    - [ARIMA Model – Complete Guide to Time Series Forecasting in Python](https://machinelearningplus.com/time-series/arima-model-time-series-forecasting-python/)
+    - [Time Series Analysis in Python – A Comprehensive Guide with Examples](https://machinelearningplus.com/time-series/time-series-analysis-python/)
+    - [Vector Autoregression (VAR) – Comprehensive Guide with Examples in Python](https://machinelearningplus.com/time-series/vector-autoregression-examples-python/)
+  + [Statistics](https://machinelearningplus.com/category/statistics/)
+    - [Partial Correlation](https://machinelearningplus.com/statistics/partial-correlation/)
+    - [Chi-Square test – How to test statistical significance?](https://machinelearningplus.com/statistics/chi-square-test/)
+    - [Gentle Introduction to Markov Chain](https://machinelearningplus.com/markov-chain/)
+    - [What is P-Value? – Understanding the meaning, math and methods](https://machinelearningplus.com/statistics/what-is-p-value/)
+    - [How to implement common statistical significance tests and find the p value?](https://machinelearningplus.com/statistics/statistical-significance-tests-r/)
+    - [Mahalanobis Distance – Understanding the math with examples (python)](https://machinelearningplus.com/statistics/mahalanobis-distance/)
+    - [T Test (Students T Test) – Understanding the math and how it works](https://machinelearningplus.com/statistics/t-test-students-understanding-the-math-and-how-it-works/)
+    - [Confidence Interval – Fully Explained](https://machinelearningplus.com/statistics/confidence-interval/)
+    - [Understanding Standard Error – A practical guide with examples](https://machinelearningplus.com/statistics/standard-error/)
+    - [One Sample T Test – Clearly Explained with Examples | ML+](https://machinelearningplus.com/statistics/one-sample-t-test/)
+  + [Deep Learning](https://machinelearningplus.com/category/deep-learning/)
+    - [TensorFlow vs PyTorch – A Detailed Comparison](https://machinelearningplus.com/deep-learning/tensorflow1-vs-tensorflow2-vs-pytorch/)
+    - [How to use tf.function to speed up Python code in Tensorflow](https://machinelearningplus.com/deep-learning/how-use-tf-function-to-speed-up-python-code-tensorflow/)
+    - [How to implement Linear Regression in TensorFlow](https://machinelearningplus.com/deep-learning/linear-regression-tensorflow/)
+  + [NLP](https://machinelearningplus.com/category/nlp/)
+    - [Complete Guide to Natural Language Processing (NLP) – with Practical Examples](https://machinelearningplus.com/nlp/natural-language-processing-guide/)
+    - [Text Summarization Approaches for NLP – Practical Guide with Generative Examples](https://machinelearningplus.com/nlp/text-summarization-approaches-nlp-example/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+    - [Gensim Tutorial – A Complete Beginners Guide](https://machinelearningplus.com/nlp/gensim-tutorial/)
+    - [LDA in Python – How to grid search best topic models?](https://machinelearningplus.com/nlp/topic-modeling-python-sklearn-examples/)
+    - [Topic Modeling with Gensim (Python)](https://machinelearningplus.com/nlp/topic-modeling-gensim-python/)
+    - [Lemmatization Approaches with Examples in Python](https://machinelearningplus.com/nlp/lemmatization-examples-python/)
+    - [Topic modeling visualization – How to present the results of LDA models?](https://machinelearningplus.com/nlp/topic-modeling-visualization-how-to-present-results-lda-models/)
+    - [Cosine Similarity – Understanding the math and how it works (with python codes)](https://machinelearningplus.com/nlp/cosine-similarity/)
+    - [spaCy Tutorial – Complete Writeup](https://machinelearningplus.com/spacy-tutorial-nlp/)
+    - [Training Custom NER models in SpaCy to auto-detect named entities [Complete Guide]](https://machinelearningplus.com/nlp/training-custom-ner-model-in-spacy/)
+    - [Building chatbot with Rasa and spaCy](https://machinelearningplus.com/nlp/chatbot-with-rasa-and-spacy/)
+    - [SpaCy Text Classification – How to Train Text Classification Model in spaCy (Solved Example)?](https://machinelearningplus.com/nlp/custom-text-classification-spacy/)
+  + [Plots](https://machinelearningplus.com/category/plots/)
+    - [Matplotlib Plotting Tutorial – Complete overview of Matplotlib library](https://machinelearningplus.com/plots/matplotlib-plotting-tutorial/)
+    - [Matplotlib Histogram – How to Visualize Distributions in Python](https://machinelearningplus.com/plots/matplotlib-histogram-python-examples/)
+    - [Bar Plot in Python – How to compare Groups visually](https://machinelearningplus.com/plots/bar-plot-in-python/)
+    - [Python Boxplot – How to create and interpret boxplots (also find outliers and summarize distributions)](https://machinelearningplus.com/plots/python-boxplot/)
+    - [Waterfall Plot in Python](https://machinelearningplus.com/waterfall-plot-in-python/)
+    - [Top 50 matplotlib Visualizations – The Master Plots (with full python code)](https://machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python/)
+    - [Matplotlib Tutorial – A Complete Guide to Python Plot w/ Examples](https://machinelearningplus.com/plots/matplotlib-tutorial-complete-guide-python-plot-examples/)
+    - [Matplotlib Pyplot – How to import matplotlib in Python and create different plots](https://machinelearningplus.com/plots/matplotlib-pyplot/)
+    - [Python Scatter Plot – How to visualize relationship between two numeric features](https://machinelearningplus.com/plots/python-scatter-plot/)
+    - [Matplotlib Line Plot – How to create a line plot to visualize the trend?](https://machinelearningplus.com/plots/matplotlib-line-plot/)
+    - [Matplotlib Subplots – How to create multiple plots in same figure in Python?](https://machinelearningplus.com/plots/subplots-python-matplotlib/)
+  + [Machine Learning](https://machinelearningplus.com/category/machine-learning/)
+    - [Main Pitfalls in Machine Learning Projects](https://machinelearningplus.com/machine-learning/main-pitfalls-in-machine-learning-projects/)
+    - [Deploy ML model in AWS Ec2 – Complete no-step-missed guide](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+    - [Feature selection using FRUFS and VevestaX](https://machinelearningplus.com/deployment/feature-selection-using-frufs-and-vevestax/)
+    - [Simulated Annealing Algorithm Explained from Scratch (Python)](https://machinelearningplus.com/machine-learning/simulated-annealing-algorithm-explained-from-scratch-python/)
+    - [Bias Variance Tradeoff – Clearly Explained](https://machinelearningplus.com/machine-learning/bias-variance-tradeoff/)
+    - [Complete Introduction to Linear Regression in R](https://machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/)
+    - [Caret Package – A Practical Guide to Machine Learning in R](https://machinelearningplus.com/machine-learning/caret-package/)
+    - [Logistic Regression – A Complete Tutorial With Examples in R](https://machinelearningplus.com/machine-learning/logistic-regression-tutorial-examples-r/)
+    - [Principal Component Analysis (PCA) – Better Explained](https://machinelearningplus.com/machine-learning/principal-components-analysis-pca-better-explained/)
+    - [K-Means Clustering Algorithm from Scratch](https://machinelearningplus.com/predictive-modeling/k-means-clustering/)
+    - [How Naive Bayes Algorithm Works? (with example and full code)](https://machinelearningplus.com/predictive-modeling/how-naive-bayes-algorithm-works-with-example-and-full-code/)
+    - [Feature Selection – Ten Effective Techniques with Examples](https://machinelearningplus.com/machine-learning/feature-selection/)
+    - [Evaluation Metrics for Classification Models – How to measure performance of machine learning models?](https://machinelearningplus.com/machine-learning/evaluation-metrics-classification-models-r/)
+    - [Brier Score – How to measure accuracy of probablistic predictions](https://machinelearningplus.com/statistics/brier-score/)
+    - [Portfolio Optimization with Python using Efficient Frontier with Practical Examples](https://machinelearningplus.com/machine-learning/portfolio-optimization-python-example/)
+    - [Gradient Boosting – A Concise Introduction from Scratch](https://machinelearningplus.com/machine-learning/gradient-boosting/)
+  + [Deployment](https://machinelearningplus.com/category/deployment/)
+    - [Population Stability Index (PSI)](https://machinelearningplus.com/deployment/population-stability-index-psi/)
+    - [Deploy ML model in AWS Ec2 – Complete no-step-missed guide](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+  + [Julia](https://machinelearningplus.com/category/julia/)
+    - [Julia – Programming Language](https://machinelearningplus.com/julia/julia-programming-language/)
+    - [Linear Regression in Julia](https://machinelearningplus.com/linear-regression-in-julia/)
+    - [Logistic Regression in Julia – Practical Guide with Examples](https://machinelearningplus.com/julia/logistic-regression-in-julia-practical-guide-with-examples/)
+    - [For-Loop in Julia](https://machinelearningplus.com/julia/for-loop-in-julia/)
+    - [While-loop in Julia](https://machinelearningplus.com/julia/while-loop-in-julia/)
+    - [Function in Julia](https://machinelearningplus.com/julia/function-in-julia/)
+    - [DataFrames in Julia](https://machinelearningplus.com/julia/dataframes-in-julia/)
+  + [Data Wrangling](https://machinelearningplus.com/category/data-manipulation/)
+    - [101 NumPy Exercises for Data Analysis (Python)](https://machinelearningplus.com/python/101-numpy-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [SQL Tutorial – A Simple and Intuitive Guide to the Structured Query Language](https://machinelearningplus.com/sql/sql-tutorial/)
+    - [Dask – How to handle large dataframes in python using parallel computing](https://machinelearningplus.com/python/dask-tutorial/)
+    - [Modin – How to speedup pandas by changing one line of code](https://machinelearningplus.com/python/modin-speedup-pandas/)
+    - [Python Numpy – Introduction to ndarray [Part 1]](https://machinelearningplus.com/python/numpy-tutorial-part1-array-python-examples/)
+    - [data.table in R – The Complete Beginners Guide](https://machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/)
+    - [101 Python datatable Exercises (pydatatable)](https://machinelearningplus.com/data-manipulation/101-python-datatable-exercises-pydatatable/)
+    - [101 R data.table Exercises](https://machinelearningplus.com/data-manipulation/101-r-data-table-exercises/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+  + [Recent](http://machinelearningplus.com/blog)
+    - [How to deal with Big Data in Python for ML Projects (100+ GB)?](https://machinelearningplus.com/python/how-to-deal-with-big-data-in-python/)
+    - [Granger Causality Test](https://machinelearningplus.com/time-series/granger-causality-test/)
+    - [Main Pitfalls in Machine Learning Projects](https://machinelearningplus.com/machine-learning/main-pitfalls-in-machine-learning-projects/)
+    - [Population Stability Index (PSI)](https://machinelearningplus.com/deployment/population-stability-index-psi/)
+    - [Deploy ML model in AWS Ec2 – Complete no-step-missed guide](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+    - [Feature selection using FRUFS and VevestaX](https://machinelearningplus.com/deployment/feature-selection-using-frufs-and-vevestax/)
+    - [Object Oriented Programming (OOPS) in Python](https://machinelearningplus.com/python/object-oriented-programming-oops-in-python/)
+    - [Simulated Annealing Algorithm Explained from Scratch (Python)](https://machinelearningplus.com/machine-learning/simulated-annealing-algorithm-explained-from-scratch-python/)
+    - [Partial Correlation](https://machinelearningplus.com/statistics/partial-correlation/)
+    - [Chi-Square test – How to test statistical significance for categorical data?](https://machinelearningplus.com/statistics/chi-square-test/)
+    - [Conda virtual environment](https://machinelearningplus.com/deployment/conda-create-environment-and-everything-you-need-to-know-to-manage-conda-virtual-environment/)
+* [Pricing](https://edu.machinelearningplus.com/courses/Pricing-66c8acacc768ad792f966f59)
+* [Testimonials](https://machinelearningplus.com/testimonials/)
+* [Product](#)
+  + [Complete Data Science Course (CDS)](https://edu.machinelearningplus.com/s/pages/ds-career-path)
+    - [Data Science Specializations >](https://edu.machinelearningplus.com/s/pages/ds-career-path)
+      * [DS Programming Specialization](https://edu.machinelearningplus.com/s/pages/ds-coding-expert)
+      * [Machine Learning Specialization](https://edu.machinelearningplus.com/s/pages/ml-expert)
+      * [Deployment Specialization](https://edu.machinelearningplus.com/s/pages/deployment-expert)
+      * [Forecasting Specialization](https://edu.machinelearningplus.com/s/pages/forecasting-expert)
+      * [DS Projects Specialization](https://edu.machinelearningplus.com/s/pages/industry-projects-expert)
+      * [Deep Learning Specialization](https://edu.machinelearningplus.com/s/pages/deep-learning-expert)
+      * [Supplementary Courses](https://edu.machinelearningplus.com/s/pages/advanced-data-science)
+  + [Projects](https://edu.machinelearningplus.com/s/pages/industry-projects-expert)
+  + [Store🛒](https://edu.machinelearningplus.com/s/store)
+
+Menu
+
+* [Blog](http://machinelearningplus.com/blog)
+  + [Resources](https://machinelearningplus.com/?page_id=8922)
+    - [Data Science Project Template](https://machinelearningplus.com/?page_id=10027)
+    - [Time Series Project Template](https://machinelearningplus.com/?page_id=9904)
+    - [Numpy Cheatsheets](https://machinelearningplus.com/?page_id=9931)
+    - [Data Science Projects Bluebook](https://machinelearningplus.com/?page_id=9884)
+    - [All Resources](https://machinelearningplus.com/resources/)
+  + [Practice Exercises](#)
+    - [101 NumPy Exercises for Data Analysis (Python)](https://machinelearningplus.com/python/101-numpy-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [101 PySpark Exercises for Data Analysis](https://machinelearningplus.com/pyspark/pyspark-exercises-101-pyspark-exercises-for-data-analysis/)
+    - [101 Python datatable Exercises (pydatatable)](https://machinelearningplus.com/data-manipulation/101-python-datatable-exercises-pydatatable/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+    - [101 R data.table Exercises](https://machinelearningplus.com/data-manipulation/101-r-data-table-exercises/)
+  + [Python](https://machinelearningplus.com/category/python/)
+    - [Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+    - [How to speed up Python using Cython](https://machinelearningplus.com/python/how-to-convert-python-code-to-cython-and-speed-up-100x/)
+    - [Python to Cython in Jupyter](https://machinelearningplus.com/python/how-to-convert-python-to-cython-inside-jupyter-notebooks/)
+    - [How to deal with Big Data in Python for ML Projects (100+ GB)?](https://machinelearningplus.com/python/how-to-deal-with-big-data-in-python/)
+    - [Decorators in Python – How to enhance functions without changing the code?](https://machinelearningplus.com/python/decorators-in-python-how-to-enhance-functions-without-changing-the-code/)
+    - [Generators in Python – How to lazily return values only when needed and save memory?](https://machinelearningplus.com/python/generators-in-python/)
+    - [Iterators in Python – What are Iterators and Iterables?](https://machinelearningplus.com/python/iterators-in-python-iterables-vs-iterators/)
+    - [Python Module – What are modules and packages in python?](https://machinelearningplus.com/python/python-module-packages/)
+    - [Object Oriented Programming (OOPS) in Python](https://machinelearningplus.com/python/object-oriented-programming-oops-in-python/)
+    - [Conda virtual environment](https://machinelearningplus.com/deployment/conda-create-environment-and-everything-you-need-to-know-to-manage-conda-virtual-environment/)
+    - [List Comprehensions in Python – My Simplified Guide](https://machinelearningplus.com/python/list-comprehensions-in-python/)
+    - [Parallel Processing in Python – A Practical Guide with Examples](https://machinelearningplus.com/python/parallel-processing-python/)
+    - [Python @Property Explained – How to Use and When? (Full Examples)](https://machinelearningplus.com/python/python-property/)
+    - [pdb – How to use Python debugger](https://machinelearningplus.com/python/python-debugger-pdb/)
+    - [Python Regular Expressions Tutorial and Examples: A Simplified Guide](https://machinelearningplus.com/python/python-regex-tutorial-examples/)
+    - [Python Logging – Simplest Guide with Full Code and Examples](https://machinelearningplus.com/python/python-logging-guide/)
+    - [datetime in Python – Simplified Guide with Clear Examples](https://machinelearningplus.com/python/datetime-python-examples/)
+    - [Requests in Python Tutorial – How to send HTTP requests in Python?](https://machinelearningplus.com/python/requests-in-python/)
+    - [Python JSON – Guide](https://machinelearningplus.com/python-json-guide/)
+    - [Python Collections – An Introductory Guide](https://machinelearningplus.com/python-collections-guide/)
+    - [cProfile – How to profile your python code](https://machinelearningplus.com/python/cprofile-how-to-profile-your-python-code/)
+    - [Python Yield – What does the yield keyword do?](https://machinelearningplus.com/python/what-does-yield-keyword-do/)
+    - [Lambda Function in Python – How and When to use?](https://machinelearningplus.com/python/lambda-function/)
+    - [What does Python Global Interpreter Lock – (GIL) do?](https://machinelearningplus.com/python/python-global-interpreter-lock-gil/)
+  + [Time Series](https://machinelearningplus.com/category/time-series/)
+    - [Granger Causality Test](https://machinelearningplus.com/time-series/granger-causality-test/)
+    - [Augmented Dickey Fuller Test (ADF Test) – Must Read Guide](https://machinelearningplus.com/time-series/augmented-dickey-fuller-test/)
+    - [KPSS Test for Stationarity](https://machinelearningplus.com/time-series/kpss-test-for-stationarity/)
+    - [ARIMA Model – Complete Guide to Time Series Forecasting in Python](https://machinelearningplus.com/time-series/arima-model-time-series-forecasting-python/)
+    - [Time Series Analysis in Python – A Comprehensive Guide with Examples](https://machinelearningplus.com/time-series/time-series-analysis-python/)
+    - [Vector Autoregression (VAR) – Comprehensive Guide with Examples in Python](https://machinelearningplus.com/time-series/vector-autoregression-examples-python/)
+  + [Statistics](https://machinelearningplus.com/category/statistics/)
+    - [Partial Correlation](https://machinelearningplus.com/statistics/partial-correlation/)
+    - [Chi-Square test – How to test statistical significance?](https://machinelearningplus.com/statistics/chi-square-test/)
+    - [Gentle Introduction to Markov Chain](https://machinelearningplus.com/markov-chain/)
+    - [What is P-Value? – Understanding the meaning, math and methods](https://machinelearningplus.com/statistics/what-is-p-value/)
+    - [How to implement common statistical significance tests and find the p value?](https://machinelearningplus.com/statistics/statistical-significance-tests-r/)
+    - [Mahalanobis Distance – Understanding the math with examples (python)](https://machinelearningplus.com/statistics/mahalanobis-distance/)
+    - [T Test (Students T Test) – Understanding the math and how it works](https://machinelearningplus.com/statistics/t-test-students-understanding-the-math-and-how-it-works/)
+    - [Confidence Interval – Fully Explained](https://machinelearningplus.com/statistics/confidence-interval/)
+    - [Understanding Standard Error – A practical guide with examples](https://machinelearningplus.com/statistics/standard-error/)
+    - [One Sample T Test – Clearly Explained with Examples | ML+](https://machinelearningplus.com/statistics/one-sample-t-test/)
+  + [Deep Learning](https://machinelearningplus.com/category/deep-learning/)
+    - [TensorFlow vs PyTorch – A Detailed Comparison](https://machinelearningplus.com/deep-learning/tensorflow1-vs-tensorflow2-vs-pytorch/)
+    - [How to use tf.function to speed up Python code in Tensorflow](https://machinelearningplus.com/deep-learning/how-use-tf-function-to-speed-up-python-code-tensorflow/)
+    - [How to implement Linear Regression in TensorFlow](https://machinelearningplus.com/deep-learning/linear-regression-tensorflow/)
+  + [NLP](https://machinelearningplus.com/category/nlp/)
+    - [Complete Guide to Natural Language Processing (NLP) – with Practical Examples](https://machinelearningplus.com/nlp/natural-language-processing-guide/)
+    - [Text Summarization Approaches for NLP – Practical Guide with Generative Examples](https://machinelearningplus.com/nlp/text-summarization-approaches-nlp-example/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+    - [Gensim Tutorial – A Complete Beginners Guide](https://machinelearningplus.com/nlp/gensim-tutorial/)
+    - [LDA in Python – How to grid search best topic models?](https://machinelearningplus.com/nlp/topic-modeling-python-sklearn-examples/)
+    - [Topic Modeling with Gensim (Python)](https://machinelearningplus.com/nlp/topic-modeling-gensim-python/)
+    - [Lemmatization Approaches with Examples in Python](https://machinelearningplus.com/nlp/lemmatization-examples-python/)
+    - [Topic modeling visualization – How to present the results of LDA models?](https://machinelearningplus.com/nlp/topic-modeling-visualization-how-to-present-results-lda-models/)
+    - [Cosine Similarity – Understanding the math and how it works (with python codes)](https://machinelearningplus.com/nlp/cosine-similarity/)
+    - [spaCy Tutorial – Complete Writeup](https://machinelearningplus.com/spacy-tutorial-nlp/)
+    - [Training Custom NER models in SpaCy to auto-detect named entities [Complete Guide]](https://machinelearningplus.com/nlp/training-custom-ner-model-in-spacy/)
+    - [Building chatbot with Rasa and spaCy](https://machinelearningplus.com/nlp/chatbot-with-rasa-and-spacy/)
+    - [SpaCy Text Classification – How to Train Text Classification Model in spaCy (Solved Example)?](https://machinelearningplus.com/nlp/custom-text-classification-spacy/)
+  + [Plots](https://machinelearningplus.com/category/plots/)
+    - [Matplotlib Plotting Tutorial – Complete overview of Matplotlib library](https://machinelearningplus.com/plots/matplotlib-plotting-tutorial/)
+    - [Matplotlib Histogram – How to Visualize Distributions in Python](https://machinelearningplus.com/plots/matplotlib-histogram-python-examples/)
+    - [Bar Plot in Python – How to compare Groups visually](https://machinelearningplus.com/plots/bar-plot-in-python/)
+    - [Python Boxplot – How to create and interpret boxplots (also find outliers and summarize distributions)](https://machinelearningplus.com/plots/python-boxplot/)
+    - [Waterfall Plot in Python](https://machinelearningplus.com/waterfall-plot-in-python/)
+    - [Top 50 matplotlib Visualizations – The Master Plots (with full python code)](https://machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python/)
+    - [Matplotlib Tutorial – A Complete Guide to Python Plot w/ Examples](https://machinelearningplus.com/plots/matplotlib-tutorial-complete-guide-python-plot-examples/)
+    - [Matplotlib Pyplot – How to import matplotlib in Python and create different plots](https://machinelearningplus.com/plots/matplotlib-pyplot/)
+    - [Python Scatter Plot – How to visualize relationship between two numeric features](https://machinelearningplus.com/plots/python-scatter-plot/)
+    - [Matplotlib Line Plot – How to create a line plot to visualize the trend?](https://machinelearningplus.com/plots/matplotlib-line-plot/)
+    - [Matplotlib Subplots – How to create multiple plots in same figure in Python?](https://machinelearningplus.com/plots/subplots-python-matplotlib/)
+  + [Machine Learning](https://machinelearningplus.com/category/machine-learning/)
+    - [Main Pitfalls in Machine Learning Projects](https://machinelearningplus.com/machine-learning/main-pitfalls-in-machine-learning-projects/)
+    - [Deploy ML model in AWS Ec2 – Complete no-step-missed guide](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+    - [Feature selection using FRUFS and VevestaX](https://machinelearningplus.com/deployment/feature-selection-using-frufs-and-vevestax/)
+    - [Simulated Annealing Algorithm Explained from Scratch (Python)](https://machinelearningplus.com/machine-learning/simulated-annealing-algorithm-explained-from-scratch-python/)
+    - [Bias Variance Tradeoff – Clearly Explained](https://machinelearningplus.com/machine-learning/bias-variance-tradeoff/)
+    - [Complete Introduction to Linear Regression in R](https://machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/)
+    - [Caret Package – A Practical Guide to Machine Learning in R](https://machinelearningplus.com/machine-learning/caret-package/)
+    - [Logistic Regression – A Complete Tutorial With Examples in R](https://machinelearningplus.com/machine-learning/logistic-regression-tutorial-examples-r/)
+    - [Principal Component Analysis (PCA) – Better Explained](https://machinelearningplus.com/machine-learning/principal-components-analysis-pca-better-explained/)
+    - [K-Means Clustering Algorithm from Scratch](https://machinelearningplus.com/predictive-modeling/k-means-clustering/)
+    - [How Naive Bayes Algorithm Works? (with example and full code)](https://machinelearningplus.com/predictive-modeling/how-naive-bayes-algorithm-works-with-example-and-full-code/)
+    - [Feature Selection – Ten Effective Techniques with Examples](https://machinelearningplus.com/machine-learning/feature-selection/)
+    - [Evaluation Metrics for Classification Models – How to measure performance of machine learning models?](https://machinelearningplus.com/machine-learning/evaluation-metrics-classification-models-r/)
+    - [Brier Score – How to measure accuracy of probablistic predictions](https://machinelearningplus.com/statistics/brier-score/)
+    - [Portfolio Optimization with Python using Efficient Frontier with Practical Examples](https://machinelearningplus.com/machine-learning/portfolio-optimization-python-example/)
+    - [Gradient Boosting – A Concise Introduction from Scratch](https://machinelearningplus.com/machine-learning/gradient-boosting/)
+  + [Deployment](https://machinelearningplus.com/category/deployment/)
+    - [Population Stability Index (PSI)](https://machinelearningplus.com/deployment/population-stability-index-psi/)
+    - [Deploy ML model in AWS Ec2 – Complete no-step-missed guide](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+  + [Julia](https://machinelearningplus.com/category/julia/)
+    - [Julia – Programming Language](https://machinelearningplus.com/julia/julia-programming-language/)
+    - [Linear Regression in Julia](https://machinelearningplus.com/linear-regression-in-julia/)
+    - [Logistic Regression in Julia – Practical Guide with Examples](https://machinelearningplus.com/julia/logistic-regression-in-julia-practical-guide-with-examples/)
+    - [For-Loop in Julia](https://machinelearningplus.com/julia/for-loop-in-julia/)
+    - [While-loop in Julia](https://machinelearningplus.com/julia/while-loop-in-julia/)
+    - [Function in Julia](https://machinelearningplus.com/julia/function-in-julia/)
+    - [DataFrames in Julia](https://machinelearningplus.com/julia/dataframes-in-julia/)
+  + [Data Wrangling](https://machinelearningplus.com/category/data-manipulation/)
+    - [101 NumPy Exercises for Data Analysis (Python)](https://machinelearningplus.com/python/101-numpy-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [SQL Tutorial – A Simple and Intuitive Guide to the Structured Query Language](https://machinelearningplus.com/sql/sql-tutorial/)
+    - [Dask – How to handle large dataframes in python using parallel computing](https://machinelearningplus.com/python/dask-tutorial/)
+    - [Modin – How to speedup pandas by changing one line of code](https://machinelearningplus.com/python/modin-speedup-pandas/)
+    - [Python Numpy – Introduction to ndarray [Part 1]](https://machinelearningplus.com/python/numpy-tutorial-part1-array-python-examples/)
+    - [data.table in R – The Complete Beginners Guide](https://machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/)
+    - [101 Python datatable Exercises (pydatatable)](https://machinelearningplus.com/data-manipulation/101-python-datatable-exercises-pydatatable/)
+    - [101 R data.table Exercises](https://machinelearningplus.com/data-manipulation/101-r-data-table-exercises/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+  + [Recent](http://machinelearningplus.com/blog)
+    - [How to deal with Big Data in Python for ML Projects (100+ GB)?](https://machinelearningplus.com/python/how-to-deal-with-big-data-in-python/)
+    - [Granger Causality Test](https://machinelearningplus.com/time-series/granger-causality-test/)
+    - [Main Pitfalls in Machine Learning Projects](https://machinelearningplus.com/machine-learning/main-pitfalls-in-machine-learning-projects/)
+    - [Population Stability Index (PSI)](https://machinelearningplus.com/deployment/population-stability-index-psi/)
+    - [Deploy ML model in AWS Ec2 – Complete no-step-missed guide](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+    - [Feature selection using FRUFS and VevestaX](https://machinelearningplus.com/deployment/feature-selection-using-frufs-and-vevestax/)
+    - [Object Oriented Programming (OOPS) in Python](https://machinelearningplus.com/python/object-oriented-programming-oops-in-python/)
+    - [Simulated Annealing Algorithm Explained from Scratch (Python)](https://machinelearningplus.com/machine-learning/simulated-annealing-algorithm-explained-from-scratch-python/)
+    - [Partial Correlation](https://machinelearningplus.com/statistics/partial-correlation/)
+    - [Chi-Square test – How to test statistical significance for categorical data?](https://machinelearningplus.com/statistics/chi-square-test/)
+    - [Conda virtual environment](https://machinelearningplus.com/deployment/conda-create-environment-and-everything-you-need-to-know-to-manage-conda-virtual-environment/)
+* [Pricing](https://edu.machinelearningplus.com/courses/Pricing-66c8acacc768ad792f966f59)
+* [Testimonials](https://machinelearningplus.com/testimonials/)
+* [Product](#)
+  + [Complete Data Science Course (CDS)](https://edu.machinelearningplus.com/s/pages/ds-career-path)
+    - [Data Science Specializations >](https://edu.machinelearningplus.com/s/pages/ds-career-path)
+      * [DS Programming Specialization](https://edu.machinelearningplus.com/s/pages/ds-coding-expert)
+      * [Machine Learning Specialization](https://edu.machinelearningplus.com/s/pages/ml-expert)
+      * [Deployment Specialization](https://edu.machinelearningplus.com/s/pages/deployment-expert)
+      * [Forecasting Specialization](https://edu.machinelearningplus.com/s/pages/forecasting-expert)
+      * [DS Projects Specialization](https://edu.machinelearningplus.com/s/pages/industry-projects-expert)
+      * [Deep Learning Specialization](https://edu.machinelearningplus.com/s/pages/deep-learning-expert)
+      * [Supplementary Courses](https://edu.machinelearningplus.com/s/pages/advanced-data-science)
+  + [Projects](https://edu.machinelearningplus.com/s/pages/industry-projects-expert)
+  + [Store🛒](https://edu.machinelearningplus.com/s/store)
+
+[Login](https://edu.machinelearningplus.com/s/mycourses)
+
+Menu
+×
+
+* [Blog](https://machinelearningplus.com/blog)
+* [Courses](https://edu.machinelearningplus.com)
+* [Pricing](https://machinelearningplus.com/pricing)
+* [Testimonials](https://machinelearningplus.com/testimonials)
+* [Resources](https://machinelearningplus.com/resources)
+* [Login](https://edu.machinelearningplus.com/s/mycourses)
+
+* [Getting Started](#)
+  + [#1. How to formulate machine learning problem](https://machinelearningplus.com/machine-learning/how-to-formulate-machine-learning-problem/)
+  + [#2. Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+  + [#3. Exploratory Data Analysis (EDA)](https://machinelearningplus.com/machine-learning/exploratory-data-analysis-eda/)
+  + [#4. How to reduce the memory size of Pandas Data frame](https://machinelearningplus.com/data-manipulation/how-to-reduce-the-memory-size-of-pandas-data-frame/)
+  + [#5. Missing Data Imputation Approaches](https://machinelearningplus.com/machine-learning/missing-data-imputation-how-to-handle-missing-values-in-python/)
+  + [#6. Interpolation in Python](https://machinelearningplus.com/machine-learning/interpolation-in-python-how-to-interpolate-missing-data-formula-approaches/)
+  + [#7. MICE imputation](https://machinelearningplus.com/machine-learning/mice-imputation/)
+  + [#8. How to detect outliers using IQR and Boxplots?](https://machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/)
+  + [#9. How to detect outliers with z-score](https://machinelearningplus.com/machine-learning/how-to-detect-outliers-with-z-score/)
+* [Beginners Corner](#)
+  + [How to formulate machine learning problem](https://machinelearningplus.com/machine-learning/how-to-formulate-machine-learning-problem/)
+  + [Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+  + [What is a Data Scientist?](https://machinelearningplus.com/general/what-is-a-data-scientist-roles-responsibilities-skillsets-career-path-and-salary/)
+  + [The story of how Data Scientists came into existence](https://machinelearningplus.com/general/the-story-of-how-data-scientists-came-into-existence/)
+  + [Task Checklist for Almost Any Machine Learning Project](https://machinelearningplus.com/machine-learning/task-checklist-for-almost-any-machine-learning-project/)
+  + [Data Science Roadmap (2023)](https://machinelearningplus.com/machine-learning/data-science-roadmap-how-to-become-a-data-scientist/)
+  + [Why learn the math behind Machine Learning and AI?](https://machinelearningplus.com/machine-learning/why-learn-math-behind-machine-learning-and-ai/)
+  + [Mistakes programmers make when starting machine learning](https://machinelearningplus.com/machine-learning/mistakes-programmers-make-when-starting-machine-learning/)
+  + [Machine Learning Use Cases](https://machinelearningplus.com/machine-learning/machine-learning-use-cases-big-list-of-applications-by-vertical-and-industry/)
+  + [How to deal with Big Data in Python for ML Projects (100+ GB)?](https://machinelearningplus.com/python/how-to-deal-with-big-data-in-python/)
+  + [Main Pitfalls in Machine Learning Projects](https://machinelearningplus.com/machine-learning/main-pitfalls-in-machine-learning-projects/)
+* [Courses](https://edu.machinelearningplus.com/s/pages/ds-career-path)
+  + [1. Foundations of Machine Learning](https://edu.machinelearningplus.com/courses/foundations-of-machine-learning-60ee63930cf219bfb8976e20)
+  + [2. Python Programming](https://edu.machinelearningplus.com/courses/Python-Programming-628f8abb0cf22aee960e8234)
+  + [3. NumPy for Data Science](https://edu.machinelearningplus.com/courses/Numpy-for-Data-Science-60f52e910cf2fd18f9746aa8)
+  + [4. Pandas for Data Science](https://edu.machinelearningplus.com/courses/Pandas-for-Data-Science-60d86a880cf221904e2d2659)
+  + [5. Linux Command](https://edu.machinelearningplus.com/courses/Linux-command-line-63c19eb7e4b0fe07b03d04d1)
+  + [6. SQL for Data Science – Level 1](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---I-64e44a6ae4b029e71084e061)
+  + [7. SQL for Data Science – Level 2](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Level-2-64eda5c3e4b0acf4a9d5a44a)
+  + [8. SQL for Data Science – Level 3](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Level-3-1693983225181-64f821f9e4b0bfa66a900c29)
+  + [9. SQL for Data Science – Window Functions](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Window-Functions-6512753de4b01fed60989c71)
+  + [10. Data Pre-processing and EDA](https://edu.machinelearningplus.com/courses/data-pre-processing-and-eda-612b0d930cf214574f1e2523)
+  + [11. Linear regression and regularisation](https://edu.machinelearningplus.com/courses/Linear-Regression-and-Regularisation-61976a530cf2030e987c0dd5)
+  + [12. Classification: Logistic Regression](https://edu.machinelearningplus.com/courses/Logistic-Regression-620f24580cf272600f1590a5)
+  + [13. Imbalanced Classification](https://edu.machinelearningplus.com/courses/Imbalanced-Classification-622b964f0cf227403a6a8276)
+  + [14. Supervised ML Algorithms](https://edu.machinelearningplus.com/courses/Supervised-ML-Algorithms-62765b290cf27999e58a71d2)
+  + [15. Ensemble Learning](https://edu.machinelearningplus.com/courses/Ensemble-Learning-628f8aec0cf24ec2c425a373)
+  + [16. ML Deployment in AWS EC2](https://edu.machinelearningplus.com/courses/ml-deployment-aws-ec2-6291bfdc0cf28d974b1f9447)
+  + [17. Deploy in AWS Lamda](https://edu.machinelearningplus.com/courses/Deploy-ML-Models-in-AWS-Lamda-62a2e0de0cf21f5a5bc8bb70)
+  + [18. Deploy in AWS Sagemaker](https://edu.machinelearningplus.com/courses/Deploy-ML-models-in-AWS-Sagemaker-62c535990cf2aca93945da47)
+  + [19. PySpark for Data Science – I: Fundamentals](https://edu.machinelearningplus.com/courses/PySpark-for-Machine-Learning---Level-I-652ea5e4e4b025ebcd522a94)
+  + [20. PySpark for Data Science – II: Statistics for Big Data](https://edu.machinelearningplus.com/courses/PySpark-for-Data-Science---II-Statistics-for-Big-Data-6538a705e4b0289585b852cb)
+  + [21. Introduction to Time Series Analaysis](https://edu.machinelearningplus.com/courses/Introduction-to-Time-Series-Analysis-62fe0f67e4b00a41f545c8a2)
+  + [22. Time Series Analysis – I (Beginners)](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Analysis-Part1-64195c12e4b0c09eb19a078d)
+  + [23. Time Series Analysis – II (Intermediate )](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Analysis-Part-2-6433bfb8e4b0fc4ff3d2ff3e)
+  + [24. Time Series Forecasting Part 1: Statistical Models](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Forecasting-Part-1---Statistical-Models-1681722290492-643d0bb2e4b0687fa0313bd9)
+  + [25. Time Series Forecasting Part 2: ARIMA modeling and Tests](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Forecasting-Part-2---Complete-ARIMA-Modeling-and-Tests-1684138875722-6461eb7be4b08ceb88377a56)
+  + [26. Time Series Forecasting Part 3: Vector Auto Regression](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Multi-Time-Series-Forecasting---Vector-Auto-Regression-64880db3e4b0618a5161d41b)
+  + [27. Time Series Analysis – III: Singular Spectrum Analysis](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series---Singular-Spectrum-Analysis-64a3d105e4b05989724fc407)
+  + [28. Feature Engineering for Time Series Project: I](https://edu.machinelearningplus.com/courses/Feature-Engineering-and-Intervention-Analysis-for-Time-Series-Projects---Part-1-1689663510598-64b63816e4b0493d3bdf0c22)
+  + [29. Feature Engineering for Time Series Projects: II](https://edu.machinelearningplus.com/courses/Feature-Engineering-and-Intervention-Analysis-for-Time-Series-Projects---Part-2-64c0bb33e4b06ae8ef38eb5e)
+  + [31. Estimating customer lifetime value for business](https://edu.machinelearningplus.com/s/store/courses/description/Estimating-Customer-Lifetime-Value-for-Business)
+  + [32. Microsoft malware detection project](https://edu.machinelearningplus.com/s/store/courses/description/Microsoft-Malware-Detection-Project)
+  + [33. Credit card fraud detection](https://edu.machinelearningplus.com/s/store/courses/description/credit-card-fraud-detection)
+  + [34. Restaurant Visitor Forecasting](https://edu.machinelearningplus.com/s/store/courses/description/Restaurant-Visitor-Forecasting)
+  + [35. Optimizing Marketing Budget Spend with Marketing Mix Modeling](https://edu.machinelearningplus.com/courses/Optimizing-Marketing-Budget-Spend-with-Market-Mix-Modelling-63285657e4b06a9c72d4c560)
+  + [36. Predict Rating given Amazon Product review using NLP](https://edu.machinelearningplus.com/courses/Predict-Rating-given-Amazon-Product-Reviews-using-NLP-6303266fe4b0671e1515c950)
+  + [37. Foundations of Deep Learning in Python](https://edu.machinelearningplus.com/s/store/courses/description/Foundations-of-Deep-Learning-in-Python)
+  + [38. Foundations of Deep Learning: Part 2](https://edu.machinelearningplus.com/s/store/courses/description//Foundation-of-Deep-Learning-Part-2)
+  + [39. Applied Deep Learning with PyTorch](https://edu.machinelearningplus.com/s/store/courses/description/Applied-Deep-Learning-with-PyTorch)
+  + [40. Detecting defects in Steel sheet with Computer vision](https://edu.machinelearningplus.com/s/store/courses/description/Detecting-Defects-in-Steel-Sheets-with-Computer-Vision)
+  + [41. Project Text Generation using Language models with LSTM](https://edu.machinelearningplus.com/s/store/courses/description/Project-Text-Generation-using-Language-Models-with-LSTM)
+  + [42. Project Classifying Sentiment of reviews using BERT NLP](https://edu.machinelearningplus.com/s/store/courses/description/Project-Classifying-Sentiment-of-Reviews-using-BERT-NLP)
+  + [43. Spacy for NLP](https://edu.machinelearningplus.com/s/store/courses/description/Spacy-for-NLP)
+  + [44. Base R Programming](https://edu.machinelearningplus.com/s/store/courses/description/Base-R-Programming)
+  + [45. Dplyr for Data Wrangling](https://edu.machinelearningplus.com/s/store/courses/description/Dplyr-for-data-wrangling)
+  + [46. Wrangling Data with Data Table](https://edu.machinelearningplus.com/s/store/courses/description/Wrangling-data-with-DataTable)
+  + [47. GGPlot2 Visualization for Data Analysis](https://edu.machinelearningplus.com/s/store/courses/description/GGPlot2-visualization-for-data-analysis)
+  + [48. Statistical foundation for ML in R](https://edu.machinelearningplus.com/s/store/courses/description/Statistical-Foundations-for-ML-in-R)
+  + [49. Regression Model in R](https://edu.machinelearningplus.com/s/store/courses/description/Statistical-modeling-with-linear--logistics-regression)
+  + [50. Caret Package in R](https://edu.machinelearningplus.com/s/store/courses/description/Caret-package-in-R)
+* [Python](#)
+  + [Introduction to Python](#)
+    - [Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+    - [Decorators in Python](https://machinelearningplus.com/python/decorators-in-python-how-to-enhance-functions-without-changing-the-code/)
+    - [Generators in Python](https://machinelearningplus.com/python/generators-in-python/)
+    - [Iterators in Python](https://machinelearningplus.com/python/iterators-in-python-iterables-vs-iterators/)
+    - [Python Module](https://machinelearningplus.com/python/python-module-packages/)
+    - [Object Oriented Programming (OOPS) in Python](https://machinelearningplus.com/python/object-oriented-programming-oops-in-python/)
+    - [List Comprehension](https://machinelearningplus.com/python/list-comprehensions-in-python/)
+    - [Requests in Python](https://machinelearningplus.com/python/requests-in-python/)
+    - [Python Collections](https://machinelearningplus.com/python-collections-guide/)
+    - [Python Logging](https://machinelearningplus.com/python/python-logging-guide/)
+  + [Plots](#)
+    - [Matplotlib Tutorial](https://machinelearningplus.com/plots/matplotlib-plotting-tutorial/)
+    - [Matplotlib Histogram](https://machinelearningplus.com/plots/matplotlib-histogram-python-examples/)
+    - [Bar Plot in Python](https://machinelearningplus.com/plots/bar-plot-in-python/)
+    - [Python Boxplot](https://machinelearningplus.com/plots/python-boxplot/)
+    - [Waterfall Plot in Python](https://machinelearningplus.com/waterfall-plot-in-python/)
+    - [Top 50 matplotlib Visualizations](https://machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python/)
+    - [Matplotlib Tutorial](https://machinelearningplus.com/plots/matplotlib-tutorial-complete-guide-python-plot-examples/)
+    - [Matplotlib Pyplot](https://machinelearningplus.com/plots/matplotlib-pyplot/)
+    - [Python Scatter Plot](https://machinelearningplus.com/plots/python-scatter-plot/)
+    - [Matplotlib Subplots](https://machinelearningplus.com/plots/subplots-python-matplotlib/)
+  + [Data Wrangling](#)
+    - [101 NumPy Exercises for Data Analysis (Python)](https://machinelearningplus.com/python/101-numpy-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [Dask](https://machinelearningplus.com/python/dask-tutorial/)
+    - [Modin](https://machinelearningplus.com/python/modin-speedup-pandas/)
+    - [Numpy Tutorial](https://machinelearningplus.com/python/numpy-tutorial-part1-array-python-examples/)
+    - [data.table in R](https://machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/)
+    - [101 Python datatable Exercises (pydatatable)](https://machinelearningplus.com/data-manipulation/101-python-datatable-exercises-pydatatable/)
+    - [101 R data.table Exercises](https://machinelearningplus.com/data-manipulation/101-r-data-table-exercises/)
+  + [Advanced Python](#)
+    - [Conda create environment and everything you need to know to manage conda virtual environment](https://machinelearningplus.com/deployment/conda-create-environment-and-everything-you-need-to-know-to-manage-conda-virtual-environment/)
+    - [Python @Property Explained](https://machinelearningplus.com/python/python-property/)
+    - [pdb – How to use Python debugger](https://machinelearningplus.com/python/python-debugger-pdb/)
+    - [Python JSON – Guide](https://machinelearningplus.com/python-json-guide/)
+    - [cProfile – How to profile your python code](https://machinelearningplus.com/python/cprofile-how-to-profile-your-python-code/)
+    - [Python Yield](https://machinelearningplus.com/python/what-does-yield-keyword-do/)
+    - [Lambda Function in Python](https://machinelearningplus.com/python/lambda-function/)
+    - [What does Python Global Interpreter Lock](https://machinelearningplus.com/python/python-global-interpreter-lock-gil/)
+    - [Install opencv python](https://machinelearningplus.com/python/install-opencv-python/)
+    - [Install pip mac](https://machinelearningplus.com/python/install-pip-mac-how-to-install-pip-in-macos-a-comprehensive-guide/)
+    - [Scrapy vs. Beautiful Soup](https://machinelearningplus.com/python/scrapy-vs-beautiful-soup-which-is-better-for-web-scraping/)
+    - [Add Python to PATH](https://machinelearningplus.com/python/add-python-to-path-how-to-add-python-to-the-path-environment-variable-in-windows/)
+  + [PySpark](#)
+    - [Introduction to Pyspark](https://machinelearningplus.com/pyspark/introduction-to-pyspark/)
+    - [Power of Pyspark](https://machinelearningplus.com/pyspark/power-of-pyspark/)
+    - [Install PySpark on Windows](https://machinelearningplus.com/pyspark/install-pyspark-on-windows/)
+    - [Install PySpark on MAC](https://machinelearningplus.com/pyspark/install-pyspark-on-mac/)
+    - [Install PySpark on Linux](https://machinelearningplus.com/pyspark/install-pyspark-on-linux/)
+    - [What is Sparksession](https://machinelearningplus.com/pyspark/what-is-sparksession/)
+    - [Read and Write files using PySpark](https://machinelearningplus.com/pyspark/read-and-write-files-using-pyspark/)
+    - [Pyspark Show](https://machinelearningplus.com/pyspark/pyspark-show/)
+    - [Run SQL Queries with PySpark](https://machinelearningplus.com/pyspark/run-sql-queries-with-pyspark/)
+    - [PySpark Pandas API](https://machinelearningplus.com/pyspark/pyspark-pandas-api/)
+    - [Select columns in PySpark dataframe](https://machinelearningplus.com/pyspark/select-columns-in-pyspark-dataframe/)
+    - [PySpark withColumn()](https://machinelearningplus.com/pyspark/pyspark-withcolumn/)
+    - [Pyspark Drop Columns](https://machinelearningplus.com/pyspark/pyspark-drop-columns/)
+    - [PySpark Rename Columns](https://machinelearningplus.com/pyspark/pyspark-rename-columns/)
+    - [PySpark Filter vs Where](https://machinelearningplus.com/pyspark/pyspark-filter-vs-where/)
+    - [PySpark orderBy() and sort()](https://machinelearningplus.com/pyspark/pyspark-orderby-and-sort/)
+    - [PySpark GroupBy()](https://machinelearningplus.com/pyspark/pyspark-groupby/)
+    - [PySpark Pivot](https://machinelearningplus.com/pyspark/pyspark-pivot/)
+    - [PySpark Joins](https://machinelearningplus.com/pyspark/pyspark-joins/)
+    - [PySpark Union](https://machinelearningplus.com/pyspark/pyspark-union/)
+    - [PySpark Connect to MySQL](https://machinelearningplus.com/pyspark/pyspark-connect-to-mysql/)
+    - [PySpark Connect to PostgreSQL](https://machinelearningplus.com/pyspark/pyspark-connect-to-postgresql/)
+    - [PySpark Connect to SQL Serve](https://machinelearningplus.com/pyspark/pyspark-connect-to-sql-serve/)
+    - [PySpark Connect to Redshift](https://machinelearningplus.com/pyspark/pyspark-connect-to-redshift/)
+    - [PySpark Connect to Snowflake](https://machinelearningplus.com/pyspark/pyspark-connect-to-snowflake/)
+    - [PySpark Linear Regression](https://machinelearningplus.com/pyspark/pyspark-linear-regression/)
+    - [PySpark Logistic Regression](https://machinelearningplus.com/pyspark/pyspark-logistic-regression/)
+    - [PySpark Decision Tree](https://machinelearningplus.com/pyspark/pyspark-decision-tree/)
+    - [PySpark Ridge Regression](https://machinelearningplus.com/pyspark/pyspark-ridge-regression/)
+    - [PySpark Lasso Regression](https://machinelearningplus.com/pyspark/pyspark-lasso-regression/)
+    - [PySpark Random Forest](https://machinelearningplus.com/pyspark/pyspark-random-forest/)
+    - [PySpark Gradient Boosting model](https://machinelearningplus.com/pyspark/pyspark-gradient-boosting-model/)
+    - [PySpark Mllib K-Means Clustering](https://machinelearningplus.com/pyspark/pyspark-mllib-k-means-clustering/)
+    - [PySpark Statistics Mean](https://machinelearningplus.com/pyspark/pyspark-statistics-mean/)
+    - [PySpark Statistics Median](https://machinelearningplus.com/pyspark/pyspark-statistics-median/)
+    - [PySpark Statistics Mode](https://machinelearningplus.com/pyspark/pyspark-statistics-mode/)
+    - [PySpark Statistics Standard Deviation](https://machinelearningplus.com/pyspark/pyspark-statistics-standard-deviation/)
+    - [PySpark Statistics Variance](https://machinelearningplus.com/pyspark/pyspark-statistics-variance/)
+    - [PySpark Statistics Deciles and Quartiles](https://machinelearningplus.com/pyspark/pyspark-statistics-deciles-and-quartiles/)
+    - [PySpark Correlation](https://machinelearningplus.com/pyspark/pyspark-correlation/)
+    - [PySpark Chi-Square Test](https://machinelearningplus.com/pyspark/pyspark-chi-square-test/)
+    - [PySpark Variable type Identification](https://machinelearningplus.com/pyspark/pyspark-variable-type-identification/)
+    - [PySpark Outlier Detection and Treatment](https://machinelearningplus.com/pyspark/pyspark-outlier-detection-and-treatment/)
+    - [PySpark Missing Data Imputation](https://machinelearningplus.com/pyspark/pyspark-missing-data-imputation/)
+    - [PySpark Variance Inflation Factor (VIF)](https://machinelearningplus.com/pyspark/pyspark-variance-inflation-factor/)
+    - [PySpark StringIndexer](https://machinelearningplus.com/pyspark/pyspark-stringindexer/)
+    - [PySpark OneHot Encoding](https://machinelearningplus.com/pyspark/pyspark-onehot-encoding/)
+    - [PySpark Exercises – 101 PySpark Exercises for Data Analysis](https://machinelearningplus.com/pyspark/pyspark-exercises-101-pyspark-exercises-for-data-analysis/)
+    - [Others](#)
+      * [Deployment](#)
+        + [Population Stability Index (PSI)](https://machinelearningplus.com/deployment/population-stability-index-psi/)
+        + [Deploy ML model in AWS Ec2](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+      * [Julia](#)
+        + [Julia – Programming Language](https://machinelearningplus.com/julia/julia-programming-language/)
+        + [Linear Regression in Julia](https://machinelearningplus.com/linear-regression-in-julia/)
+        + [Logistic Regression in Julia](https://machinelearningplus.com/julia/logistic-regression-in-julia-practical-guide-with-examples/)
+        + [For-Loop in Julia](https://machinelearningplus.com/julia/for-loop-in-julia/)
+        + [While-loop in Julia](https://machinelearningplus.com/julia/while-loop-in-julia/)
+        + [Function in Julia](https://machinelearningplus.com/julia/function-in-julia/)
+        + [DataFrames in Julia](https://machinelearningplus.com/julia/dataframes-in-julia/)
+      * [Linux](#)
+        + [ls command in Linux – Mastering the “ls” command in Linux](https://machinelearningplus.com/linux/ls-command-in-linux/)
+        + [mkdir command in Linux – A comprehensive guide for mkdir command](https://machinelearningplus.com/linux/mkdir-command-in-linux/)
+        + [cd command in linux – Mastering the ‘cd’ command in Linux](https://machinelearningplus.com/linux/cd-command-in-linux/)
+        + [cat command in Linux – Mastering the ‘cat’ command in Linux](https://machinelearningplus.com/linux/cat-command-in-linux/)
+        + [Linux Commands List with Examples](https://machinelearningplus.com/linux/linux-commands/)
+* [Machine Learning](#)
+  + [Deep Learning](#)
+    - [TensorFlow vs PyTorch](https://machinelearningplus.com/deep-learning/tensorflow1-vs-tensorflow2-vs-pytorch/)
+    - [How to use tf.function to speed up Python code in Tensorflow](https://machinelearningplus.com/deep-learning/how-use-tf-function-to-speed-up-python-code-tensorflow/)
+    - [How to implement Linear Regression in TensorFlow](https://machinelearningplus.com/deep-learning/linear-regression-tensorflow/)
+  + [NLP](#)
+    - [Complete Guide to Natural Language Processing (NLP)](https://machinelearningplus.com/nlp/natural-language-processing-guide/)
+    - [Text Summarization Approaches for NLP](https://machinelearningplus.com/nlp/text-summarization-approaches-nlp-example/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+    - [Gensim Tutorial](https://machinelearningplus.com/nlp/gensim-tutorial/)
+    - [LDA in Python](https://machinelearningplus.com/nlp/topic-modeling-python-sklearn-examples/)
+    - [Topic Modeling with Gensim (Python)](https://machinelearningplus.com/nlp/topic-modeling-gensim-python/)
+    - [Lemmatization Approaches with Examples in Python](https://machinelearningplus.com/nlp/lemmatization-examples-python/)
+    - [Topic modeling visualization](https://machinelearningplus.com/nlp/topic-modeling-visualization-how-to-present-results-lda-models/)
+    - [Cosine Similarity](https://machinelearningplus.com/nlp/cosine-similarity/)
+    - [spaCy Tutorial](https://machinelearningplus.com/spacy-tutorial-nlp/)
+    - [Training Custom NER models in SpaCy to auto-detect named entities](https://machinelearningplus.com/nlp/training-custom-ner-model-in-spacy/)
+    - [Building chatbot with Rasa and spaCy](https://machinelearningplus.com/nlp/chatbot-with-rasa-and-spacy/)
+    - [SpaCy Text Classification](https://machinelearningplus.com/nlp/custom-text-classification-spacy/)
+  + [Algorithms](#)
+    - [K-Means Clustering Algorithm from Scratch](https://machinelearningplus.com/predictive-modeling/k-means-clustering/)
+    - [Simulated Annealing Algorithm Explained from Scratch](https://machinelearningplus.com/machine-learning/simulated-annealing-algorithm-explained-from-scratch-python/)
+    - [How Naive Bayes Algorithm Works?](https://machinelearningplus.com/predictive-modeling/how-naive-bayes-algorithm-works-with-example-and-full-code/)
+    - [Feature selection using FRUFS and VevestaX](https://machinelearningplus.com/deployment/feature-selection-using-frufs-and-vevestax/)
+    - [Principal Component Analysis](https://machinelearningplus.com/machine-learning/principal-components-analysis-pca-better-explained/)
+    - [Gradient Boosting](https://machinelearningplus.com/machine-learning/gradient-boosting/)
+    - [Feature Selection – Ten Effective Techniques with Examples](https://machinelearningplus.com/machine-learning/feature-selection/)
+  + [Projects](#)
+    - [Evaluation Metrics for Classification Models](https://machinelearningplus.com/machine-learning/evaluation-metrics-classification-models-r/)
+    - [Deploy ML model in AWS Ec2](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+    - [Portfolio Optimization with Python using Efficient Frontier](https://machinelearningplus.com/machine-learning/portfolio-optimization-python-example/)
+    - [Bias Variance Tradeoff](https://machinelearningplus.com/machine-learning/bias-variance-tradeoff/)
+  + [Specific Topics](#)
+    - [Logistic Regression](https://machinelearningplus.com/machine-learning/logistic-regression-tutorial-examples-r/)
+    - [Complete Introduction to Linear Regression in R](https://machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/)
+    - [Caret Package](https://machinelearningplus.com/machine-learning/caret-package/)
+    - [Brier Score](https://machinelearningplus.com/statistics/brier-score/)
+* [Time Series](#)
+  + [Granger Causality Test](https://machinelearningplus.com/time-series/granger-causality-test/)
+  + [Augmented Dickey Fuller Test (ADF Test)](https://machinelearningplus.com/time-series/augmented-dickey-fuller-test/)
+  + [KPSS Test for Stationarity](https://machinelearningplus.com/time-series/kpss-test-for-stationarity/)
+  + [ARIMA Model](https://machinelearningplus.com/time-series/arima-model-time-series-forecasting-python/)
+  + [Time Series Analysis in Python](https://machinelearningplus.com/time-series/time-series-analysis-python/)
+  + [Vector Autoregression (VAR)](https://machinelearningplus.com/time-series/vector-autoregression-examples-python/)
+* [Prob and Stats](#)
+  + [Probability](https://machinelearningplus.com/category/probability/)
+    - [Introduction to Probability](https://machinelearningplus.com/probability/introduction-to-probability/)
+    - [Odds and Odds Ratios](https://machinelearningplus.com/probability/odds-and-odds-ratios/)
+    - [Independent and Dependent Events](https://machinelearningplus.com/probability/independent-and-dependent-events/)
+    - [Mutually Exclusive Events](https://machinelearningplus.com/probability/mutually-exclusive-events/)
+    - [Joint Probability](https://machinelearningplus.com/probability/joint-probability/)
+    - [Conditional Probability](https://machinelearningplus.com/probability/conditional-probability/)
+    - [Bayes’ Theorem](https://machinelearningplus.com/probability/bayes-theorem/)
+    - [Expected Value](https://machinelearningplus.com/probability/expected-value/)
+    - [Probability frequency distribution](https://machinelearningplus.com/probability/probability-frequency-distribution/)
+    - [Discrete Frequency Distributions](https://machinelearningplus.com/probability/discrete-frequency-distributions/)
+    - [Continuous Frequency Distributions](https://machinelearningplus.com/probability/continuous-frequency-distributions/)
+  + [Partial Correlation](https://machinelearningplus.com/statistics/partial-correlation/)
+  + [Chi-Square Test – Theory & Math](https://machinelearningplus.com/demo-videos/chi-square-test/)
+  + [Gentle Introduction to Markov Chain](https://machinelearningplus.com/markov-chain/)
+  + [What is P-Value?](https://machinelearningplus.com/statistics/what-is-p-value/)
+  + [How to implement common statistical significance tests and find the p value?](https://machinelearningplus.com/statistics/statistical-significance-tests-r/)
+  + [Mahalanobis Distance](https://machinelearningplus.com/statistics/mahalanobis-distance/)
+  + [T Test (Students T Test)](https://machinelearningplus.com/statistics/t-test-students-understanding-the-math-and-how-it-works/)
+  + [Confidence Interval in Statistics](https://machinelearningplus.com/statistics/confidence-interval/)
+  + [Standard Error in Statistics](https://machinelearningplus.com/statistics/standard-error/)
+  + [One Sample T Test](https://machinelearningplus.com/statistics/one-sample-t-test/)
+  + [Descriptive and inferential statistics](https://machinelearningplus.com/statistics/descriptive-and-inferential-statistics/)
+  + [Types of data in statistics](https://machinelearningplus.com/statistics/types-of-data-in-statistics/)
+  + [Measures of central tendency](https://machinelearningplus.com/statistics/measures-of-central-tendency/)
+  + [Quantiles and Percentiles](https://machinelearningplus.com/statistics/quantiles-and-percentiles/)
+  + [Measures of dispersion](https://machinelearningplus.com/statistics/measures-of-dispersion/)
+  + [Skewness and kurtosis](https://machinelearningplus.com/statistics/skewness-and-kurtosis/)
+  + [Central Limit Theroem](https://machinelearningplus.com/statistics/central-limit-theorem/)
+  + [Law of large numbers](https://machinelearningplus.com/statistics/law-of-large-numbers/)
+  + [Standard Error](https://machinelearningplus.com/statistics/standard-error/)
+  + [Sampling and sampling distributions](https://machinelearningplus.com/statistics/sampling-and-sampling-distributions/)
+  + [Correlation](https://machinelearningplus.com/statistics/correlation/)
+* [SQL](https://machinelearningplus.com/category/sql/)
+  + [SQL Tutorial – The Introduction](https://machinelearningplus.com/sql/sql-tutorial/)
+  + [SQL Subquery (advanced)](https://machinelearningplus.com/sql/sql-subquery/)
+  + [SQL Window Functions (advanced)](https://machinelearningplus.com/sql/sql-window-functions/)
+  + [SQL Window Functions Exercises – Set 1](https://machinelearningplus.com/sql/sql-window-functions-exercises/)
+  + [SQL Window Functions Exercises – Set 2](https://machinelearningplus.com/sql/sql-window-function-exercises-and-solutions-set-2/)
+  + [Intro to SQL](https://machinelearningplus.com/sql/introduction-to-sql/)
+  + [SQL Select](https://machinelearningplus.com/sql/sql-select-statement/)
+  + [SQL Select Distinct](https://machinelearningplus.com/sql/sql-select-distinct/)
+  + [SQL Where](https://machinelearningplus.com/sql/sql-where-clause/)
+  + [SQL Order by](https://machinelearningplus.com/sql/sql-order-by/)
+  + [SQL Insert Into](https://machinelearningplus.com/sql/sql-insert-into/)
+  + [SQL AND, OR, and NOT](https://machinelearningplus.com/sql/sql-and-or-not-operators/)
+  + [SQL Null Values](https://machinelearningplus.com/sql/sql-null-values/)
+  + [SQL Update](https://machinelearningplus.com/sql/sql-update/)
+  + [SQL DELETE](https://machinelearningplus.com/sql/sql-delete/)
+  + [SQL SELECT TOP](https://machinelearningplus.com/sql/sql-select-top/)
+  + [SQL MIN and MAX Functions](https://machinelearningplus.com/sql/sql-min-and-max/)
+  + [SQL Count(), Avg(), Sum()](https://machinelearningplus.com/sql/sql-count-avg-sum/)
+  + [SQL LIKE](https://machinelearningplus.com/sql/sql-like/)
+  + [SQL Wildcards](https://machinelearningplus.com/sql/sql-wildcards/)
+  + [SQL IN](https://machinelearningplus.com/sql/sql_in/)
+  + [SQL BETWEEN](https://machinelearningplus.com/sql/sql-between/)
+  + [SQL Aliases](https://machinelearningplus.com/sql/sql-aliases/)
+  + [SQL Joins](https://machinelearningplus.com/sql/sql-joins/)
+  + [SQL Inner Join](https://machinelearningplus.com/sql/sql-inner-join/)
+  + [SQL Left Join](https://machinelearningplus.com/sql/sql-left-join/)
+  + [SQL Right Join](https://machinelearningplus.com/sql/sql-right-join/)
+  + [SQL Full Join](https://machinelearningplus.com/sql/sql-full-join/)
+  + [SQL Self Join](https://machinelearningplus.com/sql/sql-self-join/)
+  + [SQL UNION](https://machinelearningplus.com/sql/sql-union/)
+  + [SQL GROUP BY](https://machinelearningplus.com/sql/sql-group-by/)
+  + [SQL HAVING](https://machinelearningplus.com/sql/sql-having/)
+  + [SQL EXISTS](https://machinelearningplus.com/sql/sql-exists/)
+  + [SQL ANY, ALL Operators](https://machinelearningplus.com/sql/sql-any-all-operators/)
+  + [How to transpose columns to rows in SQL?](https://machinelearningplus.com/sql/how-to-transpose-columns-to-rows-in-sql/)
+  + [How to select only rows with max value on a column?](https://machinelearningplus.com/sql/how-to-select-only-rows-with-max-value-on-a-column/)
+  + [SQL Select Into](https://machinelearningplus.com/sql/sql-select-into/)
+  + [SQL Insert Into Select](https://machinelearningplus.com/sql/sql-insert-into-select/)
+  + [SQL Case](https://machinelearningplus.com/sql/sql-case/)
+  + [SQL Null Functions](https://machinelearningplus.com/sql/sql-null-functions/)
+  + [SQL Comments](https://machinelearningplus.com/sql/sql-comments/)
+  + [SQL Operators](https://machinelearningplus.com/sql/sql-operators/)
+  + [SQL Create Table](https://machinelearningplus.com/sql/sql-create-table/)
+  + [SQL Drop Table](https://machinelearningplus.com/sql/sql-drop-table/)
+  + [SQL Primary Key](https://machinelearningplus.com/sql/sql-primary-key/)
+  + [SQL Foreign Key](https://machinelearningplus.com/sql/sql-foreign-key/)
+  + [Sort multiple columns in SQL and in different directions?](https://machinelearningplus.com/sql/how-to-sort-multiple-columns-in-sql-and-in-different-directions/)
+  + [Count the number of work days between two dates?](https://machinelearningplus.com/sql/how-to-count-the-number-of-work-days-between-two-dates/)
+  + [Compute maximum of multiple columns, aks row wise max?](https://machinelearningplus.com/sql/how-to-compute-maximum-of-multiple-columns-aks-row-wise-max/)
+  + [GROUP BY clause on multiple columns in SQL?](https://machinelearningplus.com/sql/how-to-use-the-group-by-clause-on-multiple-columns-in-sql/)
+* [Linear Algebra](https://machinelearningplus.com/category/linear-algebra/)
+  + [01. Introduction to Linear Algebra](https://machinelearningplus.com/linear-algebra/introduction-to-linear-algebra/)
+  + [02. Types of Tensors](https://machinelearningplus.com/linear-algebra/types-of-tensors/)
+  + [03. Scalars](https://machinelearningplus.com/linear-algebra/scalars/)
+  + [04. Vectors](https://machinelearningplus.com/linear-algebra/vectors/)
+  + [05. Vectors Linear Algebra](https://machinelearningplus.com/linear-algebra/vectors-linear-algebra/)
+  + [06. Matrix Types](https://machinelearningplus.com/linear-algebra/matrix-types/)
+  + [07. Matrix Operations](https://machinelearningplus.com/linear-algebra/matrix-operations/)
+  + [08. Orthogonal and Ortrhonormal Matrix](https://machinelearningplus.com/linear-algebra/orthogonal-matrix/)
+  + [09. Eigenvectors and Eigenvalues](https://machinelearningplus.com/linear-algebra/eigenvectors-and-eigenvalues/)
+  + [10. Affine Transformation](https://machinelearningplus.com/linear-algebra/affine-transformation/)
+  + [11. Singular Value Decomposition (SVD)](https://machinelearningplus.com/linear-algebra/singular-value-decomposition/)
+  + [12. System of Equations](https://machinelearningplus.com/linear-algebra/system-of-equations/)
+  + [13. Linear Regression Algorithm](https://machinelearningplus.com/linear-algebra/linear-regression-algorithm/)
+  + [14. Principal Component Analysis](https://machinelearningplus.com/linear-algebra/principal-component-analysis/)
+
+Menu
+
+* [Getting Started](#)
+  + [#1. How to formulate machine learning problem](https://machinelearningplus.com/machine-learning/how-to-formulate-machine-learning-problem/)
+  + [#2. Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+  + [#3. Exploratory Data Analysis (EDA)](https://machinelearningplus.com/machine-learning/exploratory-data-analysis-eda/)
+  + [#4. How to reduce the memory size of Pandas Data frame](https://machinelearningplus.com/data-manipulation/how-to-reduce-the-memory-size-of-pandas-data-frame/)
+  + [#5. Missing Data Imputation Approaches](https://machinelearningplus.com/machine-learning/missing-data-imputation-how-to-handle-missing-values-in-python/)
+  + [#6. Interpolation in Python](https://machinelearningplus.com/machine-learning/interpolation-in-python-how-to-interpolate-missing-data-formula-approaches/)
+  + [#7. MICE imputation](https://machinelearningplus.com/machine-learning/mice-imputation/)
+  + [#8. How to detect outliers using IQR and Boxplots?](https://machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/)
+  + [#9. How to detect outliers with z-score](https://machinelearningplus.com/machine-learning/how-to-detect-outliers-with-z-score/)
+* [Beginners Corner](#)
+  + [How to formulate machine learning problem](https://machinelearningplus.com/machine-learning/how-to-formulate-machine-learning-problem/)
+  + [Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+  + [What is a Data Scientist?](https://machinelearningplus.com/general/what-is-a-data-scientist-roles-responsibilities-skillsets-career-path-and-salary/)
+  + [The story of how Data Scientists came into existence](https://machinelearningplus.com/general/the-story-of-how-data-scientists-came-into-existence/)
+  + [Task Checklist for Almost Any Machine Learning Project](https://machinelearningplus.com/machine-learning/task-checklist-for-almost-any-machine-learning-project/)
+  + [Data Science Roadmap (2023)](https://machinelearningplus.com/machine-learning/data-science-roadmap-how-to-become-a-data-scientist/)
+  + [Why learn the math behind Machine Learning and AI?](https://machinelearningplus.com/machine-learning/why-learn-math-behind-machine-learning-and-ai/)
+  + [Mistakes programmers make when starting machine learning](https://machinelearningplus.com/machine-learning/mistakes-programmers-make-when-starting-machine-learning/)
+  + [Machine Learning Use Cases](https://machinelearningplus.com/machine-learning/machine-learning-use-cases-big-list-of-applications-by-vertical-and-industry/)
+  + [How to deal with Big Data in Python for ML Projects (100+ GB)?](https://machinelearningplus.com/python/how-to-deal-with-big-data-in-python/)
+  + [Main Pitfalls in Machine Learning Projects](https://machinelearningplus.com/machine-learning/main-pitfalls-in-machine-learning-projects/)
+* [Courses](https://edu.machinelearningplus.com/s/pages/ds-career-path)
+  + [1. Foundations of Machine Learning](https://edu.machinelearningplus.com/courses/foundations-of-machine-learning-60ee63930cf219bfb8976e20)
+  + [2. Python Programming](https://edu.machinelearningplus.com/courses/Python-Programming-628f8abb0cf22aee960e8234)
+  + [3. NumPy for Data Science](https://edu.machinelearningplus.com/courses/Numpy-for-Data-Science-60f52e910cf2fd18f9746aa8)
+  + [4. Pandas for Data Science](https://edu.machinelearningplus.com/courses/Pandas-for-Data-Science-60d86a880cf221904e2d2659)
+  + [5. Linux Command](https://edu.machinelearningplus.com/courses/Linux-command-line-63c19eb7e4b0fe07b03d04d1)
+  + [6. SQL for Data Science – Level 1](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---I-64e44a6ae4b029e71084e061)
+  + [7. SQL for Data Science – Level 2](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Level-2-64eda5c3e4b0acf4a9d5a44a)
+  + [8. SQL for Data Science – Level 3](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Level-3-1693983225181-64f821f9e4b0bfa66a900c29)
+  + [9. SQL for Data Science – Window Functions](https://edu.machinelearningplus.com/courses/SQL-for-Data-Science---Window-Functions-6512753de4b01fed60989c71)
+  + [10. Data Pre-processing and EDA](https://edu.machinelearningplus.com/courses/data-pre-processing-and-eda-612b0d930cf214574f1e2523)
+  + [11. Linear regression and regularisation](https://edu.machinelearningplus.com/courses/Linear-Regression-and-Regularisation-61976a530cf2030e987c0dd5)
+  + [12. Classification: Logistic Regression](https://edu.machinelearningplus.com/courses/Logistic-Regression-620f24580cf272600f1590a5)
+  + [13. Imbalanced Classification](https://edu.machinelearningplus.com/courses/Imbalanced-Classification-622b964f0cf227403a6a8276)
+  + [14. Supervised ML Algorithms](https://edu.machinelearningplus.com/courses/Supervised-ML-Algorithms-62765b290cf27999e58a71d2)
+  + [15. Ensemble Learning](https://edu.machinelearningplus.com/courses/Ensemble-Learning-628f8aec0cf24ec2c425a373)
+  + [16. ML Deployment in AWS EC2](https://edu.machinelearningplus.com/courses/ml-deployment-aws-ec2-6291bfdc0cf28d974b1f9447)
+  + [17. Deploy in AWS Lamda](https://edu.machinelearningplus.com/courses/Deploy-ML-Models-in-AWS-Lamda-62a2e0de0cf21f5a5bc8bb70)
+  + [18. Deploy in AWS Sagemaker](https://edu.machinelearningplus.com/courses/Deploy-ML-models-in-AWS-Sagemaker-62c535990cf2aca93945da47)
+  + [19. PySpark for Data Science – I: Fundamentals](https://edu.machinelearningplus.com/courses/PySpark-for-Machine-Learning---Level-I-652ea5e4e4b025ebcd522a94)
+  + [20. PySpark for Data Science – II: Statistics for Big Data](https://edu.machinelearningplus.com/courses/PySpark-for-Data-Science---II-Statistics-for-Big-Data-6538a705e4b0289585b852cb)
+  + [21. Introduction to Time Series Analaysis](https://edu.machinelearningplus.com/courses/Introduction-to-Time-Series-Analysis-62fe0f67e4b00a41f545c8a2)
+  + [22. Time Series Analysis – I (Beginners)](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Analysis-Part1-64195c12e4b0c09eb19a078d)
+  + [23. Time Series Analysis – II (Intermediate )](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Analysis-Part-2-6433bfb8e4b0fc4ff3d2ff3e)
+  + [24. Time Series Forecasting Part 1: Statistical Models](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Forecasting-Part-1---Statistical-Models-1681722290492-643d0bb2e4b0687fa0313bd9)
+  + [25. Time Series Forecasting Part 2: ARIMA modeling and Tests](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series-Forecasting-Part-2---Complete-ARIMA-Modeling-and-Tests-1684138875722-6461eb7be4b08ceb88377a56)
+  + [26. Time Series Forecasting Part 3: Vector Auto Regression](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Multi-Time-Series-Forecasting---Vector-Auto-Regression-64880db3e4b0618a5161d41b)
+  + [27. Time Series Analysis – III: Singular Spectrum Analysis](https://edu.machinelearningplus.com/courses/Deep-Dive-into-Time-Series---Singular-Spectrum-Analysis-64a3d105e4b05989724fc407)
+  + [28. Feature Engineering for Time Series Project: I](https://edu.machinelearningplus.com/courses/Feature-Engineering-and-Intervention-Analysis-for-Time-Series-Projects---Part-1-1689663510598-64b63816e4b0493d3bdf0c22)
+  + [29. Feature Engineering for Time Series Projects: II](https://edu.machinelearningplus.com/courses/Feature-Engineering-and-Intervention-Analysis-for-Time-Series-Projects---Part-2-64c0bb33e4b06ae8ef38eb5e)
+  + [31. Estimating customer lifetime value for business](https://edu.machinelearningplus.com/s/store/courses/description/Estimating-Customer-Lifetime-Value-for-Business)
+  + [32. Microsoft malware detection project](https://edu.machinelearningplus.com/s/store/courses/description/Microsoft-Malware-Detection-Project)
+  + [33. Credit card fraud detection](https://edu.machinelearningplus.com/s/store/courses/description/credit-card-fraud-detection)
+  + [34. Restaurant Visitor Forecasting](https://edu.machinelearningplus.com/s/store/courses/description/Restaurant-Visitor-Forecasting)
+  + [35. Optimizing Marketing Budget Spend with Marketing Mix Modeling](https://edu.machinelearningplus.com/courses/Optimizing-Marketing-Budget-Spend-with-Market-Mix-Modelling-63285657e4b06a9c72d4c560)
+  + [36. Predict Rating given Amazon Product review using NLP](https://edu.machinelearningplus.com/courses/Predict-Rating-given-Amazon-Product-Reviews-using-NLP-6303266fe4b0671e1515c950)
+  + [37. Foundations of Deep Learning in Python](https://edu.machinelearningplus.com/s/store/courses/description/Foundations-of-Deep-Learning-in-Python)
+  + [38. Foundations of Deep Learning: Part 2](https://edu.machinelearningplus.com/s/store/courses/description//Foundation-of-Deep-Learning-Part-2)
+  + [39. Applied Deep Learning with PyTorch](https://edu.machinelearningplus.com/s/store/courses/description/Applied-Deep-Learning-with-PyTorch)
+  + [40. Detecting defects in Steel sheet with Computer vision](https://edu.machinelearningplus.com/s/store/courses/description/Detecting-Defects-in-Steel-Sheets-with-Computer-Vision)
+  + [41. Project Text Generation using Language models with LSTM](https://edu.machinelearningplus.com/s/store/courses/description/Project-Text-Generation-using-Language-Models-with-LSTM)
+  + [42. Project Classifying Sentiment of reviews using BERT NLP](https://edu.machinelearningplus.com/s/store/courses/description/Project-Classifying-Sentiment-of-Reviews-using-BERT-NLP)
+  + [43. Spacy for NLP](https://edu.machinelearningplus.com/s/store/courses/description/Spacy-for-NLP)
+  + [44. Base R Programming](https://edu.machinelearningplus.com/s/store/courses/description/Base-R-Programming)
+  + [45. Dplyr for Data Wrangling](https://edu.machinelearningplus.com/s/store/courses/description/Dplyr-for-data-wrangling)
+  + [46. Wrangling Data with Data Table](https://edu.machinelearningplus.com/s/store/courses/description/Wrangling-data-with-DataTable)
+  + [47. GGPlot2 Visualization for Data Analysis](https://edu.machinelearningplus.com/s/store/courses/description/GGPlot2-visualization-for-data-analysis)
+  + [48. Statistical foundation for ML in R](https://edu.machinelearningplus.com/s/store/courses/description/Statistical-Foundations-for-ML-in-R)
+  + [49. Regression Model in R](https://edu.machinelearningplus.com/s/store/courses/description/Statistical-modeling-with-linear--logistics-regression)
+  + [50. Caret Package in R](https://edu.machinelearningplus.com/s/store/courses/description/Caret-package-in-R)
+* [Python](#)
+  + [Introduction to Python](#)
+    - [Setup Python environment for ML](https://machinelearningplus.com/machine-learning/setup-python/)
+    - [Decorators in Python](https://machinelearningplus.com/python/decorators-in-python-how-to-enhance-functions-without-changing-the-code/)
+    - [Generators in Python](https://machinelearningplus.com/python/generators-in-python/)
+    - [Iterators in Python](https://machinelearningplus.com/python/iterators-in-python-iterables-vs-iterators/)
+    - [Python Module](https://machinelearningplus.com/python/python-module-packages/)
+    - [Object Oriented Programming (OOPS) in Python](https://machinelearningplus.com/python/object-oriented-programming-oops-in-python/)
+    - [List Comprehension](https://machinelearningplus.com/python/list-comprehensions-in-python/)
+    - [Requests in Python](https://machinelearningplus.com/python/requests-in-python/)
+    - [Python Collections](https://machinelearningplus.com/python-collections-guide/)
+    - [Python Logging](https://machinelearningplus.com/python/python-logging-guide/)
+  + [Plots](#)
+    - [Matplotlib Tutorial](https://machinelearningplus.com/plots/matplotlib-plotting-tutorial/)
+    - [Matplotlib Histogram](https://machinelearningplus.com/plots/matplotlib-histogram-python-examples/)
+    - [Bar Plot in Python](https://machinelearningplus.com/plots/bar-plot-in-python/)
+    - [Python Boxplot](https://machinelearningplus.com/plots/python-boxplot/)
+    - [Waterfall Plot in Python](https://machinelearningplus.com/waterfall-plot-in-python/)
+    - [Top 50 matplotlib Visualizations](https://machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python/)
+    - [Matplotlib Tutorial](https://machinelearningplus.com/plots/matplotlib-tutorial-complete-guide-python-plot-examples/)
+    - [Matplotlib Pyplot](https://machinelearningplus.com/plots/matplotlib-pyplot/)
+    - [Python Scatter Plot](https://machinelearningplus.com/plots/python-scatter-plot/)
+    - [Matplotlib Subplots](https://machinelearningplus.com/plots/subplots-python-matplotlib/)
+  + [Data Wrangling](#)
+    - [101 NumPy Exercises for Data Analysis (Python)](https://machinelearningplus.com/python/101-numpy-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [101 Pandas Exercises for Data Analysis](https://machinelearningplus.com/python/101-pandas-exercises-python/)
+    - [Dask](https://machinelearningplus.com/python/dask-tutorial/)
+    - [Modin](https://machinelearningplus.com/python/modin-speedup-pandas/)
+    - [Numpy Tutorial](https://machinelearningplus.com/python/numpy-tutorial-part1-array-python-examples/)
+    - [data.table in R](https://machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/)
+    - [101 Python datatable Exercises (pydatatable)](https://machinelearningplus.com/data-manipulation/101-python-datatable-exercises-pydatatable/)
+    - [101 R data.table Exercises](https://machinelearningplus.com/data-manipulation/101-r-data-table-exercises/)
+  + [Advanced Python](#)
+    - [Conda create environment and everything you need to know to manage conda virtual environment](https://machinelearningplus.com/deployment/conda-create-environment-and-everything-you-need-to-know-to-manage-conda-virtual-environment/)
+    - [Python @Property Explained](https://machinelearningplus.com/python/python-property/)
+    - [pdb – How to use Python debugger](https://machinelearningplus.com/python/python-debugger-pdb/)
+    - [Python JSON – Guide](https://machinelearningplus.com/python-json-guide/)
+    - [cProfile – How to profile your python code](https://machinelearningplus.com/python/cprofile-how-to-profile-your-python-code/)
+    - [Python Yield](https://machinelearningplus.com/python/what-does-yield-keyword-do/)
+    - [Lambda Function in Python](https://machinelearningplus.com/python/lambda-function/)
+    - [What does Python Global Interpreter Lock](https://machinelearningplus.com/python/python-global-interpreter-lock-gil/)
+    - [Install opencv python](https://machinelearningplus.com/python/install-opencv-python/)
+    - [Install pip mac](https://machinelearningplus.com/python/install-pip-mac-how-to-install-pip-in-macos-a-comprehensive-guide/)
+    - [Scrapy vs. Beautiful Soup](https://machinelearningplus.com/python/scrapy-vs-beautiful-soup-which-is-better-for-web-scraping/)
+    - [Add Python to PATH](https://machinelearningplus.com/python/add-python-to-path-how-to-add-python-to-the-path-environment-variable-in-windows/)
+  + [PySpark](#)
+    - [Introduction to Pyspark](https://machinelearningplus.com/pyspark/introduction-to-pyspark/)
+    - [Power of Pyspark](https://machinelearningplus.com/pyspark/power-of-pyspark/)
+    - [Install PySpark on Windows](https://machinelearningplus.com/pyspark/install-pyspark-on-windows/)
+    - [Install PySpark on MAC](https://machinelearningplus.com/pyspark/install-pyspark-on-mac/)
+    - [Install PySpark on Linux](https://machinelearningplus.com/pyspark/install-pyspark-on-linux/)
+    - [What is Sparksession](https://machinelearningplus.com/pyspark/what-is-sparksession/)
+    - [Read and Write files using PySpark](https://machinelearningplus.com/pyspark/read-and-write-files-using-pyspark/)
+    - [Pyspark Show](https://machinelearningplus.com/pyspark/pyspark-show/)
+    - [Run SQL Queries with PySpark](https://machinelearningplus.com/pyspark/run-sql-queries-with-pyspark/)
+    - [PySpark Pandas API](https://machinelearningplus.com/pyspark/pyspark-pandas-api/)
+    - [Select columns in PySpark dataframe](https://machinelearningplus.com/pyspark/select-columns-in-pyspark-dataframe/)
+    - [PySpark withColumn()](https://machinelearningplus.com/pyspark/pyspark-withcolumn/)
+    - [Pyspark Drop Columns](https://machinelearningplus.com/pyspark/pyspark-drop-columns/)
+    - [PySpark Rename Columns](https://machinelearningplus.com/pyspark/pyspark-rename-columns/)
+    - [PySpark Filter vs Where](https://machinelearningplus.com/pyspark/pyspark-filter-vs-where/)
+    - [PySpark orderBy() and sort()](https://machinelearningplus.com/pyspark/pyspark-orderby-and-sort/)
+    - [PySpark GroupBy()](https://machinelearningplus.com/pyspark/pyspark-groupby/)
+    - [PySpark Pivot](https://machinelearningplus.com/pyspark/pyspark-pivot/)
+    - [PySpark Joins](https://machinelearningplus.com/pyspark/pyspark-joins/)
+    - [PySpark Union](https://machinelearningplus.com/pyspark/pyspark-union/)
+    - [PySpark Connect to MySQL](https://machinelearningplus.com/pyspark/pyspark-connect-to-mysql/)
+    - [PySpark Connect to PostgreSQL](https://machinelearningplus.com/pyspark/pyspark-connect-to-postgresql/)
+    - [PySpark Connect to SQL Serve](https://machinelearningplus.com/pyspark/pyspark-connect-to-sql-serve/)
+    - [PySpark Connect to Redshift](https://machinelearningplus.com/pyspark/pyspark-connect-to-redshift/)
+    - [PySpark Connect to Snowflake](https://machinelearningplus.com/pyspark/pyspark-connect-to-snowflake/)
+    - [PySpark Linear Regression](https://machinelearningplus.com/pyspark/pyspark-linear-regression/)
+    - [PySpark Logistic Regression](https://machinelearningplus.com/pyspark/pyspark-logistic-regression/)
+    - [PySpark Decision Tree](https://machinelearningplus.com/pyspark/pyspark-decision-tree/)
+    - [PySpark Ridge Regression](https://machinelearningplus.com/pyspark/pyspark-ridge-regression/)
+    - [PySpark Lasso Regression](https://machinelearningplus.com/pyspark/pyspark-lasso-regression/)
+    - [PySpark Random Forest](https://machinelearningplus.com/pyspark/pyspark-random-forest/)
+    - [PySpark Gradient Boosting model](https://machinelearningplus.com/pyspark/pyspark-gradient-boosting-model/)
+    - [PySpark Mllib K-Means Clustering](https://machinelearningplus.com/pyspark/pyspark-mllib-k-means-clustering/)
+    - [PySpark Statistics Mean](https://machinelearningplus.com/pyspark/pyspark-statistics-mean/)
+    - [PySpark Statistics Median](https://machinelearningplus.com/pyspark/pyspark-statistics-median/)
+    - [PySpark Statistics Mode](https://machinelearningplus.com/pyspark/pyspark-statistics-mode/)
+    - [PySpark Statistics Standard Deviation](https://machinelearningplus.com/pyspark/pyspark-statistics-standard-deviation/)
+    - [PySpark Statistics Variance](https://machinelearningplus.com/pyspark/pyspark-statistics-variance/)
+    - [PySpark Statistics Deciles and Quartiles](https://machinelearningplus.com/pyspark/pyspark-statistics-deciles-and-quartiles/)
+    - [PySpark Correlation](https://machinelearningplus.com/pyspark/pyspark-correlation/)
+    - [PySpark Chi-Square Test](https://machinelearningplus.com/pyspark/pyspark-chi-square-test/)
+    - [PySpark Variable type Identification](https://machinelearningplus.com/pyspark/pyspark-variable-type-identification/)
+    - [PySpark Outlier Detection and Treatment](https://machinelearningplus.com/pyspark/pyspark-outlier-detection-and-treatment/)
+    - [PySpark Missing Data Imputation](https://machinelearningplus.com/pyspark/pyspark-missing-data-imputation/)
+    - [PySpark Variance Inflation Factor (VIF)](https://machinelearningplus.com/pyspark/pyspark-variance-inflation-factor/)
+    - [PySpark StringIndexer](https://machinelearningplus.com/pyspark/pyspark-stringindexer/)
+    - [PySpark OneHot Encoding](https://machinelearningplus.com/pyspark/pyspark-onehot-encoding/)
+    - [PySpark Exercises – 101 PySpark Exercises for Data Analysis](https://machinelearningplus.com/pyspark/pyspark-exercises-101-pyspark-exercises-for-data-analysis/)
+    - [Others](#)
+      * [Deployment](#)
+        + [Population Stability Index (PSI)](https://machinelearningplus.com/deployment/population-stability-index-psi/)
+        + [Deploy ML model in AWS Ec2](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+      * [Julia](#)
+        + [Julia – Programming Language](https://machinelearningplus.com/julia/julia-programming-language/)
+        + [Linear Regression in Julia](https://machinelearningplus.com/linear-regression-in-julia/)
+        + [Logistic Regression in Julia](https://machinelearningplus.com/julia/logistic-regression-in-julia-practical-guide-with-examples/)
+        + [For-Loop in Julia](https://machinelearningplus.com/julia/for-loop-in-julia/)
+        + [While-loop in Julia](https://machinelearningplus.com/julia/while-loop-in-julia/)
+        + [Function in Julia](https://machinelearningplus.com/julia/function-in-julia/)
+        + [DataFrames in Julia](https://machinelearningplus.com/julia/dataframes-in-julia/)
+      * [Linux](#)
+        + [ls command in Linux – Mastering the “ls” command in Linux](https://machinelearningplus.com/linux/ls-command-in-linux/)
+        + [mkdir command in Linux – A comprehensive guide for mkdir command](https://machinelearningplus.com/linux/mkdir-command-in-linux/)
+        + [cd command in linux – Mastering the ‘cd’ command in Linux](https://machinelearningplus.com/linux/cd-command-in-linux/)
+        + [cat command in Linux – Mastering the ‘cat’ command in Linux](https://machinelearningplus.com/linux/cat-command-in-linux/)
+        + [Linux Commands List with Examples](https://machinelearningplus.com/linux/linux-commands/)
+* [Machine Learning](#)
+  + [Deep Learning](#)
+    - [TensorFlow vs PyTorch](https://machinelearningplus.com/deep-learning/tensorflow1-vs-tensorflow2-vs-pytorch/)
+    - [How to use tf.function to speed up Python code in Tensorflow](https://machinelearningplus.com/deep-learning/how-use-tf-function-to-speed-up-python-code-tensorflow/)
+    - [How to implement Linear Regression in TensorFlow](https://machinelearningplus.com/deep-learning/linear-regression-tensorflow/)
+  + [NLP](#)
+    - [Complete Guide to Natural Language Processing (NLP)](https://machinelearningplus.com/nlp/natural-language-processing-guide/)
+    - [Text Summarization Approaches for NLP](https://machinelearningplus.com/nlp/text-summarization-approaches-nlp-example/)
+    - [101 NLP Exercises (using modern libraries)](https://machinelearningplus.com/nlp/nlp-exercises/)
+    - [Gensim Tutorial](https://machinelearningplus.com/nlp/gensim-tutorial/)
+    - [LDA in Python](https://machinelearningplus.com/nlp/topic-modeling-python-sklearn-examples/)
+    - [Topic Modeling with Gensim (Python)](https://machinelearningplus.com/nlp/topic-modeling-gensim-python/)
+    - [Lemmatization Approaches with Examples in Python](https://machinelearningplus.com/nlp/lemmatization-examples-python/)
+    - [Topic modeling visualization](https://machinelearningplus.com/nlp/topic-modeling-visualization-how-to-present-results-lda-models/)
+    - [Cosine Similarity](https://machinelearningplus.com/nlp/cosine-similarity/)
+    - [spaCy Tutorial](https://machinelearningplus.com/spacy-tutorial-nlp/)
+    - [Training Custom NER models in SpaCy to auto-detect named entities](https://machinelearningplus.com/nlp/training-custom-ner-model-in-spacy/)
+    - [Building chatbot with Rasa and spaCy](https://machinelearningplus.com/nlp/chatbot-with-rasa-and-spacy/)
+    - [SpaCy Text Classification](https://machinelearningplus.com/nlp/custom-text-classification-spacy/)
+  + [Algorithms](#)
+    - [K-Means Clustering Algorithm from Scratch](https://machinelearningplus.com/predictive-modeling/k-means-clustering/)
+    - [Simulated Annealing Algorithm Explained from Scratch](https://machinelearningplus.com/machine-learning/simulated-annealing-algorithm-explained-from-scratch-python/)
+    - [How Naive Bayes Algorithm Works?](https://machinelearningplus.com/predictive-modeling/how-naive-bayes-algorithm-works-with-example-and-full-code/)
+    - [Feature selection using FRUFS and VevestaX](https://machinelearningplus.com/deployment/feature-selection-using-frufs-and-vevestax/)
+    - [Principal Component Analysis](https://machinelearningplus.com/machine-learning/principal-components-analysis-pca-better-explained/)
+    - [Gradient Boosting](https://machinelearningplus.com/machine-learning/gradient-boosting/)
+    - [Feature Selection – Ten Effective Techniques with Examples](https://machinelearningplus.com/machine-learning/feature-selection/)
+  + [Projects](#)
+    - [Evaluation Metrics for Classification Models](https://machinelearningplus.com/machine-learning/evaluation-metrics-classification-models-r/)
+    - [Deploy ML model in AWS Ec2](https://machinelearningplus.com/deployment/deploy-ml-model-aws-ec2-instance/)
+    - [Portfolio Optimization with Python using Efficient Frontier](https://machinelearningplus.com/machine-learning/portfolio-optimization-python-example/)
+    - [Bias Variance Tradeoff](https://machinelearningplus.com/machine-learning/bias-variance-tradeoff/)
+  + [Specific Topics](#)
+    - [Logistic Regression](https://machinelearningplus.com/machine-learning/logistic-regression-tutorial-examples-r/)
+    - [Complete Introduction to Linear Regression in R](https://machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/)
+    - [Caret Package](https://machinelearningplus.com/machine-learning/caret-package/)
+    - [Brier Score](https://machinelearningplus.com/statistics/brier-score/)
+* [Time Series](#)
+  + [Granger Causality Test](https://machinelearningplus.com/time-series/granger-causality-test/)
+  + [Augmented Dickey Fuller Test (ADF Test)](https://machinelearningplus.com/time-series/augmented-dickey-fuller-test/)
+  + [KPSS Test for Stationarity](https://machinelearningplus.com/time-series/kpss-test-for-stationarity/)
+  + [ARIMA Model](https://machinelearningplus.com/time-series/arima-model-time-series-forecasting-python/)
+  + [Time Series Analysis in Python](https://machinelearningplus.com/time-series/time-series-analysis-python/)
+  + [Vector Autoregression (VAR)](https://machinelearningplus.com/time-series/vector-autoregression-examples-python/)
+* [Prob and Stats](#)
+  + [Probability](https://machinelearningplus.com/category/probability/)
+    - [Introduction to Probability](https://machinelearningplus.com/probability/introduction-to-probability/)
+    - [Odds and Odds Ratios](https://machinelearningplus.com/probability/odds-and-odds-ratios/)
+    - [Independent and Dependent Events](https://machinelearningplus.com/probability/independent-and-dependent-events/)
+    - [Mutually Exclusive Events](https://machinelearningplus.com/probability/mutually-exclusive-events/)
+    - [Joint Probability](https://machinelearningplus.com/probability/joint-probability/)
+    - [Conditional Probability](https://machinelearningplus.com/probability/conditional-probability/)
+    - [Bayes’ Theorem](https://machinelearningplus.com/probability/bayes-theorem/)
+    - [Expected Value](https://machinelearningplus.com/probability/expected-value/)
+    - [Probability frequency distribution](https://machinelearningplus.com/probability/probability-frequency-distribution/)
+    - [Discrete Frequency Distributions](https://machinelearningplus.com/probability/discrete-frequency-distributions/)
+    - [Continuous Frequency Distributions](https://machinelearningplus.com/probability/continuous-frequency-distributions/)
+  + [Partial Correlation](https://machinelearningplus.com/statistics/partial-correlation/)
+  + [Chi-Square Test – Theory & Math](https://machinelearningplus.com/demo-videos/chi-square-test/)
+  + [Gentle Introduction to Markov Chain](https://machinelearningplus.com/markov-chain/)
+  + [What is P-Value?](https://machinelearningplus.com/statistics/what-is-p-value/)
+  + [How to implement common statistical significance tests and find the p value?](https://machinelearningplus.com/statistics/statistical-significance-tests-r/)
+  + [Mahalanobis Distance](https://machinelearningplus.com/statistics/mahalanobis-distance/)
+  + [T Test (Students T Test)](https://machinelearningplus.com/statistics/t-test-students-understanding-the-math-and-how-it-works/)
+  + [Confidence Interval in Statistics](https://machinelearningplus.com/statistics/confidence-interval/)
+  + [Standard Error in Statistics](https://machinelearningplus.com/statistics/standard-error/)
+  + [One Sample T Test](https://machinelearningplus.com/statistics/one-sample-t-test/)
+  + [Descriptive and inferential statistics](https://machinelearningplus.com/statistics/descriptive-and-inferential-statistics/)
+  + [Types of data in statistics](https://machinelearningplus.com/statistics/types-of-data-in-statistics/)
+  + [Measures of central tendency](https://machinelearningplus.com/statistics/measures-of-central-tendency/)
+  + [Quantiles and Percentiles](https://machinelearningplus.com/statistics/quantiles-and-percentiles/)
+  + [Measures of dispersion](https://machinelearningplus.com/statistics/measures-of-dispersion/)
+  + [Skewness and kurtosis](https://machinelearningplus.com/statistics/skewness-and-kurtosis/)
+  + [Central Limit Theroem](https://machinelearningplus.com/statistics/central-limit-theorem/)
+  + [Law of large numbers](https://machinelearningplus.com/statistics/law-of-large-numbers/)
+  + [Standard Error](https://machinelearningplus.com/statistics/standard-error/)
+  + [Sampling and sampling distributions](https://machinelearningplus.com/statistics/sampling-and-sampling-distributions/)
+  + [Correlation](https://machinelearningplus.com/statistics/correlation/)
+* [SQL](https://machinelearningplus.com/category/sql/)
+  + [SQL Tutorial – The Introduction](https://machinelearningplus.com/sql/sql-tutorial/)
+  + [SQL Subquery (advanced)](https://machinelearningplus.com/sql/sql-subquery/)
+  + [SQL Window Functions (advanced)](https://machinelearningplus.com/sql/sql-window-functions/)
+  + [SQL Window Functions Exercises – Set 1](https://machinelearningplus.com/sql/sql-window-functions-exercises/)
+  + [SQL Window Functions Exercises – Set 2](https://machinelearningplus.com/sql/sql-window-function-exercises-and-solutions-set-2/)
+  + [Intro to SQL](https://machinelearningplus.com/sql/introduction-to-sql/)
+  + [SQL Select](https://machinelearningplus.com/sql/sql-select-statement/)
+  + [SQL Select Distinct](https://machinelearningplus.com/sql/sql-select-distinct/)
+  + [SQL Where](https://machinelearningplus.com/sql/sql-where-clause/)
+  + [SQL Order by](https://machinelearningplus.com/sql/sql-order-by/)
+  + [SQL Insert Into](https://machinelearningplus.com/sql/sql-insert-into/)
+  + [SQL AND, OR, and NOT](https://machinelearningplus.com/sql/sql-and-or-not-operators/)
+  + [SQL Null Values](https://machinelearningplus.com/sql/sql-null-values/)
+  + [SQL Update](https://machinelearningplus.com/sql/sql-update/)
+  + [SQL DELETE](https://machinelearningplus.com/sql/sql-delete/)
+  + [SQL SELECT TOP](https://machinelearningplus.com/sql/sql-select-top/)
+  + [SQL MIN and MAX Functions](https://machinelearningplus.com/sql/sql-min-and-max/)
+  + [SQL Count(), Avg(), Sum()](https://machinelearningplus.com/sql/sql-count-avg-sum/)
+  + [SQL LIKE](https://machinelearningplus.com/sql/sql-like/)
+  + [SQL Wildcards](https://machinelearningplus.com/sql/sql-wildcards/)
+  + [SQL IN](https://machinelearningplus.com/sql/sql_in/)
+  + [SQL BETWEEN](https://machinelearningplus.com/sql/sql-between/)
+  + [SQL Aliases](https://machinelearningplus.com/sql/sql-aliases/)
+  + [SQL Joins](https://machinelearningplus.com/sql/sql-joins/)
+  + [SQL Inner Join](https://machinelearningplus.com/sql/sql-inner-join/)
+  + [SQL Left Join](https://machinelearningplus.com/sql/sql-left-join/)
+  + [SQL Right Join](https://machinelearningplus.com/sql/sql-right-join/)
+  + [SQL Full Join](https://machinelearningplus.com/sql/sql-full-join/)
+  + [SQL Self Join](https://machinelearningplus.com/sql/sql-self-join/)
+  + [SQL UNION](https://machinelearningplus.com/sql/sql-union/)
+  + [SQL GROUP BY](https://machinelearningplus.com/sql/sql-group-by/)
+  + [SQL HAVING](https://machinelearningplus.com/sql/sql-having/)
+  + [SQL EXISTS](https://machinelearningplus.com/sql/sql-exists/)
+  + [SQL ANY, ALL Operators](https://machinelearningplus.com/sql/sql-any-all-operators/)
+  + [How to transpose columns to rows in SQL?](https://machinelearningplus.com/sql/how-to-transpose-columns-to-rows-in-sql/)
+  + [How to select only rows with max value on a column?](https://machinelearningplus.com/sql/how-to-select-only-rows-with-max-value-on-a-column/)
+  + [SQL Select Into](https://machinelearningplus.com/sql/sql-select-into/)
+  + [SQL Insert Into Select](https://machinelearningplus.com/sql/sql-insert-into-select/)
+  + [SQL Case](https://machinelearningplus.com/sql/sql-case/)
+  + [SQL Null Functions](https://machinelearningplus.com/sql/sql-null-functions/)
+  + [SQL Comments](https://machinelearningplus.com/sql/sql-comments/)
+  + [SQL Operators](https://machinelearningplus.com/sql/sql-operators/)
+  + [SQL Create Table](https://machinelearningplus.com/sql/sql-create-table/)
+  + [SQL Drop Table](https://machinelearningplus.com/sql/sql-drop-table/)
+  + [SQL Primary Key](https://machinelearningplus.com/sql/sql-primary-key/)
+  + [SQL Foreign Key](https://machinelearningplus.com/sql/sql-foreign-key/)
+  + [Sort multiple columns in SQL and in different directions?](https://machinelearningplus.com/sql/how-to-sort-multiple-columns-in-sql-and-in-different-directions/)
+  + [Count the number of work days between two dates?](https://machinelearningplus.com/sql/how-to-count-the-number-of-work-days-between-two-dates/)
+  + [Compute maximum of multiple columns, aks row wise max?](https://machinelearningplus.com/sql/how-to-compute-maximum-of-multiple-columns-aks-row-wise-max/)
+  + [GROUP BY clause on multiple columns in SQL?](https://machinelearningplus.com/sql/how-to-use-the-group-by-clause-on-multiple-columns-in-sql/)
+* [Linear Algebra](https://machinelearningplus.com/category/linear-algebra/)
+  + [01. Introduction to Linear Algebra](https://machinelearningplus.com/linear-algebra/introduction-to-linear-algebra/)
+  + [02. Types of Tensors](https://machinelearningplus.com/linear-algebra/types-of-tensors/)
+  + [03. Scalars](https://machinelearningplus.com/linear-algebra/scalars/)
+  + [04. Vectors](https://machinelearningplus.com/linear-algebra/vectors/)
+  + [05. Vectors Linear Algebra](https://machinelearningplus.com/linear-algebra/vectors-linear-algebra/)
+  + [06. Matrix Types](https://machinelearningplus.com/linear-algebra/matrix-types/)
+  + [07. Matrix Operations](https://machinelearningplus.com/linear-algebra/matrix-operations/)
+  + [08. Orthogonal and Ortrhonormal Matrix](https://machinelearningplus.com/linear-algebra/orthogonal-matrix/)
+  + [09. Eigenvectors and Eigenvalues](https://machinelearningplus.com/linear-algebra/eigenvectors-and-eigenvalues/)
+  + [10. Affine Transformation](https://machinelearningplus.com/linear-algebra/affine-transformation/)
+  + [11. Singular Value Decomposition (SVD)](https://machinelearningplus.com/linear-algebra/singular-value-decomposition/)
+  + [12. System of Equations](https://machinelearningplus.com/linear-algebra/system-of-equations/)
+  + [13. Linear Regression Algorithm](https://machinelearningplus.com/linear-algebra/linear-regression-algorithm/)
+  + [14. Principal Component Analysis](https://machinelearningplus.com/linear-algebra/principal-component-analysis/)
+
+Sponsored
+
+Learning Path
+
+### LangGraph Learning Path
+
+6 / 30
+
+1. 1
+   [Introduction to LLMs and the OpenAI API in Python](https://machinelearningplus.com/gen-ai/introduction-to-llms-openai-api-python/)
+2. 2
+   [Prompt Engineering Fundamentals — Reliable LLM Outputs](https://machinelearningplus.com/gen-ai/prompt-engineering-fundamentals-reliable-llm-outputs/)
+3. 3
+   [LangChain Crash Course -- Chains, Models, and Output Parsers](https://machinelearningplus.com/gen-ai/langchain-crash-course-chains-models-output-parsers/)
+4. 4
+   [What Is LangGraph? How It Works and When to Use It](https://machinelearningplus.com/gen-ai/what-is-langgraph-and-why-does-it-exist/)
+5. 5
+   [LangGraph Installation & Setup: Build Your First Graph](https://machinelearningplus.com/gen-ai/langgraph-installation-setup-first-graph/)
+6. 6
+   LangGraph Nodes, Edges & State: Core Concepts Explained
+7. 7
+   [LangGraph State Management: TypedDict & Reducers](https://machinelearningplus.com/gen-ai/langgraph-state-management-typeddict-reducers/)
+8. 8
+   [LangGraph Conditional Edges: Dynamic Routing Guide](https://machinelearningplus.com/gen-ai/langgraph-conditional-edges-routing-decisions/)
+9. 9
+   [LangGraph Tool Calling: Build Agents That Take Action](https://machinelearningplus.com/gen-ai/langgraph-tool-calling-agent-actions/)
+10. 10
+    [LangGraph ReAct Agent: Build from Scratch](https://machinelearningplus.com/gen-ai/langgraph-react-agent-from-scratch/)
+11. 11
+    [LangGraph Cycles & Recursion Limits: Control Agent Loops](https://machinelearningplus.com/gen-ai/langgraph-cycles-recursion-limits-agent-loops/)
+12. 12
+    [LangGraph Streaming: Real-Time Agent Output Guide](https://machinelearningplus.com/gen-ai/langgraph-streaming-responses-real-time-output/)
+13. 13
+    [LangGraph Human-in-the-Loop: Add Approval Steps](https://machinelearningplus.com/gen-ai/langgraph-human-in-the-loop-approval-steps/)
+14. 14
+    [LangGraph Checkpointing: Save & Resume Graph State](https://machinelearningplus.com/gen-ai/langgraph-persistence-checkpointing-save-resume/)
+15. 15
+    [LangGraph Memory: Short-Term, Long-Term & Conversation](https://machinelearningplus.com/gen-ai/langgraph-memory-systems-short-long-term-conversation/)
+16. 16
+    [LangGraph Subgraphs: Compose Reusable Workflows](https://machinelearningplus.com/gen-ai/langgraph-subgraphs-composing-reusable-workflows/)
+17. 17
+    [LangGraph Error Handling: Retries & Fallback Strategies](https://machinelearningplus.com/gen-ai/langgraph-error-handling-retries-fallback-strategies/)
+18. 18
+    [LangGraph RAG Agent: Self-Correcting Retrieval Pipeline](https://machinelearningplus.com/gen-ai/langgraph-rag-agent-retrieval-augmented-generation/)
+19. 19
+    [LangGraph Multi-Agent: Supervisor, Swarm & Network](https://machinelearningplus.com/gen-ai/langgraph-multi-agent-systems-supervisor-swarm-network/)
+20. 20
+    [LangGraph Map-Reduce: Parallel Execution with Send API](https://machinelearningplus.com/gen-ai/langgraph-map-reduce-parallel-execution/)
+21. 21
+    [LangGraph Code Generation Agent: Build & Run Python](https://machinelearningplus.com/gen-ai/langgraph-code-generation-execution-agent/)
+22. 22
+    [LangGraph Structured Output & Self-Correcting Agents](https://machinelearningplus.com/gen-ai/langgraph-structured-output-validation-self-correcting/)
+23. 23
+    [LangGraph Platform: Deploy Agents as APIs](https://machinelearningplus.com/gen-ai/langgraph-platform-deploying-agents-apis-server/)
+24. 24
+    [LangGraph Debugging with LangSmith Tracing Guide](https://machinelearningplus.com/gen-ai/langgraph-observability-debugging-langsmith-tracing/)
+25. 25
+    [LangGraph Customer Support Agent with Escalation](https://machinelearningplus.com/gen-ai/langgraph-project-customer-support-agent-escalation/)
+26. 26
+    [LangGraph Multi-Agent Research Assistant Project](https://machinelearningplus.com/gen-ai/langgraph-project-multi-agent-research-assistant/)
+27. 27
+    [LangGraph SQL Agent: Answer Business Questions](https://machinelearningplus.com/gen-ai/langgraph-project-sql-database-agent-business-questions/)
+28. 28
+    [LangGraph Web Scraping Agent: Autonomous Pipeline](https://machinelearningplus.com/gen-ai/langgraph-project-autonomous-web-scraping-analysis/)
+29. 29
+    [LangGraph Document Processing Agent: Multi-Modal](https://machinelearningplus.com/gen-ai/langgraph-project-document-processing-agent-multimodal/)
+30. 30
+    [LangGraph + FastAPI: Build a Full-Stack AI App](https://machinelearningplus.com/gen-ai/langgraph-project-fullstack-ai-application-fastapi/)
+
+[Prev](https://machinelearningplus.com/gen-ai/langgraph-installation-setup-first-graph/)
+[Next](https://machinelearningplus.com/gen-ai/langgraph-state-management-typeddict-reducers/)
+
+LangGraph Learning Path 
+
+Learning Path
+
+### LangGraph Learning Path
+
+6 / 30
+
+1. 1
+   [Introduction to LLMs and the OpenAI API in Python](https://machinelearningplus.com/gen-ai/introduction-to-llms-openai-api-python/)
+2. 2
+   [Prompt Engineering Fundamentals — Reliable LLM Outputs](https://machinelearningplus.com/gen-ai/prompt-engineering-fundamentals-reliable-llm-outputs/)
+3. 3
+   [LangChain Crash Course -- Chains, Models, and Output Parsers](https://machinelearningplus.com/gen-ai/langchain-crash-course-chains-models-output-parsers/)
+4. 4
+   [What Is LangGraph? How It Works and When to Use It](https://machinelearningplus.com/gen-ai/what-is-langgraph-and-why-does-it-exist/)
+5. 5
+   [LangGraph Installation & Setup: Build Your First Graph](https://machinelearningplus.com/gen-ai/langgraph-installation-setup-first-graph/)
+6. 6
+   LangGraph Nodes, Edges & State: Core Concepts Explained
+7. 7
+   [LangGraph State Management: TypedDict & Reducers](https://machinelearningplus.com/gen-ai/langgraph-state-management-typeddict-reducers/)
+8. 8
+   [LangGraph Conditional Edges: Dynamic Routing Guide](https://machinelearningplus.com/gen-ai/langgraph-conditional-edges-routing-decisions/)
+9. 9
+   [LangGraph Tool Calling: Build Agents That Take Action](https://machinelearningplus.com/gen-ai/langgraph-tool-calling-agent-actions/)
+10. 10
+    [LangGraph ReAct Agent: Build from Scratch](https://machinelearningplus.com/gen-ai/langgraph-react-agent-from-scratch/)
+11. 11
+    [LangGraph Cycles & Recursion Limits: Control Agent Loops](https://machinelearningplus.com/gen-ai/langgraph-cycles-recursion-limits-agent-loops/)
+12. 12
+    [LangGraph Streaming: Real-Time Agent Output Guide](https://machinelearningplus.com/gen-ai/langgraph-streaming-responses-real-time-output/)
+13. 13
+    [LangGraph Human-in-the-Loop: Add Approval Steps](https://machinelearningplus.com/gen-ai/langgraph-human-in-the-loop-approval-steps/)
+14. 14
+    [LangGraph Checkpointing: Save & Resume Graph State](https://machinelearningplus.com/gen-ai/langgraph-persistence-checkpointing-save-resume/)
+15. 15
+    [LangGraph Memory: Short-Term, Long-Term & Conversation](https://machinelearningplus.com/gen-ai/langgraph-memory-systems-short-long-term-conversation/)
+16. 16
+    [LangGraph Subgraphs: Compose Reusable Workflows](https://machinelearningplus.com/gen-ai/langgraph-subgraphs-composing-reusable-workflows/)
+17. 17
+    [LangGraph Error Handling: Retries & Fallback Strategies](https://machinelearningplus.com/gen-ai/langgraph-error-handling-retries-fallback-strategies/)
+18. 18
+    [LangGraph RAG Agent: Self-Correcting Retrieval Pipeline](https://machinelearningplus.com/gen-ai/langgraph-rag-agent-retrieval-augmented-generation/)
+19. 19
+    [LangGraph Multi-Agent: Supervisor, Swarm & Network](https://machinelearningplus.com/gen-ai/langgraph-multi-agent-systems-supervisor-swarm-network/)
+20. 20
+    [LangGraph Map-Reduce: Parallel Execution with Send API](https://machinelearningplus.com/gen-ai/langgraph-map-reduce-parallel-execution/)
+21. 21
+    [LangGraph Code Generation Agent: Build & Run Python](https://machinelearningplus.com/gen-ai/langgraph-code-generation-execution-agent/)
+22. 22
+    [LangGraph Structured Output & Self-Correcting Agents](https://machinelearningplus.com/gen-ai/langgraph-structured-output-validation-self-correcting/)
+23. 23
+    [LangGraph Platform: Deploy Agents as APIs](https://machinelearningplus.com/gen-ai/langgraph-platform-deploying-agents-apis-server/)
+24. 24
+    [LangGraph Debugging with LangSmith Tracing Guide](https://machinelearningplus.com/gen-ai/langgraph-observability-debugging-langsmith-tracing/)
+25. 25
+    [LangGraph Customer Support Agent with Escalation](https://machinelearningplus.com/gen-ai/langgraph-project-customer-support-agent-escalation/)
+26. 26
+    [LangGraph Multi-Agent Research Assistant Project](https://machinelearningplus.com/gen-ai/langgraph-project-multi-agent-research-assistant/)
+27. 27
+    [LangGraph SQL Agent: Answer Business Questions](https://machinelearningplus.com/gen-ai/langgraph-project-sql-database-agent-business-questions/)
+28. 28
+    [LangGraph Web Scraping Agent: Autonomous Pipeline](https://machinelearningplus.com/gen-ai/langgraph-project-autonomous-web-scraping-analysis/)
+29. 29
+    [LangGraph Document Processing Agent: Multi-Modal](https://machinelearningplus.com/gen-ai/langgraph-project-document-processing-agent-multimodal/)
+30. 30
+    [LangGraph + FastAPI: Build a Full-Stack AI App](https://machinelearningplus.com/gen-ai/langgraph-project-fullstack-ai-application-fastapi/)
+
+[Prev](https://machinelearningplus.com/gen-ai/langgraph-installation-setup-first-graph/)
+[Next](https://machinelearningplus.com/gen-ai/langgraph-state-management-typeddict-reducers/)
+
+[Gen AI](https://machinelearningplus.com/category/gen-ai/)
+
+LangGraph Nodes, Edges & State: Core Concepts Explained
+=======================================================
+
+Understand LangGraph nodes edges state and conditional routing through visual diagrams and runnable Python examples you can copy and extend.
+
+Written by
+[Selva Prabhakaran](https://machinelearningplus.com/author/selva86/) 
+|
+26 min read
+
+Share:
+
+---
+
+*Learn how* *nodes**,* *edges**,* *conditional edges**, and the* *State object* *work together in LangGraph — with hands-on code you can run right now.*
+
+So you built your first LangGraph graph. It ran. But do you really know what `add_node`, `add_edge`, and that `TypedDict` class do behind the scenes?
+
+Here’s what I see all the time. People copy-paste LangGraph code. It works. Then they try to change something — add a branch, tweak the state, drop in a new step. And they get stuck. Why? They never built a clear picture of how the pieces fit.
+
+I wrote this guide to fix that. By the end, you’ll know what nodes, edges, and state do. You’ll build graphs from scratch, step by step. Not by copying. By truly getting it.
+
+### Prerequisites
+
+* **Python version:** 3.10+
+* **Required libraries:** langgraph (0.3+)
+* **Install:** `pip install langgraph`
+* **Previous article:** [LangGraph Installation, Setup, and Your First Graph](langgraph-installation-setup-first-graph) — you should be comfortable creating and running a basic graph
+* **Time to complete:** ~25 minutes
+
+What Are Nodes in LangGraph?
+----------------------------
+
+Think about making breakfast. You crack the eggs. That’s one task. You whisk them. That’s a second task. You pour the mix into a pan. Task three. Each task takes something in and gives something back.
+
+That’s how LangGraph **nodes** work. A node is a Python function. It does one job. It reads the current **state**, does its work, and hands back the changes.
+
+python
+
+```
+from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class SimpleState(TypedDict):
+    message: str
+
+def greet(state: SimpleState) -> dict:
+    return {"message": "Hello from the node!"}
+
+graph = StateGraph(SimpleState)
+graph.add_node("greet", greet)
+graph.add_edge(START, "greet")
+graph.add_edge("greet", END)
+
+app = graph.compile()
+result = app.invoke({"message": ""})
+print(result)
+```
+
+python
+
+```
+{'message': 'Hello from the node!'}
+```
+
+See the `greet` function? That’s the node. It got the state (with a blank `message`), then sent back a new value. LangGraph took care of the rest — it called the function, fed it the state, and grabbed the result.
+
+Here are three things to note. First, a node is just a plain Python function. No special setup. Second, it takes state in and gives back a dict with updates. Third, you hook it up with `add_node("name", function)`.
+
+**Key Insight:** A LangGraph node is just a Python function. Give it the state. It does some work. It sends back updates. If you can write a function in Python, you can build a node.
+
+### What Can a Node Actually Do?
+
+Whatever Python can do. Call an LLM. Hit a database. Change some text. Fire off an API call. Crunch numbers. There’s just one rule: take state in, send state updates back.
+
+python
+
+```
+def transform_message(state: SimpleState) -> dict:
+    original = state["message"]
+    return {"message": original.upper() + " (transformed)"}
+
+graph2 = StateGraph(SimpleState)
+graph2.add_node("greet", greet)
+graph2.add_node("transform", transform_message)
+graph2.add_edge(START, "greet")
+graph2.add_edge("greet", "transform")
+graph2.add_edge("transform", END)
+
+app2 = graph2.compile()
+result2 = app2.invoke({"message": ""})
+print(result2)
+```
+
+python
+
+```
+{'message': 'HELLO FROM THE NODE! (transformed)'}
+```
+
+First, `greet` ran and set the message. Then `transform` grabbed it, made it uppercase, and tacked on a suffix. One node’s output became the next node’s input.
+
+What Are Edges — And Why Do They Matter?
+----------------------------------------
+
+Nodes on their own? Just loose functions. Nothing links them. Nothing runs.
+
+**Edges** are the wires. They tell LangGraph the order: “When this node is done, run that one next.” The line `graph.add_edge("greet", "transform")` means: go to `transform` right after `greet` wraps up.
+
+### START and END — The Built-In Boundaries
+
+Every graph comes with two special nodes: `START` and `END`. You import them from `langgraph.graph`.
+
+`START` is where things kick off. Link it to your first node. When you call `app.invoke()`, LangGraph follows that edge to find what runs first.
+
+`END` is the stop sign. Once a node links to `END`, the graph hands back the final state.
+
+python
+
+```
+from langgraph.graph import START, END
+
+# The minimum graph structure:
+# START -> your_node -> END
+```
+
+**Warning:** Forget the edge from `START`, and your graph compiles but does nothing when invoked. Forget the edge to `END`, and LangGraph raises an error — it detects a dead end with no exit path.
+
+### Chaining Multiple Nodes
+
+Need three nodes in a row? Add three edges. Each edge is one link in the chain.
+
+Here’s a three-step data pipeline. Each step changes the `text` field and logs its name to `steps_completed`:
+
+python
+
+```
+class PipelineState(TypedDict):
+    text: str
+    steps_completed: list[str]
+
+def step_one(state: PipelineState) -> dict:
+    return {
+        "text": "raw data",
+        "steps_completed": ["step_one"]
+    }
+
+def step_two(state: PipelineState) -> dict:
+    updated = state["text"] + " -> cleaned"
+    steps = state["steps_completed"] + ["step_two"]
+    return {"text": updated, "steps_completed": steps}
+
+def step_three(state: PipelineState) -> dict:
+    updated = state["text"] + " -> analyzed"
+    steps = state["steps_completed"] + ["step_three"]
+    return {"text": updated, "steps_completed": steps}
+```
+
+Now wire them up and run:
+
+python
+
+```
+pipeline = StateGraph(PipelineState)
+pipeline.add_node("step_one", step_one)
+pipeline.add_node("step_two", step_two)
+pipeline.add_node("step_three", step_three)
+
+pipeline.add_edge(START, "step_one")
+pipeline.add_edge("step_one", "step_two")
+pipeline.add_edge("step_two", "step_three")
+pipeline.add_edge("step_three", END)
+
+app3 = pipeline.compile()
+result3 = app3.invoke({"text": "", "steps_completed": []})
+print(f"Final text: {result3['text']}")
+print(f"Steps: {result3['steps_completed']}")
+```
+
+python
+
+```
+Final text: raw data -> cleaned -> analyzed
+Steps: ['step_one', 'step_two', 'step_three']
+```
+
+Each `add_edge` call linked one node to the next. The state moved through them in order, picking up changes at each stop.
+
+How Does the State Object Work as Your Graph’s Shared Memory?
+-------------------------------------------------------------
+
+Every beginner asks the same thing: “How does Node B find out what Node A did?” The short answer: **state**.
+
+State is a shared data bucket. Every node reads from it. Every node writes to it. It’s the glue. It’s how nodes talk to each other.
+
+### Defining State with TypedDict
+
+You set up state with Python’s `TypedDict`. This tells LangGraph what fields your data has:
+
+python
+
+```
+from typing import TypedDict
+
+class ChatState(TypedDict):
+    user_input: str
+    response: str
+    turn_count: int
+```
+
+Three fields here: `user_input`, `response`, `turn_count`. Every node in the graph can see and change any of them.
+
+Why use `TypedDict` instead of a plain dict? Two wins. Your editor gives you autocomplete and flags typos. Also, LangGraph checks your updates at runtime using the type hints.
+
+**Tip:** Start with only the fields you need. You can add more fields later as your graph grows. Don’t design a 20-field state upfront — let the requirements emerge.
+
+### How Does State Flow Through the Graph?
+
+Most guides skip this part. I want to walk you through each step. Once you see the flow, LangGraph clicks.
+
+This graph takes a number, adds 5, doubles it, then takes away 3. Each node logs what it did:
+
+python
+
+```
+class CounterState(TypedDict):
+    value: int
+    history: list[str]
+
+def add_five(state: CounterState) -> dict:
+    new_value = state["value"] + 5
+    return {
+        "value": new_value,
+        "history": state["history"] + [f"add_five: {state['value']} -> {new_value}"]
+    }
+
+def double_it(state: CounterState) -> dict:
+    new_value = state["value"] * 2
+    return {
+        "value": new_value,
+        "history": state["history"] + [f"double_it: {state['value']} -> {new_value}"]
+    }
+
+def subtract_three(state: CounterState) -> dict:
+    new_value = state["value"] - 3
+    return {
+        "value": new_value,
+        "history": state["history"] + [f"subtract_three: {state['value']} -> {new_value}"]
+    }
+```
+
+Build it and start with a value of 10:
+
+python
+
+```
+counter_graph = StateGraph(CounterState)
+counter_graph.add_node("add_five", add_five)
+counter_graph.add_node("double_it", double_it)
+counter_graph.add_node("subtract_three", subtract_three)
+
+counter_graph.add_edge(START, "add_five")
+counter_graph.add_edge("add_five", "double_it")
+counter_graph.add_edge("double_it", "subtract_three")
+counter_graph.add_edge("subtract_three", END)
+
+counter_app = counter_graph.compile()
+result4 = counter_app.invoke({"value": 10, "history": []})
+
+print(f"Final value: {result4['value']}")
+print("\nExecution trace:")
+for entry in result4["history"]:
+    print(f"  {entry}")
+```
+
+python
+
+```
+Final value: 27
+Execution trace:
+  add_five: 10 -> 15
+  double_it: 15 -> 30
+  subtract_three: 30 -> 27
+```
+
+Let me break it down step by step:
+
+| Step | Node | Input value | What it does | Output value |
+| --- | --- | --- | --- | --- |
+| 1 | `add_five` | 10 | 10 + 5 | 15 |
+| 2 | `double_it` | 15 | 15 \* 2 | 30 |
+| 3 | `subtract_three` | 30 | 30 – 3 | 27 |
+
+Each node got the state from the node before it. The `value` hopped from node to node, changing at each step.
+
+**Key Insight:** State is not copied between nodes — it’s updated in place. When a node returns `{“value”: 15}`, LangGraph merges that into the existing state. Fields the node doesn’t return stay unchanged.
+
+### Partial State Updates — Do You Need to Return Every Field?
+
+No. And this trips people up early on. Just return what you want to change. Leave the rest alone:
+
+python
+
+```
+class ProfileState(TypedDict):
+    name: str
+    email: str
+    verified: bool
+
+def set_name(state: ProfileState) -> dict:
+    return {"name": "Alice"}  # Only updates 'name'
+
+def set_email(state: ProfileState) -> dict:
+    return {"email": "alice@example.com"}  # Only updates 'email'
+
+def verify(state: ProfileState) -> dict:
+    return {"verified": True}  # Only updates 'verified'
+```
+
+python
+
+```
+profile_graph = StateGraph(ProfileState)
+profile_graph.add_node("set_name", set_name)
+profile_graph.add_node("set_email", set_email)
+profile_graph.add_node("verify", verify)
+
+profile_graph.add_edge(START, "set_name")
+profile_graph.add_edge("set_name", "set_email")
+profile_graph.add_edge("set_email", "verify")
+profile_graph.add_edge("verify", END)
+
+profile_app = profile_graph.compile()
+result5 = profile_app.invoke({"name": "", "email": "", "verified": False})
+print(result5)
+```
+
+python
+
+```
+{'name': 'Alice', 'email': 'alice@example.com', 'verified': True}
+```
+
+Each node changed just one field. LangGraph merged all three updates on its own. The final state shows every change from the whole chain.
+
+How Do Conditional Edges Help Your Graph Make Choices?
+------------------------------------------------------
+
+Normal edges are like train tracks. Fixed. Set in stone. Conditional edges are like highway ramps — the route depends on what’s going on right now.
+
+This is where LangGraph gets really useful. Your graph looks at the current state and picks which node goes next. The same graph can take a different path each time you run it.
+
+### Your First Conditional Edge
+
+You write a routing function. It checks the state and returns the name of the next node. LangGraph calls this function after the source node finishes. Then it follows the path.
+
+Here’s a content sorter. The `classify` node reads the text and sets a category based on what it finds:
+
+python
+
+```
+class ContentState(TypedDict):
+    text: str
+    category: str
+    result: str
+
+def classify(state: ContentState) -> dict:
+    text = state["text"].lower()
+    if "urgent" in text or "emergency" in text:
+        return {"category": "urgent"}
+    elif "question" in text or "?" in text:
+        return {"category": "question"}
+    else:
+        return {"category": "general"}
+```
+
+Now the routing function reads the category and picks a handler:
+
+python
+
+```
+def route_content(state: ContentState) -> str:
+    if state["category"] == "urgent":
+        return "handle_urgent"
+    elif state["category"] == "question":
+        return "handle_question"
+    else:
+        return "handle_general"
+
+def handle_urgent(state: ContentState) -> dict:
+    return {"result": f"URGENT: Escalated '{state['text']}'"}
+
+def handle_question(state: ContentState) -> dict:
+    return {"result": f"Q&A: Processing question '{state['text']}'"}
+
+def handle_general(state: ContentState) -> dict:
+    return {"result": f"GENERAL: Filed '{state['text']}'"}
+```
+
+Use `add_conditional_edges` to wire it up. Pass in the source node, the routing function, and a mapping of return values to node names:
+
+python
+
+```
+content_graph = StateGraph(ContentState)
+content_graph.add_node("classify", classify)
+content_graph.add_node("handle_urgent", handle_urgent)
+content_graph.add_node("handle_question", handle_question)
+content_graph.add_node("handle_general", handle_general)
+
+content_graph.add_edge(START, "classify")
+content_graph.add_conditional_edges(
+    "classify",
+    route_content,
+    {
+        "handle_urgent": "handle_urgent",
+        "handle_question": "handle_question",
+        "handle_general": "handle_general",
+    }
+)
+content_graph.add_edge("handle_urgent", END)
+content_graph.add_edge("handle_question", END)
+content_graph.add_edge("handle_general", END)
+
+content_app = content_graph.compile()
+```
+
+Let’s test all three paths:
+
+python
+
+```
+test_inputs = [
+    {"text": "Emergency! Server is down!", "category": "", "result": ""},
+    {"text": "What is LangGraph?", "category": "", "result": ""},
+    {"text": "Weekly status update", "category": "", "result": ""},
+]
+
+for inp in test_inputs:
+    output = content_app.invoke(inp)
+    print(f"Input: '{inp['text']}'")
+    print(f"  Category: {output['category']}, Result: {output['result']}")
+```
+
+python
+
+```
+Input: 'Emergency! Server is down!'
+  Category: urgent, Result: URGENT: Escalated 'Emergency! Server is down!'
+Input: 'What is LangGraph?'
+  Category: question, Result: Q&A: Processing question 'What is LangGraph?'
+Input: 'Weekly status update'
+  Category: general, Result: GENERAL: Filed 'Weekly status update'
+```
+
+One graph. Three paths. The routing function looked at `state["category"]` and chose the right handler every time.
+
+**Note:** The routing function must return a string that matches a key in the mapping dictionary (or a registered node name if you skip the mapping). Returning an unrecognized string raises a `ValueError`.
+
+### Breaking Down add\_conditional\_edges
+
+This method takes three parts. Here’s what each one does:
+
+python
+
+```
+content_graph.add_conditional_edges(
+    "classify",           # Source node — branch FROM here
+    route_content,        # Routing function — decides WHERE next
+    {                     # Mapping — translates return values to node names
+        "handle_urgent": "handle_urgent",
+        "handle_question": "handle_question",
+        "handle_general": "handle_general",
+    }
+)
+```
+
+The mapping is optional. If your routing function already returns real node names, leave it out:
+
+python
+
+```
+# No mapping needed — route_content already returns node names
+content_graph.add_conditional_edges("classify", route_content)
+```
+
+I still like to include the mapping. It shows all the paths in one spot. Makes the graph easier to read at a glance.
+
+How Can You See Your Graph’s Shape?
+-----------------------------------
+
+Don’t guess if your graph is wired right. Look at it.
+
+LangGraph’s `get_graph()` method gives you the graph shape. Then `draw_mermaid()` turns it into a diagram you can view in any Mermaid tool (GitHub, VS Code, mermaid.live):
+
+python
+
+```
+mermaid_code = content_app.get_graph().draw_mermaid()
+print(mermaid_code)
+```
+
+python
+
+```
+%%{init: {'flowchart': {'curve': 'linear'}}}%%
+graph TD;
+    __start__([<p>__start__</p>])
+    classify(classify)
+    handle_urgent(handle_urgent)
+    handle_question(handle_question)
+    handle_general(handle_general)
+    __end__([<p>__end__</p>])
+    __start__ --> classify;
+    classify -.-> handle_urgent;
+    classify -.-> handle_question;
+    classify -.-> handle_general;
+    handle_urgent --> __end__;
+    handle_question --> __end__;
+    handle_general --> __end__;
+```
+
+Solid arrows (`-->`) mean normal edges. Dashed arrows (`.->`) mean conditional edges. Paste this into a Mermaid tool and you’ll see the full layout.
+
+**Tip:** Make visualization a habit. Every time you build or modify a graph, print the Mermaid output. You’ll catch wiring mistakes before they cause confusing runtime errors.
+
+How Do Flowcharts Map to LangGraph?
+-----------------------------------
+
+If you’ve drawn a flowchart before, you already get the LangGraph model. Here’s a side-by-side look:
+
+| Flowchart Element | LangGraph Equivalent | Code |
+| --- | --- | --- |
+| Process box (rectangle) | Node | `add_node("name", func)` |
+| Arrow | Edge | `add_edge("a", "b")` |
+| Diamond (decision) | Conditional edge | `add_conditional_edges(...)` |
+| Start oval | `START` | `add_edge(START, "first")` |
+| End oval | `END` | `add_edge("last", END)` |
+| Data on arrows | State (TypedDict) | `class MyState(TypedDict)` |
+
+The big gap? A flowchart sits on paper. A LangGraph graph runs as code. Your boxes become functions. Your arrows become edges. Your diamonds become conditional branches.
+
+How Does It All Come Together? — Order Processing System
+--------------------------------------------------------
+
+Let’s mix nodes, edges, conditional edges, and state into something you’d see in the real world. This pipeline checks orders, looks up stock, works out the price, and then approves or rejects.
+
+The state holds everything the pipeline needs:
+
+python
+
+```
+class OrderState(TypedDict):
+    order_id: str
+    item: str
+    quantity: int
+    price_per_unit: float
+    total: float
+    in_stock: bool
+    is_valid: bool
+    status: str
+    log: list[str]
+```
+
+Each step is its own node. First, the validator checks if the order makes sense:
+
+python
+
+```
+def validate_order(state: OrderState) -> dict:
+    errors = []
+    if state["quantity"] <= 0:
+        errors.append("Quantity must be positive")
+    if not state["item"]:
+        errors.append("Item name required")
+
+    is_valid = len(errors) == 0
+    msg = "Validated OK" if is_valid else f"Validation failed: {errors}"
+    return {
+        "is_valid": is_valid,
+        "log": state["log"] + [f"validate: {msg}"]
+    }
+```
+
+Next, the stock checker looks up what’s on hand. In a real app, this would call a database:
+
+python
+
+```
+INVENTORY = {"widget": 100, "gadget": 50, "doohickey": 0}
+
+def check_inventory(state: OrderState) -> dict:
+    stock = INVENTORY.get(state["item"].lower(), 0)
+    in_stock = stock >= state["quantity"]
+    return {
+        "in_stock": in_stock,
+        "log": state["log"] + [
+            f"inventory: {state['item']} has {stock} units, need {state['quantity']}"
+        ]
+    }
+```
+
+The price step adds a 10% bulk cut for orders of 10 or more:
+
+python
+
+```
+def calculate_price(state: OrderState) -> dict:
+    total = state["quantity"] * state["price_per_unit"]
+    if state["quantity"] >= 10:
+        total *= 0.9  # 10% bulk discount
+    return {
+        "total": total,
+        "log": state["log"] + [f"pricing: total=${total:.2f}"]
+    }
+```
+
+Then come the approve and reject handlers:
+
+python
+
+```
+def approve_order(state: OrderState) -> dict:
+    return {
+        "status": "approved",
+        "log": state["log"] + [f"APPROVED: Order {state['order_id']}"]
+    }
+
+def reject_order(state: OrderState) -> dict:
+    return {
+        "status": "rejected",
+        "log": state["log"] + [f"REJECTED: Order {state['order_id']}"]
+    }
+```
+
+The routing function checks both the validation flag and the stock flag:
+
+python
+
+```
+def should_approve(state: OrderState) -> str:
+    if state["is_valid"] and state["in_stock"]:
+        return "approve"
+    return "reject"
+```
+
+Now wire it all up — a straight line through validate, stock, and price, then a fork for the final call:
+
+python
+
+```
+order_graph = StateGraph(OrderState)
+
+order_graph.add_node("validate", validate_order)
+order_graph.add_node("check_inventory", check_inventory)
+order_graph.add_node("calculate_price", calculate_price)
+order_graph.add_node("approve", approve_order)
+order_graph.add_node("reject", reject_order)
+
+order_graph.add_edge(START, "validate")
+order_graph.add_edge("validate", "check_inventory")
+order_graph.add_edge("check_inventory", "calculate_price")
+
+order_graph.add_conditional_edges(
+    "calculate_price",
+    should_approve,
+    {"approve": "approve", "reject": "reject"}
+)
+order_graph.add_edge("approve", END)
+order_graph.add_edge("reject", END)
+
+order_app = order_graph.compile()
+```
+
+Try a good order first — 5 widgets at $29.99 each:
+
+python
+
+```
+good_order = {
+    "order_id": "ORD-001", "item": "widget",
+    "quantity": 5, "price_per_unit": 29.99,
+    "total": 0.0, "in_stock": False,
+    "is_valid": False, "status": "", "log": []
+}
+
+result_good = order_app.invoke(good_order)
+print(f"Status: {result_good['status']}")
+print(f"Total: ${result_good['total']:.2f}")
+for entry in result_good["log"]:
+    print(f"  {entry}")
+```
+
+python
+
+```
+Status: approved
+Total: $149.95
+  validate: Validated OK
+  inventory: widget has 100 units, need 5
+  pricing: total=$149.95
+  APPROVED: Order ORD-001
+```
+
+Now try an item with zero stock:
+
+python
+
+```
+bad_order = {
+    "order_id": "ORD-002", "item": "doohickey",
+    "quantity": 5, "price_per_unit": 9.99,
+    "total": 0.0, "in_stock": False,
+    "is_valid": False, "status": "", "log": []
+}
+
+result_bad = order_app.invoke(bad_order)
+print(f"Status: {result_bad['status']}")
+for entry in result_bad["log"]:
+    print(f"  {entry}")
+```
+
+python
+
+```
+Status: rejected
+  validate: Validated OK
+  inventory: doohickey has 0 units, need 5
+  pricing: total=$49.95
+  REJECTED: Order ORD-002
+```
+
+Same graph. Different result. The routing function saw `in_stock=False` and sent the order to the reject path.
+
+What Are the Most Common Mistakes — And How Do You Fix Them?
+------------------------------------------------------------
+
+### Mistake 1: Orphan Nodes — Added but Never Linked
+
+python
+
+```
+# WRONG — orphan node never executes
+graph = StateGraph(SimpleState)
+graph.add_node("greet", greet)
+graph.add_node("orphan", transform_message)  # No edges!
+graph.add_edge(START, "greet")
+graph.add_edge("greet", END)
+```
+
+LangGraph won’t flag this when you compile. The `orphan` node sits in the graph but never runs. Always check with `get_graph()` that every node has edges going in and out.
+
+### Mistake 2: Sending Back Keys That Don’t Match the State
+
+python
+
+```
+class MyState(TypedDict):
+    count: int
+
+def bad_node(state: MyState) -> dict:
+    return {"counter": 10}  # Typo! 'counter' not in MyState
+```
+
+LangGraph throws an `InvalidUpdateError`. The key `counter` doesn’t exist in the `TypedDict`. Make sure every key you return lines up with a field in your state.
+
+### Mistake 3: Routing to a Node That Doesn’t Exist
+
+python
+
+```
+def bad_router(state):
+    return "process_data"  # But you named the node "process"!
+```
+
+The router said `"process_data"`. The node was called `"process"`. LangGraph throws a `ValueError`. Check that your routing return values match the exact names from `add_node`.
+
+**Warning:** These three mistakes account for most debugging time with LangGraph. Before running: (1) verify every node has edges via `get\_graph()`, (2) match return dict keys to TypedDict fields, (3) confirm routing return values match node names.
+
+Quick Check — Can You Predict the Output?
+-----------------------------------------
+
+Look at this graph. What will `x` be at the end?
+
+python
+
+```
+class QuizState(TypedDict):
+    x: int
+
+def add_ten(state: QuizState) -> dict:
+    return {"x": state["x"] + 10}
+
+def halve(state: QuizState) -> dict:
+    return {"x": state["x"] // 2}
+
+quiz_graph = StateGraph(QuizState)
+quiz_graph.add_node("add_ten", add_ten)
+quiz_graph.add_node("halve", halve)
+quiz_graph.add_edge(START, "add_ten")
+quiz_graph.add_edge("add_ten", "halve")
+quiz_graph.add_edge("halve", END)
+quiz_app = quiz_graph.compile()
+
+# What does quiz_app.invoke({"x": 6}) return?
+```
+
+Here’s how it works. `x` starts at 6. `add_ten` brings it to 16. `halve` cuts it to 8. So the answer is `{"x": 8}`.
+
+python
+
+```
+result_quiz = quiz_app.invoke({"x": 6})
+print(result_quiz)
+```
+
+python
+
+```
+{'x': 8}
+```
+
+Did you get it right? Great — you understand state flow. Got it wrong? Go back and re-read the trace table in the “How Does State Flow” section.
+
+Exercise 1: Build a Temperature Classifier
+------------------------------------------
+
+**Instructions:** Build a LangGraph graph that classifies a temperature reading as “cold” (below 15), “moderate” (15-30), or “hot” (above 30). Create a `classify` node that sets the label, three handler nodes that each set an appropriate action string, and a routing function that directs traffic. The `TempState` TypedDict is provided.
+
+python
+
+```
+# Starter code
+from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class TempState(TypedDict):
+    temperature: int
+    label: str
+    action: str
+
+# TODO: Write the classify node
+def classify(state: TempState) -> dict:
+    pass
+
+# TODO: Write handler nodes
+def handle_cold(state: TempState) -> dict:
+    pass
+
+def handle_moderate(state: TempState) -> dict:
+    pass
+
+def handle_hot(state: TempState) -> dict:
+    pass
+
+# TODO: Write routing function and build graph
+```
+
+**Test your solution:**
+
+python
+
+```
+# Should print: cold / Turn on heater
+result = app.invoke({"temperature": 5, "label": "", "action": ""})
+print(result["label"], "/", result["action"])
+
+# Should print: hot / Turn on AC
+result = app.invoke({"temperature": 35, "label": "", "action": ""})
+print(result["label"], "/", result["action"])
+```
+
+**Hints:**  
+1. The `classify` node checks `state["temperature"]` against 15 and 30, then returns `{"label": "cold"}`, `{"label": "moderate"}`, or `{"label": "hot"}`.  
+2. The routing function reads `state["label"]` and returns the matching handler name (e.g., `"handle_cold"`). Wire it with `add_conditional_edges` after the `classify` node.
+
+Solution
+
+python
+
+```
+from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class TempState(TypedDict):
+    temperature: int
+    label: str
+    action: str
+
+def classify(state: TempState) -> dict:
+    temp = state["temperature"]
+    if temp < 15:
+        return {"label": "cold"}
+    elif temp <= 30:
+        return {"label": "moderate"}
+    else:
+        return {"label": "hot"}
+
+def handle_cold(state: TempState) -> dict:
+    return {"action": "Turn on heater"}
+
+def handle_moderate(state: TempState) -> dict:
+    return {"action": "Maintain current settings"}
+
+def handle_hot(state: TempState) -> dict:
+    return {"action": "Turn on AC"}
+
+def route_temp(state: TempState) -> str:
+    return {
+        "cold": "handle_cold",
+        "moderate": "handle_moderate",
+        "hot": "handle_hot"
+    }[state["label"]]
+
+graph = StateGraph(TempState)
+graph.add_node("classify", classify)
+graph.add_node("handle_cold", handle_cold)
+graph.add_node("handle_moderate", handle_moderate)
+graph.add_node("handle_hot", handle_hot)
+
+graph.add_edge(START, "classify")
+graph.add_conditional_edges("classify", route_temp)
+graph.add_edge("handle_cold", END)
+graph.add_edge("handle_moderate", END)
+graph.add_edge("handle_hot", END)
+
+app = graph.compile()
+
+for temp in [5, 22, 35]:
+    r = app.invoke({"temperature": temp, "label": "", "action": ""})
+    print(f"Temp: {temp} -> {r['label']} -> {r['action']}")
+```
+
+python
+
+```
+Temp: 5 -> cold -> Turn on heater
+Temp: 22 -> moderate -> Maintain current settings
+Temp: 35 -> hot -> Turn on AC
+```
+
+The `classify` node checks thresholds and sets the label. The routing function maps labels to handler names. Each handler sets a specific action. All three handlers connect to `END`.
+
+Exercise 2: Build a Text Processing Pipeline
+--------------------------------------------
+
+**Instructions:** Build a three-node pipeline that: (1) `clean` — strips whitespace and lowercases the text, (2) `count_words` — counts words and stores the count, (3) `summarize` — creates a summary string. Each node should append its name to the `steps` list.
+
+python
+
+```
+# Starter code
+from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class TextState(TypedDict):
+    text: str
+    word_count: int
+    summary: str
+    steps: list[str]
+
+# TODO: Write clean, count_words, summarize nodes
+# TODO: Build the graph
+```
+
+**Test:** `app.invoke({"text": " Hello World From Python ", ...})` should produce `text="hello world from python"`, `word_count=4`, `summary="Processed: 4 words"`, `steps=['clean', 'count_words', 'summarize']`.
+
+**Hints:**  
+1. Use `state["text"].strip().lower()` in the `clean` node. Return both the cleaned text and the updated `steps` list.  
+2. Use `len(state["text"].split())` for word counting. Append each node’s name to `steps` via `state["steps"] + ["node_name"]`.
+
+Solution
+
+python
+
+```
+from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class TextState(TypedDict):
+    text: str
+    word_count: int
+    summary: str
+    steps: list[str]
+
+def clean(state: TextState) -> dict:
+    return {
+        "text": state["text"].strip().lower(),
+        "steps": state["steps"] + ["clean"]
+    }
+
+def count_words(state: TextState) -> dict:
+    return {
+        "word_count": len(state["text"].split()),
+        "steps": state["steps"] + ["count_words"]
+    }
+
+def summarize(state: TextState) -> dict:
+    return {
+        "summary": f"Processed: {state['word_count']} words",
+        "steps": state["steps"] + ["summarize"]
+    }
+
+graph = StateGraph(TextState)
+graph.add_node("clean", clean)
+graph.add_node("count_words", count_words)
+graph.add_node("summarize", summarize)
+graph.add_edge(START, "clean")
+graph.add_edge("clean", "count_words")
+graph.add_edge("count_words", "summarize")
+graph.add_edge("summarize", END)
+
+app = graph.compile()
+result = app.invoke({
+    "text": "  Hello World From Python  ",
+    "word_count": 0, "summary": "", "steps": []
+})
+print(result)
+```
+
+python
+
+```
+{'text': 'hello world from python', 'word_count': 4, 'summary': 'Processed: 4 words', 'steps': ['clean', 'count_words', 'summarize']}
+```
+
+Each node handles one transformation and logs its name. The linear graph structure ensures they run in order.
+
+Summary
+-------
+
+You now know the three core parts of every LangGraph app:
+
+**Nodes** are Python functions. Each one reads state, does work, and sends back updates. You add them with `graph.add_node("name", function)`.
+
+**Edges** link nodes and set the run order. Use `add_edge` for fixed paths. Use `add_conditional_edges` when you need the graph to pick a path based on state.
+
+**State** is a `TypedDict` that acts as shared memory for the whole graph. Every node reads from it. Every node writes to it. You only need to return the fields you change — LangGraph merges the rest.
+
+The built-in `START` and `END` nodes mark where the graph begins and ends. Every graph needs at least one path from `START` to `END`.
+
+**Practice exercise:** Build a quiz grading system. The state holds `score` (int), `grade` (str), and `feedback` (str). A `calculate_grade` node sets the grade based on score (90+=”A”, 80+=”B”, 70+=”C”, below 70=”F”). Use conditional edges to route to different feedback nodes per grade. Test with scores of 95, 85, 72, and 55.
+
+Solution
+
+python
+
+```
+from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class QuizState(TypedDict):
+    score: int
+    grade: str
+    feedback: str
+
+def calculate_grade(state: QuizState) -> dict:
+    s = state["score"]
+    if s >= 90: return {"grade": "A"}
+    elif s >= 80: return {"grade": "B"}
+    elif s >= 70: return {"grade": "C"}
+    else: return {"grade": "F"}
+
+def fb_a(state: QuizState) -> dict:
+    return {"feedback": f"Excellent! Score: {state['score']}"}
+
+def fb_b(state: QuizState) -> dict:
+    return {"feedback": f"Good work! Score: {state['score']}"}
+
+def fb_c(state: QuizState) -> dict:
+    return {"feedback": f"Passing. Score: {state['score']}"}
+
+def fb_f(state: QuizState) -> dict:
+    return {"feedback": f"Needs improvement. Score: {state['score']}"}
+
+def route_grade(state: QuizState) -> str:
+    return {"A": "fb_a", "B": "fb_b", "C": "fb_c", "F": "fb_f"}[state["grade"]]
+
+g = StateGraph(QuizState)
+g.add_node("calculate_grade", calculate_grade)
+for name, func in [("fb_a", fb_a), ("fb_b", fb_b), ("fb_c", fb_c), ("fb_f", fb_f)]:
+    g.add_node(name, func)
+    g.add_edge(name, END)
+g.add_edge(START, "calculate_grade")
+g.add_conditional_edges("calculate_grade", route_grade)
+app = g.compile()
+
+for score in [95, 85, 72, 55]:
+    r = app.invoke({"score": score, "grade": "", "feedback": ""})
+    print(f"Score: {score} -> {r['grade']} -> {r['feedback']}")
+```
+
+python
+
+```
+Score: 95 -> A -> Excellent! Score: 95
+Score: 85 -> B -> Good work! Score: 85
+Score: 72 -> C -> Passing. Score: 72
+Score: 55 -> F -> Needs improvement. Score: 55
+```
+
+Up next: we’ll dig deeper into state management — reducers, message history, and handling state that grows as data piles up across many nodes.
+
+FAQ
+---
+
+### Can a node have more than one normal outgoing edge?
+
+No. A node can have only one normal outgoing edge. If you need branching, use `add_conditional_edges` with a routing function. That’s the whole reason conditional edges exist.
+
+python
+
+```
+# This raises an error:
+# graph.add_edge("my_node", "node_a")
+# graph.add_edge("my_node", "node_b")  # Error! Already has outgoing edge.
+
+# Use conditional edges for branching
+graph.add_conditional_edges("my_node", routing_function)
+```
+
+### Can I use Pydantic instead of TypedDict for state?
+
+Yes. LangGraph works with both `TypedDict` and Pydantic `BaseModel`. Pydantic adds checks at runtime — if a node returns bad data, you get a clear error right away. For basic graphs, `TypedDict` does the job. For production apps where you want strict data rules, Pydantic is a solid pick.
+
+### What happens when two nodes write to the same state field?
+
+The last node wins. Say `node_a` sets `{"count": 5}` and then `node_b` sets `{"count": 10}`. The final state has `count: 10`. If you want to stack values up instead of replacing them, LangGraph has reducer functions. I cover those in the next article on state management.
+
+### How many nodes can a graph hold?
+
+There’s no hard cap. Graphs with 30+ nodes run fine in production. But once you pass 10-15 nodes, think about splitting into subgraphs. They’re easier to test and maintain. I cover subgraphs later in this learning path.
+
+### Is the run order always the same?
+
+For straight chains (A -> B -> C), yes. For conditional edges, the path depends on state at runtime. But the routing function always gives the same answer for the same input. LangGraph adds no randomness to the order.
+
+References
+----------
+
+1. LangGraph documentation — Graph API overview. [Link](https://langchain-ai.github.io/langgraph/reference/graphs/)
+2. LangGraph documentation — Concepts: Nodes. [Link](https://langchain-ai.github.io/langgraph/concepts/low_level/#nodes)
+3. LangGraph documentation — Concepts: Edges. [Link](https://langchain-ai.github.io/langgraph/concepts/low_level/#edges)
+4. LangGraph documentation — Concepts: State. [Link](https://langchain-ai.github.io/langgraph/concepts/low_level/#state)
+5. LangGraph documentation — Quickstart. [Link](https://langchain-ai.github.io/langgraph/tutorials/introduction/)
+6. LangGraph Cheatsheet — Core Concepts. [Link](https://sumanmichael.github.io/langgraph-cheatsheet/cheatsheet/core-concepts/)
+7. Python documentation — TypedDict. [Link](https://docs.python.org/3/library/typing.html#typing.TypedDict)
+8. LangGraph GitHub repository. [Link](https://github.com/langchain-ai/langgraph)
+
+*Last reviewed: March 2026 | LangGraph version: 0.3+*
+
+Free Course
+
+Master Core Python — *Your First Step into AI/ML*
+
+Build a strong Python foundation with hands-on exercises designed for aspiring Data Scientists and AI/ML Engineers.
+
+[Start Free Course →](https://edu.machinelearningplus.com/courses/Python-Programming-628f8abb0cf22aee960e8234?redirectToMicroFE=false)
+
+Trusted by 50,000+ learners
+
+![Selva Prabhakaran](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0iZmlsbDojY2ZkNGRiO2ZpbGwtb3BhY2l0eTogMC4xOyIvPjwvc3ZnPg==)
+
+Written by
+
+[Selva Prabhakaran →](https://machinelearningplus.com/author/selva86/)
+
+Related Course
+
+Master Gen AI — Hands-On
+
+Join 5,000+ students at edu.machinelearningplus.com
+
+[Explore Course](https://edu.machinelearningplus.com)
+
+Related Articles
+----------------
+
+machine learning +
+Build a Python AI Chatbot with Memory Using LangChain
+
+Gen AI
+
+### [Build a Python AI Chatbot with Memory Using LangChain](https://machinelearningplus.com/gen-ai/build-python-ai-chatbot-with-memory/)
+
+machine learning +
+LangGraph Document Processing Agent: Multi-Modal
+
+Gen AI
+
+### [LangGraph Document Processing Agent: Multi-Modal](https://machinelearningplus.com/gen-ai/langgraph-project-document-processing-agent-multimodal/)
+
+machine learning +
+LangGraph Customer Support Agent with Escalation
+
+Gen AI
+
+### [LangGraph Customer Support Agent with Escalation](https://machinelearningplus.com/gen-ai/langgraph-project-customer-support-agent-escalation/)
+
+[X](#)
+[LinkedIn](#)
+[WhatsApp](#)
+[Copy](#)
+
+
+[Prev](https://machinelearningplus.com/gen-ai/langgraph-installation-setup-first-graph/)
+6 / 30[Next](https://machinelearningplus.com/gen-ai/langgraph-state-management-typeddict-reducers/)
+
+Up Next in Learning Path
+[LangGraph State Management: TypedDict & Reducers](https://machinelearningplus.com/gen-ai/langgraph-state-management-typeddict-reducers/)
+
+×
+
+![](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNDgiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNDggMzYiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0eWxlPSJmaWxsOiNjZmQ0ZGI7ZmlsbC1vcGFjaXR5OiAwLjE7Ii8+PC9zdmc+)
+
+Join
+
+Subscribe to Machine Learning Plus for high value data science content
+
+[Linkedin](https://www.linkedin.com/company/machine-learning-plus) 
+
+[Twitter](#) 
+
+[Youtube](#) 
+
+[Instagram](#)
+
+* [Resources](/resources/)
+* [Blogs](https://machinelearningplus.com/blog/)
+* [Courses](https://edu.machinelearningplus.com/s/store)
+* [Store](https://edu.machinelearningplus.com/s/store)
+* [List of Blogs](https://machinelearningplus.com/list-of-blogs/)
+
+Menu
+
+* [Resources](/resources/)
+* [Blogs](https://machinelearningplus.com/blog/)
+* [Courses](https://edu.machinelearningplus.com/s/store)
+* [Store](https://edu.machinelearningplus.com/s/store)
+* [List of Blogs](https://machinelearningplus.com/list-of-blogs/)
+
+* [Project Bluebook](https://machinelearningplus.com/?page_id=9884)
+* [Time Series Template](https://machinelearningplus.com/?page_id=9904)
+
+Menu
+
+* [Project Bluebook](https://machinelearningplus.com/?page_id=9884)
+* [Time Series Template](https://machinelearningplus.com/?page_id=9904)
+
+* [About us](https://machinelearningplus.com/?page_id=9969)
+* [Terms of Use](https://machinelearningplus.com/?page_id=10179)
+* [Privacy Policy](https://machinelearningplus.com/privacy-policy/)
+* [Contact Us](https://machinelearningplus.com/?page_id=10105)
+* [Refund Policy](https://machinelearningplus.com/?page_id=12569)
+
+Menu
+
+* [About us](https://machinelearningplus.com/?page_id=9969)
+* [Terms of Use](https://machinelearningplus.com/?page_id=10179)
+* [Privacy Policy](https://machinelearningplus.com/privacy-policy/)
+* [Contact Us](https://machinelearningplus.com/?page_id=10105)
+* [Refund Policy](https://machinelearningplus.com/?page_id=12569)
+
+© Machinelearningplus. All rights reserved.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+
+### Stay ahead in ML & Data Science
+
+Tutorials, tips & free resources delivered weekly. Join 50,000+ practitioners.
+
+Subscribe
+
+[MLmachinelearningplus](https://machinelearningplus.com/)
+
+Learn machine learning, NLP, Python, statistics and more — through in-depth tutorials and practical guides.
+
+#### Roadmap
+
+* [1. The Complete Roadmap](https://edu.machinelearningplus.com)
+* [2. Programming for DS](https://edu.machinelearningplus.com)
+* [3. ML Algorithms](https://edu.machinelearningplus.com)
+* [4. ML Ops](https://edu.machinelearningplus.com)
+* [5. Deep Learning](https://edu.machinelearningplus.com)
+* [6. Time Series](https://edu.machinelearningplus.com)
+* [7. DS Industry Projects](https://edu.machinelearningplus.com)
+* [8. Supplementary Courses](https://edu.machinelearningplus.com)
+
+#### Offerings
+
+* [All Courses](https://edu.machinelearningplus.com)
+* [Complete Univ Access](https://edu.machinelearningplus.com)
+* [Industry DS Projects](https://edu.machinelearningplus.com)
+* [YouTube](https://www.youtube.com/@machinelearningplus)
+* [List of Blogs](/blog/)
+* [30 Day DS Interviews Prep](https://edu.machinelearningplus.com)
+* [Tasklist for DS Projects](https://edu.machinelearningplus.com)
+* [Jobs](https://edu.machinelearningplus.com)
+
+#### Help
+
+* [Drop a Query](mailto:team@machinelearningplus.com)
+* [FAQ's](/faq/)
+* [Contact Us](mailto:team@machinelearningplus.com)
+* [Testimonials](/testimonials/)
+* [Subscribe to Newsletter](#footer-subscription-form)
+
+© 2026 machinelearningplus. All rights reserved.
+
+[About](/about/)
+[Privacy Policy](/privacy-policy/)
+[Terms of Service](/terms-of-service/)
+[Terms and Conditions](/terms-and-conditions/)
+[Imprint](/imprint/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+×
+
+Before you go...
+
+Get Your Free *AI/ML Engineer Roadmap*
+--------------------------------------
+
+The step-by-step path used by 25,000+ learners to go from zero to career-ready in AI/ML.
+
+Send Me the Roadmap →
+
+🔒 100% Free
+☕ No spam, ever
+✓ Instant delivery
+
+No thanks, I'll figure it out myself
+
+Your roadmap is on the way to your inbox
+
+Want help choosing the *right AI/ML path?*
+------------------------------------------
+
+Book a free 30-minute guidance call and our team will help you understand where to start based on your current skills and career goals.
+
+Get a free guidance call
+
+🇮🇳 +91 ▾
+
+🇮🇳 +91🇺🇸 +1🇬🇧 +44🇦🇺 +61🇦🇪 +971🇸🇬 +65🇲🇾 +60🇵🇰 +92🇧🇩 +880🇳🇵 +977🇱🇰 +94🇫🇷 +33🇩🇪 +49🇮🇹 +39🇪🇸 +34🇳🇱 +31🇸🇪 +46🇳🇴 +47🇩🇰 +45🇫🇮 +358🇨🇭 +41🇦🇹 +43🇧🇪 +32🇵🇹 +351🇬🇷 +30🇵🇱 +48🇷🇺 +7🇺🇦 +380🇹🇷 +90🇮🇱 +972🇸🇦 +966🇶🇦 +974🇰🇼 +965🇴🇲 +968🇧🇭 +973🇪🇬 +20🇿🇦 +27🇳🇬 +234🇰🇪 +254🇬🇭 +233🇹🇿 +255🇨🇳 +86🇯🇵 +81🇰🇷 +82🇹🇭 +66🇻🇳 +84🇮🇩 +62🇵🇭 +63🇧🇷 +55🇲🇽 +52🇦🇷 +54🇨🇱 +56🇨🇴 +57🇵🇪 +51🇳🇿 +64🇮🇪 +353🇨🇦 +1
+
+Request Callback →
+
+Thank you for your submission!
+
+Our team will call you shortly. You'll also receive a confirmation on your email.
+
+[Watch Free Training →](https://machinelearningplus.com/free-data-science-training/)
+
+ 
+
+Scroll to Top
+
+Scroll to Top
+
+![](data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=)
+
+Course Preview
+
+Machine Learning A-Z™: Hands-On Python & R In Data Science
+----------------------------------------------------------
+
+### Free Sample Videos:
+
+![](data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=)
+
+#### Machine Learning A-Z™: Hands-On Python & R In Data Science
+
+![](data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=)
+
+#### Machine Learning A-Z™: Hands-On Python & R In Data Science
+
+![](data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=)
+
+#### Machine Learning A-Z™: Hands-On Python & R In Data Science
+
+![](data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=)
+
+#### Machine Learning A-Z™: Hands-On Python & R In Data Science
+
+![](data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=)
+
+#### Machine Learning A-Z™: Hands-On Python & R In Data Science
+
+test
+
+        
+
+---

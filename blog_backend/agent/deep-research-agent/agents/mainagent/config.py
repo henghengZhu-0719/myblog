@@ -27,7 +27,7 @@ class Settings:
     model: str
     api_key: str
     base_url: str | None = None
-    agent_root: str = "./data"
+    agent_root: str = "/Users/zhuyq/blog/blog_backend/agent/deep-research-agent/"
     recursion_limit: int = 1000
     max_concurrent_research_units: int = 10
     max_researcher_iterations: int = 10

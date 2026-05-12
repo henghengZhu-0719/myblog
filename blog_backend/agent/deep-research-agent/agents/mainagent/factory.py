@@ -6,10 +6,12 @@ Agent 工厂模块。
 """
 
 from datetime import datetime
-
+from langsmith.wrappers import wrap_openai
+from langsmith import traceable
 from langchain_openai import ChatOpenAI
 from deepagents import create_deep_agent, CompiledSubAgent
 from deepagents.backends import FilesystemBackend
+from langgraph.checkpoint.memory import MemorySaver
 
 from agents.research_agent import (
     tavily_search,
@@ -17,9 +19,20 @@ from agents.research_agent import (
     RESEARCHER_INSTRUCTIONS,
     RESEARCH_WORKFLOW_INSTRUCTIONS,
     SUBAGENT_DELEGATION_INSTRUCTIONS,
+    RAG_AGENT_INSTRUCTIONS,
 )
 from .config import Settings
 from agent.rag.pipeline.graph import RagGraph
+
+# 全局缓存，避免重复创建重量级的 RagGraph 实例
+_rag_graph: RagGraph | None = None
+
+def _get_rag_graph() -> RagGraph:
+    global _rag_graph
+    if _rag_graph is None:
+        _rag_graph = RagGraph()
+    return _rag_graph
+
 
 class ResearchAgentFactory:
     """深度研究 agent 的工厂。
@@ -45,7 +58,8 @@ class ResearchAgentFactory:
                 max_concurrent_research_units=config.max_concurrent_research_units,
                 max_researcher_iterations=config.max_researcher_iterations,
             )
-            + f"今天是{current_date}"
+            + "\n\n"
+            + f"\n\n今天是{current_date}"
         )
 
     @staticmethod
@@ -59,23 +73,22 @@ class ResearchAgentFactory:
             "tools": [tavily_search, think_tool],
         }
     
-    @staticmethod
-    def build_rag_agent(config: Settings):
-        """构建 rag-agent 子 agent"""
-        rag_graph = RagGraph()._build_graph() # 编译 rag-agent 图
-        rag_agent = CompiledSubAgent(
-            name="rag-agent",
-            description="Delegate research to the sub-agent researcher. Only give this researcher one topic at a time. the sub-agent researcher.",
-            runnable=rag_graph
-        )
+    # @staticmethod
+    # def build_rag_agent(config: Settings):
+    #     """构建 rag-agent 子 agent"""
+    #     rag_graph = _get_rag_graph().graph  # 编译 rag-agent 图
+    #     rag_agent = CompiledSubAgent(
+    #         name="rag-agent",
+    #         description="Query the local knowledge base for questions about the blog's technical content. Use this when the user asks about concepts, technologies, or topics that might be covered in the blog.",
+    #         runnable=rag_graph
+    #     )
 
-        return rag_agent
+    #     return rag_agent
     
-
-    @staticmethod
+    @traceable
     def create(config: Settings):
         """创建并返回一个完整的 deep agent。"""
-        rag_agent = ResearchAgentFactory.build_rag_agent(config)
+        # rag_agent = ResearchAgentFactory.build_rag_agent(config)
         return create_deep_agent(
             model=ChatOpenAI(
                 model=config.model,
@@ -85,9 +98,9 @@ class ResearchAgentFactory:
             ),
             tools=[tavily_search, think_tool],
             system_prompt=ResearchAgentFactory.build_main_prompt(config),
-            subagents=[ResearchAgentFactory.build_research_sub_agent(config), rag_agent],
+            subagents=[ResearchAgentFactory.build_research_sub_agent(config)],
             backend=FilesystemBackend(
-                root_dir=config.agent_root,
-                virtual_mode=True,
+                root_dir=config.agent_root
             ),
+            skills=["/Users/zhuyq/blog/blog_backend/agent/deep-research-agent/skills/rag-knowledge-base"],
         )

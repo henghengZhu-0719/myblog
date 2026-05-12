@@ -47,6 +47,9 @@ function Navigation() {
         </Link>
 
         <div className="nav-right">
+          <Link to="/ai" className="btn-chat" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <Bot size={16} /> 深度研究
+          </Link>
           <Link to="/rag-chat" className="btn-chat" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <BookOpen size={16} /> 知识库问答
           </Link>
@@ -68,6 +71,7 @@ function Navigation() {
                   <Link to="/rag" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><FileText size={15} /> 文档解析</Link>
                   <Link to="/rag-search" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Search size={15} /> 召回测试</Link>
                   <Link to="/rag-chat" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><BookOpen size={15} /> 知识库问答</Link>
+                  <Link to="/ai" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Bot size={15} /> 深度研究</Link>
                   <div className="dropdown-divider"></div>
                   <div className="dropdown-user">
                     <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><User size={14} /> {username}</span>

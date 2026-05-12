@@ -1,7 +1,7 @@
 from typing import TypedDict, Annotated
-
-from langgraph.graph import add_messages
-
+from langchain.messages import AnyMessage
+from typing_extensions import TypedDict, Annotated
+import operator
 
 class RagState(TypedDict):
     original_query:   str
@@ -12,4 +12,5 @@ class RagState(TypedDict):
     context:          str
     prompt:           str
     answer:           str
-    messages:         Annotated[list, add_messages]
+    messages: Annotated[list[AnyMessage], operator.add]
+    llm_calls: int
