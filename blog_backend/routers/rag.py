@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 
 from pydantic import BaseModel
 
-from agent.rag_service.ast_parser_service import MarkdownSectionParser
+from agent.rag.ingestion.parser import MarkdownSectionParser
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ _rag_graph = None
 def get_rag_graph():
     global _rag_graph
     if _rag_graph is None:
-        from agent.rag_service.rag_graph import RagGraph
+        from agent.rag.pipeline.graph import RagGraph
         _rag_graph = RagGraph(top_k=10, use_reranker=True)
         logger.info("RagGraph 初始化成功")
     return _rag_graph
@@ -66,7 +66,9 @@ async def rag_chat(request: RagChatRequest):
                 yield f"data: {json.dumps({'type': 'error', 'content': data})}\n\n"
                 break
 
-            if event_type == "rewrite":
+            if event_type == "intent":
+                yield f"data: {json.dumps({'type': 'intent', 'intent': data['intent']})}\n\n"
+            elif event_type == "rewrite":
                 yield f"data: {json.dumps({'type': 'rewrite', 'dense_query': data['dense_query'], 'sparse_query': data['sparse_query']})}\n\n"
             elif event_type == "retrieve":
                 chunks = data["chunks"]
@@ -139,9 +141,9 @@ async def upload_files(
 
         if store_in_qdrant and chunks:
             try:
-                from agent.rag_service.embedding_service import EmbeddingService
-                from agent.rag_service.SparseEncoder_service import SparseEncoder
-                from agent.rag_service.vector_store import VectorStore
+                from agent.rag.retrieval.dense import EmbeddingService
+                from agent.rag.retrieval.sparse import SparseEncoder
+                from agent.rag.retrieval.store import VectorStore
 
                 store_chunks = chunks
                 embedder = EmbeddingService()
@@ -191,17 +193,17 @@ async def search_rag(
 ):
     """从 Qdrant 向量库中检索与 query 最相关的文档片段"""
     try:
-        from agent.rag_service.embedding_service import EmbeddingService
-        from agent.rag_service.SparseEncoder_service import SparseEncoder
-        from agent.rag_service.vector_store import VectorStore
-        from agent.rag_service.reranker_service import RerankerService
+        from agent.rag.retrieval.dense import EmbeddingService
+        from agent.rag.retrieval.sparse import SparseEncoder
+        from agent.rag.retrieval.store import VectorStore
+        from agent.rag.retrieval.reranker import RerankerService
 
         embedder = EmbeddingService()
         sparse_encoder = SparseEncoder()
         vstore = VectorStore(embedder=embedder, sparse_encoder=sparse_encoder)
 
         reranker = RerankerService() if use_reranker else None
-        results = vstore.search(query, top_k=top_k, reranker=reranker)
+        results = vstore.search(dense_query=query, sparse_query=query, top_k=top_k, reranker=reranker)
 
         return JSONResponse({
             "query": query,
