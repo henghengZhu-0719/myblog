@@ -16,6 +16,7 @@ import AIChat from './components/AIChat';
 import RagChat from './components/RagChat';
 import RagUpload from './components/RagUpload';
 import RagSearch from './components/RagSearch';
+import Resume from './components/Resume';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -53,6 +54,9 @@ function Navigation() {
           <Link to="/rag-chat" className="btn-chat" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <BookOpen size={16} /> 知识库问答
           </Link>
+          <Link to="/resume" className="btn-resume" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <FileText size={16} /> 我的简历
+          </Link>
 
           {token ? (
             <>
@@ -64,6 +68,7 @@ function Navigation() {
                   {isMenuOpen ? <><X size={16} /> 关闭</> : <><Menu size={16} /> 更多</>}
                 </button>
                 <div className={`dropdown-menu ${isMenuOpen ? 'active' : ''}`}>
+                  <Link to="/resume" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><FileText size={15} /> 我的简历</Link>
                   <Link to="/search" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Users size={15} /> 搜索用户</Link>
                   <Link to="/jobs" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Briefcase size={15} /> 招聘信息</Link>
                   <Link to="/bills" className="dropdown-item" onClick={handleLinkClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Wallet size={15} /> 智能记账</Link>
@@ -145,6 +150,23 @@ function Navigation() {
         .btn-chat:hover {
           transform: translateY(-1px);
           box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-resume {
+          padding: 0.6rem 1rem;
+          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+          border-radius: var(--radius-sm);
+          color: white !important;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 0.9rem;
+          transition: var(--transition);
+          white-space: nowrap;
+        }
+
+        .btn-resume:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
         }
 
         .btn-publish {
@@ -315,7 +337,7 @@ function Navigation() {
             gap: 0.4rem;
           }
 
-          .btn-chat, .btn-publish, .btn-login, .btn-register {
+          .btn-chat, .btn-resume, .btn-publish, .btn-login, .btn-register {
             padding: 0.5rem 0.7rem;
             font-size: 0.85rem;
           }
@@ -346,7 +368,7 @@ function App() {
       <Navigation />
       <div className="container">
         <Routes>
-          <Route path="/" element={<ArticleList />} />
+          <Route path="/" element={localStorage.getItem('token') ? <ArticleList /> : <Resume />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/publish" element={<Publish />} />
@@ -358,6 +380,7 @@ function App() {
           <Route path="/rag-search" element={<RagSearch />} />
           <Route path="/rag-chat" element={<RagChat />} />
           <Route path="/ai" element={<AIChat />} />
+          <Route path="/resume" element={<Resume />} />
           <Route path="/user/:id" element={<UserHome />} />
           <Route path="/article/:id" element={<ArticleDetail />} />
           <Route path="/edit/:id" element={<ArticleEdit />} />
