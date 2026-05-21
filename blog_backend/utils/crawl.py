@@ -1,4 +1,3 @@
-from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import smtplib
 from email.mime.text import MIMEText
@@ -293,7 +292,8 @@ def get_rule_for_url(url: str):
 # ========== 核心逻辑 ==========
 
 def fetch_html(url: str, wait_selector: str) -> str:
-    """使用 Playwright 爬取页面 HTML"""
+    """使用 Playwright 爬取页面 HTML（懒加载 playwright）"""
+    from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         try:
