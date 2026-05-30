@@ -5,7 +5,7 @@ sqlalchemy_database_url = os.getenv(
     f"mysql+pymysql://"
     f"{os.getenv('DB_USER', 'root')}:"
     f"{os.getenv('DB_PASSWORD', '020110')}@"
-    f"{os.getenv('DB_HOST', 'localhost')}:"
+    f"{os.getenv('DB_HOST', '192.168.1.8')}:"
     f"{os.getenv('DB_PORT', '3306')}/"
     f"{os.getenv('DB_NAME', 'myapp')}"
 )

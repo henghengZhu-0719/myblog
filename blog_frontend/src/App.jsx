@@ -42,7 +42,7 @@ function Navigation() {
   return (
     <nav>
       <div className="nav-container">
-        <Link to="/" className="nav-brand" onClick={handleLinkClick}>
+        <Link to="/blog" className="nav-brand" onClick={handleLinkClick}>
           <Sparkles size={18} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
           我的博客
         </Link>
@@ -369,6 +369,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={localStorage.getItem('token') ? <ArticleList /> : <Resume />} />
+          <Route path="/blog" element={<ArticleList />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/publish" element={<Publish />} />

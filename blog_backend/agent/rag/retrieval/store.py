@@ -14,6 +14,7 @@ from qdrant_client.models import (
 )
 
 from agent.rag.config import (
+    QDRANT_URL,
     QDRANT_HOST,
     QDRANT_PORT,
     QDRANT_COLLECTION,
@@ -32,6 +33,7 @@ class VectorStore:
         embedder: EmbeddingService,
         sparse_encoder,
         collection:         str = QDRANT_COLLECTION,
+        url:                str | None = QDRANT_URL,
         host:               str = QDRANT_HOST,
         port:               int = QDRANT_PORT,
         vector_name:        str = "dense-vector",
@@ -44,7 +46,7 @@ class VectorStore:
         self.VECTOR_NAME         = vector_name
         self.SPARSE_VECTOR_NAME  = sparse_vector_name
         self.UPSERT_BATCH_SIZE   = upsert_batch_size
-        self.client              = QdrantClient(host=host, port=port)
+        self.client              = QdrantClient(url=url) if url else QdrantClient(host=host, port=port)
 
     def ensure_collection(self):
         collections = self.client.get_collections().collections
@@ -72,6 +74,18 @@ class VectorStore:
     def _next_id(self) -> int:
         return self.client.count(collection_name=self.collection).count
 
+    @staticmethod
+    def _content_types_to_payload(value) -> int:
+        if value is None:
+            return 0
+
+        raw_value = getattr(value, "value", value)
+        try:
+            return int(raw_value)
+        except (TypeError, ValueError):
+            logger.warning("Unsupported content_types payload value: %r", value)
+            return 0
+
     def store_chunks(self, chunks: list, source_file: str = ""):
         self.ensure_collection()
         offset         = self._next_id()
@@ -90,7 +104,7 @@ class VectorStore:
         ):
             token_count   = _meta(chunk, "token_count",    0)
             char_count    = _meta(chunk, "char_count",      0)
-            content_types = int(_meta(chunk, "content_types", 0))
+            content_types = self._content_types_to_payload(_meta(chunk, "content_types", 0))
             section_level = _meta(chunk, "section_level",   0)
             raw_code      = _meta(chunk, "raw_code",        "")
 

@@ -1,15 +1,19 @@
+import os
+
 import pymysql
 from database import engine, Base
 from models import User, Article, Comment, Tag, Job, Bill, Boss
 
-DB_HOST = "db"       # ⚠️ 改成你的数据库地址
-DB_USER = "root"
-DB_PASSWORD = "020110"
-DB_NAME = "myapp"
+DB_HOST = os.getenv("DB_HOST", "192.168.1.8")
+DB_PORT = int(os.getenv("DB_PORT", "3306"))
+DB_USER = os.getenv("DB_USER", "root")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "020110")
+DB_NAME = os.getenv("DB_NAME", "myapp")
 
 def create_database():
     conn = pymysql.connect(
         host=DB_HOST,
+        port=DB_PORT,
         user=DB_USER,
         password=DB_PASSWORD,
     )

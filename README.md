@@ -49,13 +49,14 @@
 确保本地已安装 Docker 和 Docker Compose。
 
 ```bash
-# 启动所有服务（数据库、后端、前端）
+# 启动服务（后端、前端；MySQL 和 Qdrant 使用外部服务器）
 docker-compose up --build -d
 ```
 
 - **前端访问**: http://localhost
 - **后端文档**: http://localhost:8001/docs
-- **数据库**: localhost:3306 (用户: root, 密码: 020110)
+- **数据库**: 192.168.1.8:3306 (数据库: myapp, 用户: root, 密码: 020110)
+- **向量库**: http://192.168.1.8:6333 (collection: MyBlog)
 
 ### 方式二：本地开发运行
 
@@ -74,7 +75,7 @@ playwright install chromium
 
 # 启动服务
 ./start.sh
-# 或手动运行: uvicorn main:app --reload --host 0.0.0.0 --port 8001
+# 或手动运行: uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 #### 2. 启动前端

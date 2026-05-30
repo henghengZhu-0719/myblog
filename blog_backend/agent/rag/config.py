@@ -25,6 +25,7 @@ RERANK_MAX_DOCS             = 20
 VISION_MODEL = "qwen-vl-max"
 
 # ── Qdrant ──────────────────────────────────────────────
-QDRANT_HOST       = os.getenv("QDRANT_HOST", "localhost")
+QDRANT_URL        = os.getenv("QDRANT_URL", "http://192.168.1.8:6333")
+QDRANT_HOST       = os.getenv("QDRANT_HOST", "192.168.1.8")
 QDRANT_PORT       = int(os.getenv("QDRANT_PORT", "6333"))
 QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "MyBlog")
