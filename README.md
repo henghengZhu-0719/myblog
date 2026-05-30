@@ -48,6 +48,19 @@
 
 确保本地已安装 Docker 和 Docker Compose。
 
+在项目根目录准备 `.env`，可参考 `.env.example`。其中 AI/RAG 功能需要配置：
+
+```env
+DASHSCOPE_API_KEY=你的百炼key
+DEEPSEEK_API_KEY=你的deepseek或兼容模型key
+DEEPSEEK_BASE_URL=https://api.deepseek.com/v1
+DEEPSEEK_MODEL=deepseek-chat
+OPENAI_API_KEY=你的兼容模型key
+OPENAI_BASE_URL=https://api.deepseek.com/v1
+OPENAI_MODEL=deepseek-chat
+TAVILY_API_KEY=你的tavily key
+```
+
 ```bash
 # 启动服务（后端、前端；MySQL 和 Qdrant 使用外部服务器）
 docker-compose up --build -d
